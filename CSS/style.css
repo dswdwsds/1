@@ -308,9 +308,10 @@ body.light-mode {
 
 .anime-card {
     background-color: var(--bg-darker);
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     overflow: hidden;
     transition: transform 0.3s;
+    margin-right:0.5rem
 }
 
 .anime-card:hover {
