@@ -41,7 +41,7 @@ function reverseHistory() {
     displayHistory(); // تحديث العرض
 }
 
-// إضافة الأحداث للزرين
+// إضافة الأحداث للزرين إذا كانا موجودين
 const clearHistoryButton = document.getElementById("clear-history");
 if (clearHistoryButton) {
     clearHistoryButton.addEventListener("click", clearHistory);
@@ -54,5 +54,5 @@ if (reverseHistoryButton) {
 
 // عند تحميل الصفحة
 const currentPage = document.title || "صفحة غير معنونة";
-addToHistory(currentPage); // إضافة الصفحة الحالية
+addToHistory(currentPage); // إضافة الصفحة الحالية إلى السجل
 displayHistory(); // عرض السجل
