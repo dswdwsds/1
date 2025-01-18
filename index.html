@@ -220,5 +220,11 @@
             .then(response => response.text())
             .then(data => document.getElementById('navbar-container').innerHTML = data);
     </script>
+
+<script>
+    fetch('test/mobile.HTML')
+        .then(response => response.text())
+        .then(data => document.getElementById('navbar-container').innerHTML = data);
+</script>
 </body>
 </html>
