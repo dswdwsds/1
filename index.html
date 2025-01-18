@@ -219,6 +219,20 @@
             .then(response => response.text())
             .then(data => document.getElementById('navbar-container').innerHTML = data);
     </script>
-    <script src="navbar.js"></script>
+    <script>     // Functionality for the search bar
+        document.getElementById('searchInput').addEventListener('input', function() {
+            let query = this.value.toLowerCase();
+            // يمكنك هنا تنفيذ أي عملية بحث بناءً على النص المدخل
+            console.log('بحث عن: ', query);
+        });
+        // تحديد الزر والقائمة
+    const menuBtn = document.getElementById('menu-btn');
+    const sidebar = document.getElementById('sidebar');
+    
+    // عند الضغط على الزر
+    menuBtn.addEventListener('click', () => {
+        menuBtn.classList.toggle('active'); // إضافة/إزالة تأثير الأنيميشن للزر
+        sidebar.classList.toggle('active'); // فتح أو غلق القائمة
+    });</script>
 </body>
 </html>
