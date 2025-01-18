@@ -443,10 +443,6 @@ body {
     .sidebar {
         display: none;
     }
-    .nav-buttons {
-    display: flex;
-    gap: 1rem;
-}
 }
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -473,8 +469,9 @@ body {
         gap: 1rem;
         align-items: flex-start;
     }
-        }
     .nav-buttons {
-        display: none;
-}
 
+      display: none;
+        
+    }
+}
