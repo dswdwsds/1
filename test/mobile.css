@@ -60,3 +60,12 @@ body {
 .sidebar.active {
     left: 0;
 }
+@media (min-width: 768px) {
+    .menu-btn {
+        display: none;
+    }
+
+    .sidebar {
+        display: none;
+    }
+}
