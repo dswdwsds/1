@@ -52,8 +52,7 @@ function reverseHistory() {
 
 
 // إضافة الأحداث للزرين
-document.getElementById("clear-history").addEventListener("click", clearHistory);
-document.getElementById("reverse-history").addEventListener("click", reverseHistory);
+
 
 // عند تحميل الصفحة
 const currentPage = document.title || "صفحة غير معنونة";
