@@ -52,6 +52,14 @@
         </div>
         
         <div>
+            <script>const menuBtn = document.getElementById('menu-btn');
+                const sidebar = document.getElementById('sidebar');
+                
+                // عند الضغط على الزر
+                menuBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('active'); // فتح أو غلق القائمة
+                }); </script>
+
             <header>
                 <button id="menu-btn" class="menu-btn">☰</button>
                 <nav id="sidebar" class="sidebar">
@@ -65,12 +73,5 @@
                 </nav>
             </header>
         </div>
-        <script>const menuBtn = document.getElementById('menu-btn');
-            const sidebar = document.getElementById('sidebar');
-            
-            // عند الضغط على الزر
-            menuBtn.addEventListener('click', () => {
-                sidebar.classList.toggle('active'); // فتح أو غلق القائمة
-            }); </script>
 </nav>
 
