@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // تحقق من أن العناصر موجودة
     if (menuBtn && sidebar) {
         menuBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
+            sidebar.classList.toggle('active'); // فتح أو غلق القائمة
         });
     } else {
         console.error("لم يتم العثور على العناصر المطلوبة.");
