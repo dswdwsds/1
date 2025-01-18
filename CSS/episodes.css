@@ -30,12 +30,12 @@ body.light-mode {
     color: var(--text-dark);
 }
 
-body.light-mode  .sidebar{
+body.light-mode  .episodes{
     background-color: var(--primary-color);
     color: var(--text-dark);
 }
 
-body.light-mode .sidebar ul li{
+body.light-mode .episodes ul li{
     background-color: var(--bg-light);
     color: var(--text-dark);
 }
@@ -307,7 +307,7 @@ body.light-mode .anime-info-header p {
 
 
 
-    .sidebar {
+    .episodes {
 
         margin-top: 0;
 
