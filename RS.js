@@ -1,18 +1,15 @@
 const historyKey = "browsingHistory";
 
 // الحصول على السجل الموجود أو إنشاء سجل جديد
-
 let history = JSON.parse(localStorage.getItem(historyKey)) || [];
 
 // إضافة الصفحة الحالية إلى السجل
-
 function addToHistory(pageName) {
     history.push(pageName);
     localStorage.setItem(historyKey, JSON.stringify(history));
 }
 
 // عرض السجل في الصفحة إذا كان هناك قائمة لعرضه
-
 function displayHistory() {
     const historyList = document.getElementById("history-list");
     if (historyList) {
@@ -26,15 +23,11 @@ function displayHistory() {
                 listItem.textContent = page;
                 historyList.appendChild(listItem);
             });
-
         }
-
     }
-
 }
 
 // مسح السجل
-
 function clearHistory() {
     history = []; // إفراغ السجل في الذاكرة
     localStorage.removeItem(historyKey); // إزالة السجل من localStorage
@@ -42,21 +35,24 @@ function clearHistory() {
 }
 
 // عكس ترتيب السجل
-
 function reverseHistory() {
     history.reverse(); // عكس ترتيب المصفوفة
     localStorage.setItem(historyKey, JSON.stringify(history)); // تحديث localStorage
     displayHistory(); // تحديث العرض
 }
 
-
-
 // إضافة الأحداث للزرين
-document.getElementById("clear-history").addEventListener("click", clearHistory);
-document.getElementById("reverse-history").addEventListener("click", reverseHistory);
+const clearHistoryButton = document.getElementById("clear-history");
+if (clearHistoryButton) {
+    clearHistoryButton.addEventListener("click", clearHistory);
+}
+
+const reverseHistoryButton = document.getElementById("reverse-history");
+if (reverseHistoryButton) {
+    reverseHistoryButton.addEventListener("click", reverseHistory);
+}
 
 // عند تحميل الصفحة
 const currentPage = document.title || "صفحة غير معنونة";
 addToHistory(currentPage); // إضافة الصفحة الحالية
 displayHistory(); // عرض السجل
-
