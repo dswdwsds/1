@@ -219,21 +219,24 @@
             .then(response => response.text())
             .then(data => document.getElementById('navbar-container').innerHTML = data);
     </script>
-    
-    <script>     // Functionality for the search bar
-        document.getElementById('searchInput').addEventListener('input', function() {
-            let query = this.value.toLowerCase();
-            // يمكنك هنا تنفيذ أي عملية بحث بناءً على النص المدخل
-            console.log('بحث عن: ', query);
-        });
-        // تحديد الزر والقائمة
-    const menuBtn = document.getElementById('menu-btn');
-    const sidebar = document.getElementById('sidebar');
-    
-    // عند الضغط على الزر
-    menuBtn.addEventListener('click', () => {
-        menuBtn.classList.toggle('active'); // إضافة/إزالة تأثير الأنيميشن للزر
-        sidebar.classList.toggle('active'); // فتح أو غلق القائمة
-    });</script>
+
+<body>
+    <header>
+        <button id="menu-btn" class="menu-btn">☰</button>
+        <nav id="sidebar" class="sidebar">
+            <ul>
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#about">من نحن</a></li>
+                <li><a href="#services">خدماتنا</a></li>
+                <li><a href="#contact">اتصل بنا</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>مرحباً بك في موقعي</h1>
+        <p>هذا نص تجريبي</p>
+    </main>
+    <script src="/test/mobile.js"></script>
+</body>
 </body>
 </html>
