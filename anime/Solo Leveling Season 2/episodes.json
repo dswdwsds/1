@@ -5,15 +5,9 @@
         "link": "../episodes/المشاهده.html?episode=1",
         "image": "../../../images/Solo Leveling Season 2.WebP",
         "servers": [
-            { "serverName": "Google Drive 1", "url": "https://drive.google.com/file/d/10l1dPNveWRhKt1uFJzEnBgNBKZ1cTEZZ/preview" },
-            { "serverName": "Google Drive 2", "url": "https://drive.google.com/file/d/1TMqTiEWDYi7eHt5vOk4hVRPyFlhVmshe/preview" },
-            { "serverName": "VK", "url": "https://vk.com/video_ext.php?oid=863168775&id=456239991&hash=34cc8013a48dbe72" },
-            { "serverName": "OK", "url": "https://ok.ru/videoembed/7721876523718" },
-            { "serverName": "Mega", "url": "https://mega.nz/embed/q7IFlAKD#CUF7k9JMPkK-B8UHH-nIZxMOr11zTB--Tn9TPQtHYJ8" },
-            { "serverName": "Megamax", "url": "https://megamax.me/iframe/nWkNe82GHMsrU" },
-            { "serverName": "Mail.ru", "url": "https://my.mail.ru/video/embed/4752585637503178578" },
-            { "serverName": "Videa", "url": "https://videa.hu/player?v=FC9vm9pidUVwYJvn" },
-            { "serverName": "Sibnet", "url": "https://video.sibnet.ru/shell.php?videoid=5700678&share=1" }
+            { "serverName": "سيرفرات متعددة", "url": "https://megamax.me/iframe/ck7IgMUsgNv4N" },
+            { "serverName": "vidmoly", "url": "https://vidmoly.to/embed-342b563f4paf.html" },
+            { "serverName": "uqload-3", "url": "https://uqload.net/embed-djpa77i5p4fr.html" }
         ]
     },
     {
@@ -22,13 +16,9 @@
         "link": "../episodes/المشاهده.html?episode=2",
         "image": "../../../images/Solo Leveling Season 2.WebP",
         "servers": [
-            { "serverName": "Google Drive", "url": "https://drive.google.com/file/d/1eF77Z-w_IOuwg5rwYZORE01fp6u-JYHW/preview" },
-            { "serverName": "Mega", "url": "https://mega.nz/embed/2ngVhBrY#q3R9-pI3ssgTElDIlIJHaRu20slbK5pJPCrKSzFmrsQ" },
-            { "serverName": "Megamax", "url": "https://megamax.me/iframe/cN2u7D1tV4o1O" },
-            { "serverName": "Mail.ru", "url": "https://my.mail.ru/video/embed/4752585637503178637" },
-            { "serverName": "Videa", "url": "https://videa.hu/player?v=qEkpTQDHqnTxhSI6" },
-            { "serverName": "4shared", "url": "https://www.4shared.com/web/embed/file/2J543RsNku" },
-            { "serverName": "Sibnet", "url": "https://video.sibnet.ru/shell.php?videoid=5710678&share=1" }
+            { "serverName": "سيرفرات متعددة", "url": "https://megamax.me/iframe/wPuSA3ZBoGJ4u" },
+            { "serverName": "vidmoly", "url": "https://vidmoly.to/embed-yo64pg2a9krq.html" },
+            { "serverName": "uqload-3", "url": "https://uqload.net/embed-yokctnpf8mpr.html" }
         ]
     },
     {
@@ -37,14 +27,9 @@
         "link": "../episodes/المشاهده.html?episode=3",
         "image": "../../../images/Solo Leveling Season 2.WebP",
         "servers": [
-            { "serverName": "Google Drive 1", "url": "https://drive.google.com/file/d/11FGRBjoNb811GNAfGAjDuH0Z-H6R8Xng/preview" },
-            { "serverName": "Google Drive 2", "url": "https://drive.google.com/file/d/1DmljxE8cv2lnju4NLKaR72YKcFUj5hp2/preview" },
-            { "serverName": "VK", "url": "https://vk.com/video_ext.php?oid=863168775&id=456240070&hash=1950a699876ec12e" },
-            { "serverName": "Mega", "url": "https://mega.nz/embed/DuQHzC4A#qnpQtoizHYAoEXj5qEaHd0D_yniiKrzj0eUDmqnTz3A" },
-            { "serverName": "Megamax", "url": "https://megamax.me/iframe/sF4poylBUR9pL" },
-            { "serverName": "Mail.ru", "url": "https://my.mail.ru/video/embed/4752585637503178699" },
-            { "serverName": "Videa", "url": "https://videa.hu/player?v=tU96Yp1pJDZxECu5" },
-            { "serverName": "Sibnet", "url": "https://video.sibnet.ru/shell.php?videoid=5719176&share=1" }
+            { "serverName": "سيرفرات متعددة", "url": "https://megamax.me/iframe/ebrp5KsLGeL4A" },
+            { "serverName": "vidmoly", "url": "https://vidmoly.to/embed-qzi0jt7pcofi.html" },
+            { "serverName": "uqload-3", "url": "https://uqload.net/embed-dl7a47jiny58.html" }
         ]
     }
 ]
