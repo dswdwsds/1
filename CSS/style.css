@@ -386,7 +386,7 @@ body {
     cursor: pointer;
     position: fixed;
     top: 10px;
-    left: 10px;
+    right: 10px;
     z-index: 1000;
     border-radius: 5px;
 }
@@ -395,14 +395,14 @@ body {
 .sidebar {
     position: fixed;
     top: 0;
-    left: -250px;
+    right: -250px;
     width: 250px;
     height: 100%;
     background-color: #333;
     color: white;
     padding-top: 60px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.5);
-    transition: left 0.3s ease-in-out;
+    transition: right 0.3s ease-in-out;
 }
 
 /* الروابط داخل القائمة */
@@ -430,7 +430,7 @@ body {
 
 /* عندما تكون القائمة مفتوحة */
 .sidebar.active {
-    left: 0;
+    right: 0;
 }
 /* إخفاء الزر والقائمة على الشاشات الكبيرة */
 @media (min-width: 768px) {
@@ -476,7 +476,7 @@ body {
     .icon-button {
         position: absolute;
         inset: 0;
-        left: 85%;
+        right: 85%;
         top: -50%;
     }
 }
