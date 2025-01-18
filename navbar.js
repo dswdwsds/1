@@ -18,7 +18,7 @@ function initializeElements() {
         });
     } else {
         console.log("لم يتم العثور على themeToggle أو themeIcon. سيتم المحاولة مرة أخرى بعد 5 ثوانٍ...");
-        setTimeout(initializeElements, 5000); // إعادة المحاولة بعد 5 ثوانٍ
+        setTimeout(initializeElements, 1000); // إعادة المحاولة بعد 5 ثوانٍ
         return;
     }
 
@@ -31,7 +31,7 @@ function initializeElements() {
         });
     } else {
         console.log("لم يتم العثور على searchInput. سيتم المحاولة مرة أخرى بعد 5 ثوانٍ...");
-        setTimeout(initializeElements, 5000); // إعادة المحاولة بعد 5 ثوانٍ
+        setTimeout(initializeElements, 1000); // إعادة المحاولة بعد 5 ثوانٍ
         return;
     }
 
