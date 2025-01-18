@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AMK4UP - موقع مشاهدة الانمي</title>
     <link rel="stylesheet" href="CSS/style.css">
-    <script >src="RS.js"</script>
-    <script>src="navbar.js"</script>
+    <script src="RS.js" defer></script>
+    <script src="navbar.js"defer></script>
     <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon">
 </head>
 
@@ -219,6 +219,7 @@
             .then(response => response.text())
             .then(data => document.getElementById('navbar-container').innerHTML = data);
     </script>
+    
     <script>     // Functionality for the search bar
         document.getElementById('searchInput').addEventListener('input', function() {
             let query = this.value.toLowerCase();
