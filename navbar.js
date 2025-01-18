@@ -35,6 +35,19 @@ function initializeElements() {
         return;
     }
 
+    // عنصر القائمة الجانبية الموبيل
+    const menuBtn = document.getElementById('menu-btn');
+    const sidebar = document.getElementById('sidebar');
+    if (menuBtn && sidebar) {
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('active'); // فتح أو غلق القائمة
+        });
+    } else {
+        console.log("لم يتم العثور على menu-btn أو sidebar. سيتم المحاولة مرة أخرى بعد 5 ثوانٍ...");
+        setTimeout(initializeElements, 1000); // إعادة المحاولة بعد 5 ثوانٍ
+        return;
+    }
+
     console.log("تم العثور على جميع العناصر المطلوبة وتفعيل الأحداث.");
 }
 
