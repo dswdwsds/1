@@ -1,63 +1,34 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
-
-
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Dandadan - تعريف الأنمي</title>
-
+    <title>Medalist - تعريف الأنمي</title>
     <link rel="stylesheet" href="../../../CSS/Profile.css">
-
     <link rel="stylesheet" href="../../../CSS/style.css">
-
+    <script src="../../../navbar.js" defer></script>
     <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon">
-
 </head>
 
 
-
 <body>
-
     <div id="navbar-container"></div>
-
     <div class="container">
-
-        <h1 class="anime-title">Dandadan</h1>
-
+        <h1 class="anime-title">Medalist</h1>
         <div class="content-wrapper">
-
             <div class="anime-image">
-
-                <img src="../../../images/Dandadan.jpg" alt="صورة أنمي Dandadan">
-
+                <img src="../../../images/Medalist.WebP" alt="صورة أنمي Medalist">
             </div>
-
             <div class="anime-info">
-
                 <div class="info-item">
-
-                    <strong>التصنيف:</strong> أكشن، كوميدي، خارق للعادة، شونين
-
+                    <strong>التصنيف:</strong>
+                    <a href="../../../tag/wep/دراما.html">دراما</a> 
+                    <a href="../../../tag/wep/رياضي.html">رياضي</a> 
                 </div>
 
                 <div class="info-item">
-
                     <strong>النوع:</strong> TV
-
                 </div>
-
-                <div class="info-item">
-
-                    <strong>بداية العرض:</strong> 2024
-
-                </div>
-
                 <div class="info-item">
 
                     <strong>حالة الأنمي:</strong>
@@ -82,7 +53,7 @@
 
                     <strong>الموسم:</strong>
 
-                    <a href="../../../navbar/الموسم/خريف 2024/خريف 2024.html">خريف 2024</a>
+                    <a href="../../../navbar/الموسم/الشتاء 2025/الشتاء 2025.html">الشتاء 2025</a>
 
                 </div>
 
@@ -101,28 +72,17 @@
             <h2>القصة:</h2>
 
             <p>
-
                 بعد أن تم رفضها بشكل عدواني، تجد “مومو أياسي” نفسها تتذمر عندما تعثر على فتى يتعرض للتنمر.
-
                 يتم إنقاذه بفضل لُطفها الجارف، ليحاول الفتى المهووس بالأمور الخارقة التحدث معها حول اهتماماته الخارقة
-
                 التي يعتقد أنهما يشتركان فيها. رفضت “أياسي” تلك المزاعم، وأعلنت أنها بدلاً من ذلك تؤمن بالأشباح، مما
-
                 أدى إلى نشوب جدال بينهما حول أيهما هو الحقيقي. في محاولة لتحديد الصحيح، قرر الاثنان زيارة أماكن تتعلق
-
                 بالأمور الخارقة والخارقة لكل منهما بشكل منفصل، “أياسي” تزور الأماكن المرتبطة بالفضائيين، بينما يزور
-
                 الفتى الأماكن المرتبطة بالأشباح. وعندما يصل الاثنان إلى أماكنهما المختارة، يتضح أن أيًا منهما لم يكن
-
                 مخطئًا، وأن كل من الأمور الخارقة، الفضائيين والأشباح، حقيقية! وبهذا تبدأ مغامرة “أياسي” والفتى، حيث
-
                 يحاولون إصلاح العناصر الخارقة والخيالية من حولهم للعودة إلى حياة طبيعية.
-
             </p>
 
         </div>
-
-
 
         <div class="episodes-section">
 
@@ -146,29 +106,17 @@
 
                         const episodesGrid = document.querySelector('.episodes-grid');
 
-            
-
                         // إنشاء الحلقات ديناميكيًا
 
                         episodes.forEach(episode => {
-
                             const episodeItem = document.createElement('a');
-
                             episodeItem.className = 'episode-item';
-
                             episodeItem.href = episode.link;
 
-            
-
                             episodeItem.innerHTML = `
-
                                 <img src="${episode.image}" alt="الحلقة ${episode.number}">
-
                                 <div class="episode-number">الحلقة ${episode.number}</div>
-
                             `;
-
-            
 
                             episodesGrid.appendChild(episodeItem);
 
@@ -187,11 +135,8 @@
          <!-- تحميل الشريط العلوي من ملف -->
 
          <script>
-
             fetch('../../../navbar.html')
-
                 .then(response => response.text())
-
                 .then(data => document.getElementById('navbar-container').innerHTML = data);
 
         </script>

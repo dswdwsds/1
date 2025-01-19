@@ -1,0 +1,24 @@
+[
+    {
+        "number": 1,
+        "title": "الحلقة 1",
+        "link": "../episodes/المشاهده.html?episode=1",
+        "image": "../../../images/Medalist.WebP",
+        "servers": [
+            { "serverName": "سيرفرات متعددة", "url": "https://megamax.me/iframe/9l0fqqMwxoG5X" },
+            { "serverName": "vidmoly", "url": "https://vidmoly.to/embed-v1g61tdr01dh.html" },
+            { "serverName": "uqload-3", "url": "https://uqload.net/embed-qqzd0odtbvqs.html" }
+        ]
+    },
+    {
+        "number": 2,
+        "title": "الحلقة 2",
+        "link": "../episodes/المشاهده.html?episode=2",
+        "image": "../../../images/Medalist.WebP",
+        "servers": [
+            { "serverName": "سيرفرات متعددة", "url": "https://megamax.me/iframe/WeIv6hvz4ZxiH" },
+            { "serverName": "vidmoly", "url": "https://vidmoly.to/embed-3qrpfay4xhfv.html" },
+            { "serverName": "uqload-3", "url": "https://uqload.net/embed-to31vp2ybh2n.html" }
+        ]
+    }
+]

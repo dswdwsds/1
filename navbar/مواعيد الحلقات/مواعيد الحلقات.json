@@ -1,9 +1,29 @@
 [
     {
-        "name": "Solo Leveling Season 2",
-        "link": "../../anime/Seirei-Gensouki-2/Profile/Seirei-Gensouki-2.html",
-        "image": "../../images/Seirei-Gensouki-2.jpg",
+        "name": "Medalist",
+        "link": "../..//Medalist/Profile/Medalist.html",
+        "image": "../../images/Medalist.WebP",
         "rating": "يعرض الان",
+        "episodes": "",
+        "day": "السبت"
+        
+
+    },
+    {
+        "name": "Ao no Exorcist Yosuga-hen",
+        "link": "../..//Ao no Exorcist Yosuga-hen/Profile/Ao no Exorcist Yosuga-hen.html",
+        "image": "../../images/Ao no Exorcist Yosuga-hen.WebP",
+        "rating": "يعرض الان",
+        "episodes": "",
+        "day": "السبت"
+
+    },
+    {
+        "name": "Solo Leveling Season 2",
+        "link": "../..//Solo Leveling Season 2/Profile/Solo Leveling Season 2.html",
+        "image": "../../images/Solo Leveling Season 2.WebP",
+        "rating": "يعرض الان",
+        "episodes": "",
         "day": "السبت"
     }
 ]

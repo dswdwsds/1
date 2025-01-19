@@ -1,8 +1,25 @@
 [
     {
+        "name": "Medalist",
+        "link": "../..//Medalist/Profile/Medalist.html",
+        "image": "../../images/Medalist.WebP",
+        "rating": "يعرض الان",
+        "episodes": ""
+
+    },
+    {
+        "name": "Ao no Exorcist Yosuga-hen",
+        "link": "../..//Ao no Exorcist Yosuga-hen/Profile/Ao no Exorcist Yosuga-hen.html",
+        "image": "../../images/Ao no Exorcist Yosuga-hen.WebP",
+        "rating": "يعرض الان",
+        "episodes": ""
+
+    },
+    {
         "name": "Solo Leveling Season 2",
-        "link": "../../../anime/Solo Leveling Season 2/Profile/Solo Leveling Season 2.html",
-        "image": "../../../images/Solo Leveling Season 2.jpg",
-        "rating": "يعرض الان"
+        "link": "../..//Solo Leveling Season 2/Profile/Solo Leveling Season 2.html",
+        "image": "../../images/Solo Leveling Season 2.WebP",
+        "rating": "يعرض الان",
+        "episodes": ""
     }
 ]
