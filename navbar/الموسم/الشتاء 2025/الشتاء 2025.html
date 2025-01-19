@@ -1,11 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>الشتاء  2024</title>
+
+    <link rel="stylesheet" href="../../../CSS/style.css">
+
+    <script src="../../../navbar.js" defer></script>
+
+    <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon">
+
+</head>
+
+
+
+<body>
+
+    <div id="navbar-container"></div>
+
+       
+
+    
+
+
+
+   <!--  احدث حلقات  -->
+
+   <main>
 
     <div class="section-header">
 
-        <h1>الشتاء 2024</h1>
+        <h1>الشتاء 2025</h1>
 
     </div>
 
-    <div class="anime-grid" id="animeGrid">
+    <div class="anime-grid" id="animeGrid"></div>
+
    <script>
 
        // تحميل قائمة الصفحات من JSON
@@ -73,7 +109,34 @@
            .catch(error => console.error('خطأ في تحميل الصفحات:', error));
 
    </script>
-</div>
+
+   </main>
 
 
+
+
+
+ 
+
+    
+
+     <!-- تحميل الشريط العلوي من ملف navbar.html-->
+
+    <script>
+
+        // تحميل الشريط العلوي من ملف navbar.html
+
+        fetch('../../../navbar.html')
+
+            .then(response => response.text())
+
+            .then(data => document.getElementById('navbar-container').innerHTML = data);
+
+    </script>
+
+
+
+</body>
+
+</html>
 
