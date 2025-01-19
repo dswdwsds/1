@@ -1,0 +1,35 @@
+[
+    {
+        "number": 1,
+        "title": "الحلقة 1",
+        "link": "../episodes/المشاهده.html?episode=1",
+        "image": "../../../images/Solo Leveling Season 2.WebP",
+        "servers": [
+            { "serverName": "سيرفرات متعددة", "url": "https://megamax.me/iframe/ck7IgMUsgNv4N" },
+            { "serverName": "vidmoly", "url": "https://vidmoly.to/embed-342b563f4paf.html" },
+            { "serverName": "uqload-3", "url": "https://uqload.net/embed-djpa77i5p4fr.html" }
+        ]
+    },
+    {
+        "number": 2,
+        "title": "الحلقة 2",
+        "link": "../episodes/المشاهده.html?episode=2",
+        "image": "../../../images/Solo Leveling Season 2.WebP",
+        "servers": [
+            { "serverName": "سيرفرات متعددة", "url": "https://megamax.me/iframe/wPuSA3ZBoGJ4u" },
+            { "serverName": "vidmoly", "url": "https://vidmoly.to/embed-yo64pg2a9krq.html" },
+            { "serverName": "uqload-3", "url": "https://uqload.net/embed-yokctnpf8mpr.html" }
+        ]
+    },
+    {
+        "number": 3,
+        "title": "الحلقة 3",
+        "link": "../episodes/المشاهده.html?episode=3",
+        "image": "../../../images/Solo Leveling Season 2.WebP",
+        "servers": [
+            { "serverName": "سيرفرات متعددة", "url": "https://megamax.me/iframe/ebrp5KsLGeL4A" },
+            { "serverName": "vidmoly", "url": "https://vidmoly.to/embed-qzi0jt7pcofi.html" },
+            { "serverName": "uqload-3", "url": "https://uqload.net/embed-dl7a47jiny58.html" }
+        ]
+    }
+]
