@@ -1,9 +1,17 @@
 [
     {
+        "name": "Ao no Exorcist: Yosuga-hen",
+        "link": "anime/Ao no Exorcist: Yosuga-hen/Profile/Ao no Exorcist: Yosuga-hen.html",
+        "image": "images/Ao no Exorcist: Yosuga-hen.WebP",
+        "rating": "يعرض الان",
+        "episodes": "الحلقة3"
+        
+    },
+    {
         "name": "Solo Leveling Season 2",
         "link": "anime/Solo Leveling Season 2/Profile/Solo Leveling Season 2.html",
         "image": "images/Solo Leveling Season 2.WebP",
         "rating": "يعرض الان",
-        "episodes": ""
+        "episodes": "الحلقة3"
     }
 ]
