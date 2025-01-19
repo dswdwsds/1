@@ -475,8 +475,7 @@ body {
     }
     .icon-button {
         position: absolute;
-        inset: 0;
-        right: 85%;
-        top: -50%;
+        right: 90%;
+        top: 16%;
     }
 }
