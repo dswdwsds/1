@@ -360,10 +360,13 @@ body.light-mode {
 .watch-button {
     background-color: var(--primary-color);
     color: var(--text-light);
-    padding: 0.5rem 1rem;
+    padding: .5rem 1rem;
     border: none;
     border-radius: 0.25rem;
     cursor: pointer;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .watch-button:hover {
