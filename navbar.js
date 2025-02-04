@@ -75,7 +75,7 @@ fetch('https://abdo12249.github.io/1/navbar/%D9%82%D8%A7%D8%A6%D9%85%D8%A9%20%D8
         searchInput.addEventListener('input', function () {
             let query = this.value.toLowerCase(); // الحصول على النص المدخل وتحويله إلى حروف صغيرة
 
-            // تصفية الأنميات بناءً على النص المدخل
+            // تصفية الأنميات بناءً على النص المدخل (مطابقة جزئية)
             const filteredAnime = animeData.filter(item => 
                 item.name.toLowerCase().includes(query)
             );
