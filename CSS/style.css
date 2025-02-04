@@ -138,7 +138,10 @@ body.light-mode {
     padding: 0.05rem;
 }
 
-
+/* Style for the theme icon */
+#themeIcon {
+    transition: transform 0.3s ease;
+}
 
 
 /* Hero Section */
