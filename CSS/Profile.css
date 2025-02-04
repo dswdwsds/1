@@ -91,7 +91,13 @@
             transform: scale(1.1); /* تأثير تكبير عند التمرير */
         }
 
-
+.icon-button1 {
+    background: none;
+    border: none;
+    padding: 0.25rem;
+   display: flex;
+      gap: 10px; 
+}
 
         .story {
             margin-top: 20px;
