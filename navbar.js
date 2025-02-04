@@ -1,41 +1,23 @@
 // وظيفة للتحقق من وجود العناصر وإعادة المحاولة إذا لزم الأمر
 function initializeElements() {
-    document.addEventListener('DOMContentLoaded', function() {
-        const themeToggle = document.getElementById('themeToggle');
-        
-        // دالة لتبديل الثيم وتخزين الحالة
-        function toggleTheme() {
-            if (document.body.classList.contains('dark-mode')) {
-                document.body.classList.add('light-mode');
-                document.body.classList.remove('dark-mode');
-                localStorage.setItem('theme', 'light'); // حفظ الثيم في الذاكرة
-            } else {
-                document.body.classList.add('dark-mode');
-                document.body.classList.remove('light-mode');
-                localStorage.setItem('theme', 'dark'); // حفظ الثيم في الذاكرة
-            }
-        }
-    
-        // التحقق من وجود الثيم المحفوظ عند تحميل الصفحة
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                document.body.classList.remove('light-mode');
-            } else {
-                document.body.classList.add('light-mode');
-                document.body.classList.remove('dark-mode');
-            }
-        }
-    
-        if (themeToggle) {
-            themeToggle.addEventListener('click', toggleTheme);
+// عنصر تبديل الثيم
+const themeToggle = document.getElementById('themeToggle');
+if (themeToggle) {
+    themeToggle.addEventListener('click', function () {
+        // التبديل بين الثيمات
+        if (document.body.classList.contains('dark-mode')) {
+            document.body.classList.add('light-mode');
+            document.body.classList.remove('dark-mode');
         } else {
-            console.log("لم يتم العثور على themeToggle.");
+            document.body.classList.add('dark-mode');
+            document.body.classList.remove('light-mode');
         }
     });
-    
-
+} else {
+    console.log("لم يتم العثور على themeToggle. سيتم المحاولة مرة أخرى بعد 5 ثوانٍ...");
+    setTimeout(initializeElements, 1000); // إعادة المحاولة بعد 5 ثوانٍ
+    return;
+}
 
     // عنصر البحث
     const searchInput = document.getElementById('searchInput');
