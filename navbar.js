@@ -23,7 +23,7 @@ if (themeToggle) {
  // تحميل البيانات من ملف JSON
 let articles = [];
 
-fetch('abdo12249/1/navbar/قائمة الأنمي/قائمة الأنمي.json')
+fetch('قائمة الأنمي/قائمة الأنمي.json')
   .then(response => response.json())
   .then(data => {
     articles = data;  // حفظ البيانات في متغير
