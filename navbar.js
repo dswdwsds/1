@@ -39,18 +39,34 @@ if (themeToggle) {
 }
 
 
-    // عنصر البحث
-    const searchInput = document.getElementById('searchInput');
-    if (searchInput) {
-        searchInput.addEventListener('input', function () {
-            let query = this.value.toLowerCase();
-            console.log('بحث عن: ', query);
+// عنصر البحث
+const searchInput = document.getElementById('searchInput');
+if (searchInput) {
+    searchInput.addEventListener('input', function () {
+        let query = this.value.toLowerCase(); // الحصول على النص المدخل وتحويله إلى حروف صغيرة
+        console.log('بحث عن: ', query);
+
+        // الحصول على جميع العناصر التي سيتم فحصها (افترض أن هذه العناصر لها صنف "search-item")
+        const items = document.querySelectorAll('.search-item');
+
+        // التكرار على كل عنصر للتحقق من احتوائه على النص المدخل
+        items.forEach(item => {
+            let itemText = item.textContent.toLowerCase(); // الحصول على النص داخل العنصر وتحويله إلى حروف صغيرة
+
+            // إذا كان النص داخل العنصر يحتوي على النص المدخل، نعرض العنصر
+            if (itemText.includes(query)) {
+                item.style.display = 'block'; // عرض العنصر
+            } else {
+                item.style.display = 'none'; // إخفاء العنصر
+            }
         });
-    } else {
-        console.log("لم يتم العثور على searchInput. سيتم المحاولة مرة أخرى بعد 5 ثوانٍ...");
-        setTimeout(initializeElements, 1000); // إعادة المحاولة بعد 5 ثوانٍ
-        return;
-    }
+    });
+} else {
+    console.log("لم يتم العثور على searchInput. سيتم المحاولة مرة أخرى بعد 5 ثوانٍ...");
+    setTimeout(initializeElements, 1000); // إعادة المحاولة بعد 5 ثوانٍ
+    return;
+}
+
 
     // عنصر القائمة الجانبية الموبيل
     const menuBtn = document.getElementById('menu-btn');
