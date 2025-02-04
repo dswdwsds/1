@@ -39,33 +39,46 @@ if (themeToggle) {
 }
 
 
-// عنصر البحث
-const searchInput = document.getElementById('searchInput');
-if (searchInput) {
+/// تحميل البيانات من ملف JSON
+fetch('navbar/قائمة الأنمي/قائمة الأنمي.json')
+.then(response => response.json())
+.then(data => {
+    const animeData = data;
+
+    // العنصر الذي يحتوي على القائمة
+    const animeListContainer = document.getElementById('animeList');
+    const searchInput = document.getElementById('searchInput');
+
+    // دالة لعرض الأنميات بناءً على النص المدخل في البحث
+    function displayAnimeList(filteredData) {
+        animeListContainer.innerHTML = ''; // إفراغ المحتوى القديم
+        filteredData.forEach(item => {
+            const animeItem = document.createElement('div');
+            animeItem.classList.add('search-item');
+            animeItem.innerHTML = `<strong>${item.name}</strong>: ${item.description}`;
+            animeListContainer.appendChild(animeItem);
+        });
+    }
+
+    // عرض جميع الأنميات عند تحميل الصفحة
+    displayAnimeList(animeData);
+
+    // إضافة مستمع للبحث
     searchInput.addEventListener('input', function () {
         let query = this.value.toLowerCase(); // الحصول على النص المدخل وتحويله إلى حروف صغيرة
-        console.log('بحث عن: ', query);
 
-        // الحصول على جميع العناصر التي سيتم فحصها (افترض أن هذه العناصر لها صنف "search-item")
-        const items = document.querySelectorAll('.search-item');
+        // تصفية الأنميات بناءً على النص المدخل
+        const filteredAnime = animeData.filter(item => 
+            item.name.toLowerCase().includes(query) || 
+            item.description.toLowerCase().includes(query)
+        );
 
-        // التكرار على كل عنصر للتحقق من احتوائه على النص المدخل
-        items.forEach(item => {
-            let itemText = item.textContent.toLowerCase(); // الحصول على النص داخل العنصر وتحويله إلى حروف صغيرة
-
-            // إذا كان النص داخل العنصر يحتوي على النص المدخل، نعرض العنصر
-            if (itemText.includes(query)) {
-                item.style.display = 'block'; // عرض العنصر
-            } else {
-                item.style.display = 'none'; // إخفاء العنصر
-            }
-        });
+        // عرض الأنميات المصفاة
+        displayAnimeList(filteredAnime);
     });
-} else {
-    console.log("لم يتم العثور على searchInput. سيتم المحاولة مرة أخرى بعد 5 ثوانٍ...");
-    setTimeout(initializeElements, 1000); // إعادة المحاولة بعد 5 ثوانٍ
-    return;
-}
+})
+.catch(error => console.error('خطأ في تحميل ملف الأنمي:', error));
+
 
 
     // عنصر القائمة الجانبية الموبيل
