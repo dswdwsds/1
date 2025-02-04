@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إضافة وحذف الرابط</title>
+    <title>إضافة وحذف الموقع</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,34 +30,42 @@
 </head>
 <body>
 
-    <h1>اضغط لحفظ أو حذف الرابط</h1>
-    <button id="saveButton" class="not-saved" onclick="toggleLink()">حفظ الرابط</button>
+    <h1>اضغط لحفظ أو حذف الموقع</h1>
+    <button id="saveButton" class="not-saved" onclick="toggleLink()">حفظ الموقع</button>
 
     <script>
-        let currentPage = window.location.href; // رابط الصفحة الحالية
-        let savedLinks = localStorage.getItem("links") ? JSON.parse(localStorage.getItem("links")) : [];
+        let currentPage = {
+            url: window.location.href, 
+            title: document.title // جلب اسم الموقع الحالي
+        };
+
+        let savedSites = localStorage.getItem("savedSites") ? JSON.parse(localStorage.getItem("savedSites")) : [];
 
         function updateButtonState() {
             let button = document.getElementById("saveButton");
-            if (savedLinks.includes(currentPage)) {
-                button.textContent = "إزالة الرابط";
+            let isSaved = savedSites.some(site => site.url === currentPage.url);
+
+            if (isSaved) {
+                button.textContent = "إزالة الموقع";
                 button.classList.add("saved");
                 button.classList.remove("not-saved");
             } else {
-                button.textContent = "حفظ الرابط";
+                button.textContent = "حفظ الموقع";
                 button.classList.add("not-saved");
                 button.classList.remove("saved");
             }
         }
 
         function toggleLink() {
-            let index = savedLinks.indexOf(currentPage);
+            let index = savedSites.findIndex(site => site.url === currentPage.url);
+
             if (index === -1) {
-                savedLinks.push(currentPage); // إضافة الرابط
+                savedSites.push(currentPage); // إضافة الموقع
             } else {
-                savedLinks.splice(index, 1); // حذف الرابط
+                savedSites.splice(index, 1); // إزالة الموقع
             }
-            localStorage.setItem("links", JSON.stringify(savedLinks)); // تحديث التخزين
+
+            localStorage.setItem("savedSites", JSON.stringify(savedSites)); // حفظ البيانات
             updateButtonState(); // تحديث الزر
         }
 
