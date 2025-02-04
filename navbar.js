@@ -62,8 +62,9 @@ fetch('navbar/قائمة الأنمي/قائمة الأنمي.json')
                     
                     // إضافة حدث عند الضغط على اسم الأنمي
                     animeItem.addEventListener('click', function() {
-                        // توجيه المستخدم إلى صفحة الأنمي باستخدام الرابط المخزن في الـ JSON
-                        window.location.href = item.link;
+                        // إزالة '../../' من الرابط إذا كان موجودًا
+                        let link = item.link.replace(/^(\.\.\/){2}/, ''); // إزالة '../../' من بداية الرابط
+                        window.location.href = link; // التوجيه إلى الرابط المعدل
                     });
 
                     animeListContainer.appendChild(animeItem);
