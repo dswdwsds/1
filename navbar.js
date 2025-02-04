@@ -55,7 +55,7 @@ fetch('navbar/قائمة الأنمي/قائمة الأنمي.json')
         filteredData.forEach(item => {
             const animeItem = document.createElement('div');
             animeItem.classList.add('search-item');
-            animeItem.innerHTML = `<strong>${item.name}</strong>: ${item.description}`;
+            animeItem.innerHTML = `<strong>${item.name}</strong>`;
             animeListContainer.appendChild(animeItem);
         });
     }
@@ -69,8 +69,7 @@ fetch('navbar/قائمة الأنمي/قائمة الأنمي.json')
 
         // تصفية الأنميات بناءً على النص المدخل
         const filteredAnime = animeData.filter(item => 
-            item.name.toLowerCase().includes(query) || 
-            item.description.toLowerCase().includes(query)
+            item.name.toLowerCase().includes(query)
         );
 
         // عرض الأنميات المصفاة
