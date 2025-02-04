@@ -20,45 +20,17 @@ if (themeToggle) {
 }
 
     // عنصر البحث
- // تحميل البيانات من ملف JSON
-let articles = [];
-
-fetch('navbar/قائمة الأنمي/قائمة الأنمي.json')
-  .then(response => response.json())
-  .then(data => {
-    articles = data;  // حفظ البيانات في متغير
-  })
-  .catch(error => console.error('Error loading JSON:', error));
-
-// دالة البحث
-function search() {
-    const query = document.getElementById('searchInput').value.toLowerCase();
-    const results = articles.filter(article => {
-        return article.title.toLowerCase().includes(query) || article.content.toLowerCase().includes(query);
-    });
-
-    displayResults(results);
-}
-
-// دالة لعرض النتائج
-function displayResults(results) {
-    const resultsContainer = document.getElementById('searchResults');
-    resultsContainer.innerHTML = "";  // مسح النتائج القديمة
-
-    if (results.length === 0) {
-        resultsContainer.innerHTML = "<p>لا توجد نتائج</p>";
-    } else {
-        results.forEach(result => {
-            const resultElement = document.createElement('div');
-            resultElement.innerHTML = `
-                <h3>${result.title}</h3>
-                <p>${result.content}</p>
-            `;
-            resultsContainer.appendChild(resultElement);
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', function () {
+            let query = this.value.toLowerCase();
+            console.log('بحث عن: ', query);
         });
+    } else {
+        console.log("لم يتم العثور على searchInput. سيتم المحاولة مرة أخرى بعد 5 ثوانٍ...");
+        setTimeout(initializeElements, 1000); // إعادة المحاولة بعد 5 ثوانٍ
+        return;
     }
-}
-
 
     // عنصر القائمة الجانبية الموبيل
     const menuBtn = document.getElementById('menu-btn');
