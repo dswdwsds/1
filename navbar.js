@@ -1,26 +1,44 @@
 // وظيفة للتحقق من وجود العناصر وإعادة المحاولة إذا لزم الأمر
 function initializeElements() {
     // عنصر تبديل الثيم
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    if (themeToggle && themeIcon) {
-        themeToggle.addEventListener('click', function () {
-            // التبديل بين أيقونات الشمس والقمر
-            if (themeIcon.getAttribute('d') === "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z") {
-                themeIcon.setAttribute('d', "M12 2C7.03 2 3 6.03 3 12s4.03 10 9 10 9-4.03 9-10-4.03-10-9-10z");
-                document.body.classList.add('dark-mode');
-                document.body.classList.remove('light-mode');
+    document.addEventListener("DOMContentLoaded", function () {
+        const themeToggle = document.getElementById("themeToggle");
+        const themeIcon = document.getElementById("themeIcon");
+    
+        if (!themeToggle || !themeIcon) {
+            console.log("لم يتم العثور على الزر أو الأيقونة.");
+            return;
+        }
+    
+        // مسارات SVG للأيقونات
+        const sunIcon = "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z";
+        const moonIcon = "M12 2C7.03 2 3 6.03 3 12s4.03 10 9 10 9-4.03 9-10-4.03-10-9-10z";
+    
+        // استرجاع الوضع المخزن
+        let isDarkMode = localStorage.getItem("theme") === "dark";
+    
+        function updateTheme() {
+            if (isDarkMode) {
+                document.body.classList.add("dark-mode");
+                document.body.classList.remove("light-mode");
+                themeIcon.setAttribute("d", moonIcon);
             } else {
-                themeIcon.setAttribute('d', "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z");
-                document.body.classList.add('light-mode');
-                document.body.classList.remove('dark-mode');
+                document.body.classList.add("light-mode");
+                document.body.classList.remove("dark-mode");
+                themeIcon.setAttribute("d", sunIcon);
             }
+        }
+    
+        // تحديث المظهر عند تحميل الصفحة
+        updateTheme();
+    
+        themeToggle.addEventListener("click", function () {
+            isDarkMode = !isDarkMode; // تبديل الوضع
+            localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+            updateTheme();
         });
-    } else {
-        console.log("لم يتم العثور على themeToggle أو themeIcon. سيتم المحاولة مرة أخرى بعد 5 ثوانٍ...");
-        setTimeout(initializeElements, 1000); // إعادة المحاولة بعد 5 ثوانٍ
-        return;
-    }
+    });
+    
 
     // عنصر البحث
     const searchInput = document.getElementById('searchInput');
