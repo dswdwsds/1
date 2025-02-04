@@ -39,44 +39,56 @@ if (themeToggle) {
 }
 
 
-/// تحميل البيانات من ملف JSON
+// تحميل البيانات من ملف JSON
 fetch('navbar/قائمة الأنمي/قائمة الأنمي.json')
-.then(response => response.json())
-.then(data => {
-    const animeData = data;
+    .then(response => response.json())
+    .then(data => {
+        const animeData = data;
 
-    // العنصر الذي يحتوي على القائمة
-    const animeListContainer = document.getElementById('animeList');
-    const searchInput = document.getElementById('searchInput');
+        // العنصر الذي يحتوي على القائمة
+        const animeListContainer = document.getElementById('animeList');
+        const searchInput = document.getElementById('searchInput');
 
-    // دالة لعرض الأنميات بناءً على النص المدخل في البحث
-    function displayAnimeList(filteredData) {
-        animeListContainer.innerHTML = ''; // إفراغ المحتوى القديم
-        filteredData.forEach(item => {
-            const animeItem = document.createElement('div');
-            animeItem.classList.add('search-item');
-            animeItem.innerHTML = `<strong>${item.name}</strong>`;
-            animeListContainer.appendChild(animeItem);
+        // دالة لعرض الأنميات بناءً على النص المدخل في البحث
+        function displayAnimeList(filteredData) {
+            animeListContainer.innerHTML = ''; // إفراغ المحتوى القديم
+            if (filteredData.length === 0) {
+                animeListContainer.innerHTML = '<p>لم يتم العثور على نتائج.</p>'; // رسالة إذا لم يتم العثور على نتائج
+            } else {
+                filteredData.forEach(item => {
+                    const animeItem = document.createElement('div');
+                    animeItem.classList.add('search-item');
+                    animeItem.innerHTML = `<strong>${item.name}</strong>`;
+                    
+                    // إضافة حدث عند الضغط على اسم الأنمي
+                    animeItem.addEventListener('click', function() {
+                        // توجيه المستخدم إلى صفحة الأنمي باستخدام الرابط المخزن في الـ JSON
+                        window.location.href = item.link;
+                    });
+
+                    animeListContainer.appendChild(animeItem);
+                });
+            }
+        }
+
+        // عرض جميع الأنميات عند تحميل الصفحة
+        displayAnimeList(animeData);
+
+        // إضافة مستمع للبحث
+        searchInput.addEventListener('input', function () {
+            let query = this.value.toLowerCase(); // الحصول على النص المدخل وتحويله إلى حروف صغيرة
+
+            // تصفية الأنميات بناءً على النص المدخل
+            const filteredAnime = animeData.filter(item => 
+                item.name.toLowerCase().includes(query)
+            );
+
+            // عرض الأنميات المصفاة
+            displayAnimeList(filteredAnime);
         });
-    }
+    })
+    .catch(error => console.error('خطأ في تحميل ملف الأنمي:', error));
 
-    // عرض جميع الأنميات عند تحميل الصفحة
-    displayAnimeList(animeData);
-
-    // إضافة مستمع للبحث
-    searchInput.addEventListener('input', function () {
-        let query = this.value.toLowerCase(); // الحصول على النص المدخل وتحويله إلى حروف صغيرة
-
-        // تصفية الأنميات بناءً على النص المدخل
-        const filteredAnime = animeData.filter(item => 
-            item.name.toLowerCase().includes(query)
-        );
-
-        // عرض الأنميات المصفاة
-        displayAnimeList(filteredAnime);
-    });
-})
-.catch(error => console.error('خطأ في تحميل ملف الأنمي:', error));
 
 
 
