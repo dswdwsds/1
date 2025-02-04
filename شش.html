@@ -30,47 +30,11 @@
 </head>
 <body>
 
-    <h1>اضغط لحفظ أو حذف الموقع</h1>
-    <button id="saveButton" class="not-saved" onclick="toggleLink()">حفظ الموقع</button>
+    <button id="saveButton" class="not-saved">حفظ الموقع</button>
 
-    <script>
-        let currentPage = {
-            url: window.location.href, 
-            title: document.title // جلب اسم الموقع الحالي
-        };
+    <script src="script.js"></script> <!-- استدعاء الملف الموحد -->
 
-        let savedSites = localStorage.getItem("savedSites") ? JSON.parse(localStorage.getItem("savedSites")) : [];
 
-        function updateButtonState() {
-            let button = document.getElementById("saveButton");
-            let isSaved = savedSites.some(site => site.url === currentPage.url);
-
-            if (isSaved) {
-                button.textContent = "إزالة الموقع";
-                button.classList.add("saved");
-                button.classList.remove("not-saved");
-            } else {
-                button.textContent = "حفظ الموقع";
-                button.classList.add("not-saved");
-                button.classList.remove("saved");
-            }
-        }
-
-        function toggleLink() {
-            let index = savedSites.findIndex(site => site.url === currentPage.url);
-
-            if (index === -1) {
-                savedSites.push(currentPage); // إضافة الموقع
-            } else {
-                savedSites.splice(index, 1); // إزالة الموقع
-            }
-
-            localStorage.setItem("savedSites", JSON.stringify(savedSites)); // حفظ البيانات
-            updateButtonState(); // تحديث الزر
-        }
-
-        updateButtonState(); // تحديث الزر عند تحميل الصفحة
-    </script>
 
 </body>
 </html>
