@@ -3,6 +3,19 @@ function initializeElements() {
 // عنصر تبديل الثيم
 const themeToggle = document.getElementById('themeToggle');
 
+// دالة لتبديل الثيم وتخزين الحالة
+function toggleTheme() {
+    if (document.body.classList.contains('dark-mode')) {
+        document.body.classList.add('light-mode');
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('theme', 'light'); // حفظ الثيم في الذاكرة
+    } else {
+        document.body.classList.add('dark-mode');
+        document.body.classList.remove('light-mode');
+        localStorage.setItem('theme', 'dark'); // حفظ الثيم في الذاكرة
+    }
+}
+
 // التحقق من وجود الثيم المحفوظ عند تحميل الصفحة
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme) {
