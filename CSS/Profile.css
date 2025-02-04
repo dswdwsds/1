@@ -166,7 +166,7 @@
             border: none;
             border-radius: 5px;
             transition: 0.3s;
-            margin-right:300px;
+            margin-right:450px;
 
         }
         .not-saved {
@@ -178,7 +178,7 @@
             border: none;
             border-radius: 5px;
             transition: 0.3s;
-            margin-right:300px;
+            margin-right:450px;
         }
 
 @media (max-width: 768px) {
