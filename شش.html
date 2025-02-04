@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة وحذف الرابط</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .saved {
+            background-color: red;
+            color: white;
+        }
+        .not-saved {
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>اضغط لحفظ أو حذف الرابط</h1>
+    <button id="saveButton" class="not-saved" onclick="toggleLink()">حفظ الرابط</button>
+
+    <script>
+        let currentPage = window.location.href; // رابط الصفحة الحالية
+        let savedLinks = localStorage.getItem("links") ? JSON.parse(localStorage.getItem("links")) : [];
+
+        function updateButtonState() {
+            let button = document.getElementById("saveButton");
+            if (savedLinks.includes(currentPage)) {
+                button.textContent = "إزالة الرابط";
+                button.classList.add("saved");
+                button.classList.remove("not-saved");
+            } else {
+                button.textContent = "حفظ الرابط";
+                button.classList.add("not-saved");
+                button.classList.remove("saved");
+            }
+        }
+
+        function toggleLink() {
+            let index = savedLinks.indexOf(currentPage);
+            if (index === -1) {
+                savedLinks.push(currentPage); // إضافة الرابط
+            } else {
+                savedLinks.splice(index, 1); // حذف الرابط
+            }
+            localStorage.setItem("links", JSON.stringify(savedLinks)); // تحديث التخزين
+            updateButtonState(); // تحديث الزر
+        }
+
+        updateButtonState(); // تحديث الزر عند تحميل الصفحة
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الروابط المحفوظة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>الروابط المحفوظة</h1>
+    <ul id="linksList"></ul>
+    <button onclick="clearLinks()">مسح الروابط</button>
+
+    <script>
+        function loadLinks() {
+            let savedLinks = localStorage.getItem("links") ? JSON.parse(localStorage.getItem("links")) : [];
+            let list = document.getElementById("linksList");
+            list.innerHTML = "";
+
+            savedLinks.forEach(link => {
+                let listItem = document.createElement("li");
+                let anchor = document.createElement("a");
+                anchor.href = link;
+                anchor.textContent = link;
+                anchor.target = "_blank"; // فتح الرابط في نافذة جديدة
+                listItem.appendChild(anchor);
+                list.appendChild(listItem);
+            });
+        }
+
+        function clearLinks() {
+            localStorage.removeItem("links"); // حذف الروابط
+            loadLinks(); // تحديث القائمة
+        }
+
+        window.onload = loadLinks; // تحميل الروابط عند فتح الصفحة
+    </script>
+
+</body>
+</html>
