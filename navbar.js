@@ -1,6 +1,7 @@
 // وظيفة للتحقق من وجود العناصر وإعادة المحاولة إذا لزم الأمر
 function initializeElements() {
 // عنصر تبديل الثيم
+// عنصر تبديل الثيم
 const themeToggle = document.getElementById('themeToggle');
 
 // دالة لتبديل الثيم وتخزين الحالة
@@ -28,12 +29,14 @@ if (savedTheme) {
     }
 }
 
-if (themeToggle) {
-    themeToggle.addEventListener('click', toggleTheme);
-} else {
-    console.log("لم يتم العثور على themeToggle. سيتم المحاولة مرة أخرى بعد 5 ثوانٍ...");
-    setTimeout(initializeElements, 1000); // إعادة المحاولة بعد 5 ثوانٍ
-}
+// إضافة الحدث بعد التأكد من تحميل الصفحة بالكامل
+window.addEventListener('load', function() {
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    } else {
+        console.log("لم يتم العثور على themeToggle.");
+    }
+});
 
 
     // عنصر البحث
