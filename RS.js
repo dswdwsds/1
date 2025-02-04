@@ -75,11 +75,11 @@ document.addEventListener("DOMContentLoaded", function () {
         let isSaved = savedSites.some(site => site.url === currentPage.url);
 
         if (isSaved) {
-            button.textContent = "إزالة الموقع";
+            button.textContent = "إزالة من للمفضل";
             button.classList.add("saved");
             button.classList.remove("not-saved");
         } else {
-            button.textContent = "حفظ الموقع";
+            button.textContent = "اضافة للمفضل ";
             button.classList.add("not-saved");
             button.classList.remove("saved");
         }
