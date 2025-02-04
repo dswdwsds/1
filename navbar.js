@@ -1,39 +1,39 @@
 // وظيفة للتحقق من وجود العناصر وإعادة المحاولة إذا لزم الأمر
 function initializeElements() {
-    // عنصر تبديل الثيم
     document.addEventListener("DOMContentLoaded", function () {
         const themeToggle = document.getElementById("themeToggle");
-        const themeIcon = document.getElementById("themeIcon");
+        const themePath = document.getElementById("themePath");
     
-        if (!themeToggle || !themeIcon) {
+        if (!themeToggle || !themePath) {
             console.log("لم يتم العثور على الزر أو الأيقونة.");
             return;
         }
     
-        // مسارات SVG للأيقونات
-        const sunIcon = "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z";
-        const moonIcon = "M12 2C7.03 2 3 6.03 3 12s4.03 10 9 10 9-4.03 9-10-4.03-10-9-10z";
+        // مسارات SVG لأيقونات الشمس والقمر
+        const sunIcon = "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z";
+        const moonIcon = "M12 2C9 2 6 5 6 8s3 6 6 6 6-3 6-6-3-6-6-6z";
     
-        // استرجاع الوضع المخزن
+        // استرجاع الوضع المخزن من localStorage
         let isDarkMode = localStorage.getItem("theme") === "dark";
     
         function updateTheme() {
             if (isDarkMode) {
                 document.body.classList.add("dark-mode");
                 document.body.classList.remove("light-mode");
-                themeIcon.setAttribute("d", moonIcon);
+                themePath.setAttribute("d", moonIcon); // تغيير الأيقونة للقمر
             } else {
                 document.body.classList.add("light-mode");
                 document.body.classList.remove("dark-mode");
-                themeIcon.setAttribute("d", sunIcon);
+                themePath.setAttribute("d", sunIcon); // تغيير الأيقونة للشمس
             }
         }
     
-        // تحديث المظهر عند تحميل الصفحة
+        // تحديث الأيقونة عند تحميل الصفحة
         updateTheme();
     
+        // عند الضغط على الزر، يتم التبديل بين الوضعين
         themeToggle.addEventListener("click", function () {
-            isDarkMode = !isDarkMode; // تبديل الوضع
+            isDarkMode = !isDarkMode;
             localStorage.setItem("theme", isDarkMode ? "dark" : "light");
             updateTheme();
         });
