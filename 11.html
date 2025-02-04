@@ -64,6 +64,10 @@
 
         window.onload = loadLinks; // تحميل المواقع عند فتح الصفحة
     </script>
-
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('navbar-container').innerHTML = data);
+    </script>
 </body>
 </html>
