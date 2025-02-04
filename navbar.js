@@ -40,7 +40,7 @@ if (themeToggle) {
 
 
 // تحميل البيانات من ملف JSON
-fetch('navbar/قائمة الأنمي/قائمة الأنمي.json')
+fetch('https://abdo12249.github.io/1/navbar/%D9%82%D8%A7%D8%A6%D9%85%D8%A9%20%D8%A7%D9%84%D8%A3%D9%86%D9%85%D9%8A/%D9%82%D8%A7%D8%A6%D9%85%D8%A9%20%D8%A7%D9%84%D8%A3%D9%86%D9%85%D9%8A.json')
     .then(response => response.json())
     .then(data => {
         const animeData = data;
@@ -62,9 +62,8 @@ fetch('navbar/قائمة الأنمي/قائمة الأنمي.json')
                     
                     // إضافة حدث عند الضغط على اسم الأنمي
                     animeItem.addEventListener('click', function() {
-                        // إزالة '../../' من الرابط إذا كان موجودًا
-                        let link = item.link.replace(/^(\.\.\/){2}/, ''); // إزالة '../../' من بداية الرابط
-                        window.location.href = link; // التوجيه إلى الرابط المعدل
+                        // توجيه المستخدم إلى صفحة الأنمي باستخدام الرابط المخزن في الـ JSON
+                        window.location.href = item.link;
                     });
 
                     animeListContainer.appendChild(animeItem);
