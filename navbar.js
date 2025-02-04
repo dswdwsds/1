@@ -107,3 +107,82 @@ fetch('https://abdo12249.github.io/1/navbar/%D9%82%D8%A7%D8%A6%D9%85%D8%A9%20%D8
 
 // استدعاء الوظيفة لأول مرة
 initializeElements();
+
+
+// تفضيلت 
+
+document.addEventListener("DOMContentLoaded", function () {
+    let currentPage = {
+        url: window.location.href,
+        title: document.title // اسم الموقع الحالي
+    };
+
+    let savedSites = localStorage.getItem("savedSites") ? JSON.parse(localStorage.getItem("savedSites")) : [];
+
+    function updateButtonState() {
+        let button = document.getElementById("saveButton");
+        if (!button) return;
+
+        let isSaved = savedSites.some(site => site.url === currentPage.url);
+
+        if (isSaved) {
+            button.textContent = "إزالة من للمفضل";
+            button.classList.add("saved");
+            button.classList.remove("not-saved");
+        } else {
+            button.textContent = "اضافة للمفضل ";
+            button.classList.add("not-saved");
+            button.classList.remove("saved");
+        }
+    }
+
+    function toggleLink() {
+        let index = savedSites.findIndex(site => site.url === currentPage.url);
+
+        if (index === -1) {
+            savedSites.push(currentPage); // إضافة الموقع
+        } else {
+            savedSites.splice(index, 1); // إزالة الموقع
+        }
+
+        localStorage.setItem("savedSites", JSON.stringify(savedSites));
+        updateButtonState();
+    }
+
+    function loadLinks() {
+        let list = document.getElementById("linksList");
+        if (!list) return;
+
+        let savedSites = localStorage.getItem("savedSites") ? JSON.parse(localStorage.getItem("savedSites")) : [];
+        list.innerHTML = "";
+
+        savedSites.forEach(site => {
+            let listItem = document.createElement("li");
+            let anchor = document.createElement("a");
+            anchor.href = site.url;
+            anchor.textContent = site.title;
+            anchor.target = "_blank"; // فتح الرابط في نافذة جديدة
+
+            listItem.appendChild(anchor);
+            list.appendChild(listItem);
+        });
+    }
+
+    function clearLinks() {
+        localStorage.removeItem("savedSites");
+        loadLinks();
+    }
+
+    // إذا كان الزر موجودًا في الصفحة، قم بتحديث حالته
+    if (document.getElementById("saveButton")) {
+        updateButtonState();
+        document.getElementById("saveButton").addEventListener("click", toggleLink);
+    }
+
+    // إذا كان هناك قائمة للروابط المحفوظة، قم بتحميلها
+    if (document.getElementById("linksList")) {
+        loadLinks();
+        let clearButton = document.getElementById("clearButton");
+        if (clearButton) clearButton.addEventListener("click", clearLinks);
+    }
+});
