@@ -461,8 +461,6 @@ body {
     }
 
     .section-header {
-        flex-direction: column;
-        gap: 1rem;
         margin-top: 6rem;
     }
     .nav-buttons {
