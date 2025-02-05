@@ -438,7 +438,7 @@ body {
     right: 0;
 }
 /* إخفاء الزر والقائمة على الشاشات الكبيرة */
-@media (min-width: 768px) {
+@media (min-width: 500px) {
     .menu-btn {
         display: none;
     }
