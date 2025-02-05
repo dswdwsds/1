@@ -495,4 +495,9 @@ body {
         transition: transform 0.3s;
         margin-right: 0rem;
     }
+    .watch-button {
+        padding: .5rem 1rem;
+        font-size: 1rem;
+        font-weight: 600;
+    }
 }
