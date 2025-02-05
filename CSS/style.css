@@ -123,13 +123,13 @@ body {
 
 /* Dark/Light mode toggle */
 body.dark-mode {
-    background-color: #111827;
-    color: #fff;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
 }
 
 body.light-mode {
-    background-color: #ffffff;
-    color: #000;
+    background-color: var(--bg-light);
+    color:  var(--text-dark);
 }
 
 #themeToggle {
@@ -182,7 +182,7 @@ body.light-mode {
     bottom: 10%;
     left: 5%;
     max-width: 400px;
-    color: #fff;
+    color: var(--bg-light);
     z-index: 2;
 }
 
@@ -383,7 +383,7 @@ body {
 .menu-btn {
     font-size: 24px;
     background-color: #007bff;
-    color: white;
+    color: var(--bg-light);
     border: none;
     padding: 10px 15px;
     cursor: pointer;
@@ -402,7 +402,7 @@ body {
     width: 250px;
     height: 100%;
     background-color: #333;
-    color: white;
+    color: var(--bg-light);
     padding-top: 60px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.5);
     transition: right 0.3s ease-in-out;
@@ -446,7 +446,7 @@ body {
     }
 }
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 500px) {
     .nav-container {
         flex-direction: column;
 
@@ -480,5 +480,19 @@ body {
         position: absolute;
         right: 90%;
         top: 16%;
+    }
+    /* Anime Grid */
+  .anime-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 1.3rem;
+   }
+
+    .anime-card {
+        background-color: var(--bg-darker);
+        border-radius: 1rem;
+        overflow: hidden;
+        transition: transform 0.3s;
+        margin-right: 0rem;
     }
 }
