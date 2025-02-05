@@ -1,5 +1,4 @@
 :root {
-
     --primary-color: #ef4444;
     --bg-dark: #111827;
     --bg-darker: #1f2937;
@@ -9,205 +8,491 @@
     --bg-light: #ffffff;
     --text-dark: #000000;
     --text-gray-dark: #4b5563;
-    --bg-background: #080b12;
+    --bg-lighter: #006aff;
 
+    
+}
+
+body.light-mode {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+}
+
+
+body.light-mode .icon-button:hover {
+    color: var(--primary-color);
+    
+}
+body.light-mode .hero {
+    background: linear-gradient(to bottom, transparent, var(--bg-light));
+}
+
+body.light-mode .anime-card {
+    background-color: var(--bg-lighter);
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    line-height: 1.5;
+}
+
+/* Navigation */
+.navbar {
+    background-color: var(--bg-darker);
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+}
+
+.nav-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.logo-icon {
+    color: var(--primary-color);
+}
+
+.search-bar {
+    position: relative;
+    max-width: 32rem;
+    flex: 1;
+    margin: 0 1rem;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    background-color: #374151;
+    border: none;
+    border-radius: 0.5rem;
+    color: var(--text-light);
+}
+
+.search-bar input:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+}
+
+.search-icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-gray);
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 0.25rem;
+}
+
+.icon-button a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.icon-button:hover {
+    color: var(--primary-color);
+    transform: scale(1.1); /* تأثير تكبير عند التمرير */
+}
+
+/* Dark/Light mode toggle */
+body.dark-mode {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+}
+
+body.light-mode {
+    background-color: var(--bg-light);
+    color:  var(--text-dark);
+}
+
+#themeToggle {
+    background-color: transparent;
+    border-radius: 50%;
+    padding: 0.05rem;
+}
+
+/* Style for the theme icon */
+#themeIcon {
+    transition: transform 0.3s ease;
+}
+
+
+/* Hero Section */
+.hero {
+    position: relative;
+    height: 60vh;
+    background: linear-gradient(to bottom, transparent, var(--bg-dark));
+    margin-top: 5rem;
+    overflow: hidden;
+}
+
+
+.slideshow {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* الصور غير النشطة تكون غير مرئية */
+    z-index: 0; /* الصور غير النشطة تكون في الخلفية */
+    transition: opacity 1s ease-in-out, z-index 0s 1s; /* انتقال سلس */
+}
+
+.hero-image.active {
+    opacity: 1; /* الصورة النشطة تظهر */
+    z-index: 1; /* الصورة النشطة تكون في المقدمة */
+    transition: opacity 1s ease-in-out, z-index 0s 0s; /* ترتيب فوري للصورة النشطة */
+}
+
+.hero-content {
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+    max-width: 400px;
+    color: var(--bg-light);
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.primary-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.primary-button:hover {
+    background-color: #dc2626;
+}
+
+.hero-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    z-index: 3;
+}
+
+.control {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.control:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.hero-indicators {
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 3;
+}
+.indicator {
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.indicator.active {
+    background: white;
+}
+
+/* Featured Section */
+.featured {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4rem;
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.text-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 0.25rem;
+}
+
+/* Anime Grid */
+.anime-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.anime-card {
+    background-color: var(--bg-darker);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.3s;
+    margin-right:0.5rem
+}
+
+.anime-card:hover {
+    transform: scale(1.05);
+}
+
+.anime-image {
+    position: relative;
+}
+
+.anime-image img {
+    width: 100%;
+    height: 16rem;
 
 }
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-        }
 
+.rating {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: var(--primary-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
 
+.anime-info {
+    padding: 1rem;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 20px;
-            background-color: var(--bg-background);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-        }
+.anime-info h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
 
-        .anime-title {
-            text-align: center;
-            font-size: 2em;
-            margin-bottom: 20px;
-            margin-top: 70px;
-            color: var(--text-light);
+.anime-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        }
+.anime-meta span {
+    color: var(--text-gray);
+}
 
-        .content-wrapper {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-        }
+.watch-button {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: .5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
 
+.watch-button:hover {
+    background-color: #dc2626;
+}
+ /* موبيل */
+ /* إعدادات عامة */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
 
+/* الزر */
+.menu-btn {
+    font-size: 24px;
+    background-color: #007bff;
+    color: var(--bg-light);
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    border-radius: 5px;
+}
 
-        .anime-image {
-            flex-shrink: 0;
-        }
+/* القائمة الجانبية */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #333;
+    color: var(--bg-light);
+    padding-top: 60px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+    transition: right 0.3s ease-in-out;
+}
 
+/* الروابط داخل القائمة */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
 
+.sidebar ul li {
+    margin: 20px 0;
+}
 
-        .anime-image img {
-            border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-            object-fit: cover;
-        }
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px 20px;
+    transition: background 0.3s ease;
+}
 
+.sidebar ul li a:hover {
+    background-color: #575757;
+}
 
+/* عندما تكون القائمة مفتوحة */
+.sidebar.active {
+    right: 0;
+}
+/* إخفاء الزر والقائمة على الشاشات الكبيرة */
+@media (min-width: 768px) {
+    .menu-btn {
+        display: none;
+    }
 
-        .anime-info {
-            flex-grow: 1;
-        }
-
-        .info-item {
-            margin-bottom: 10px;
-        }
-
-        .info-item strong {
-            color: #2980b9;
-        }
-
-        .info-item a {
-            border-radius: 50px;
-            color: #ffffff;
-            background: #000000;
-            padding: 15px 15px;
-            overflow: hidden;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        .info-item a:hover {
-            color: var(--primary-color);
-            transform: scale(1.1); /* تأثير تكبير عند التمرير */
-        }
-
-        .icon-button1 {
-            background: none;
-            border: none;
-        }
-
-        .story {
-            margin-top: 20px;
-        }
-
-        .story h2 {
-            color: var(--text-light);
-            font-size: 1.5em;
-        }
-
-        .story p {
-            text-align: justify;
-        }
-
-        .episodes-section {
-            margin-top: 20px;
-        }
-
-        .episodes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-            gap: 15px;
-        }
-
-        .episode-item {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-            background: #fff;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.3s;
-        }
-
-        .episode-item:hover {
-            transform: scale(1.06); /* تأثير تكبير عند التمرير */
-        }
-
-        .episode-item img {
-            width: 100%;
-            height: 220px;
-        }
-
-        .episode-number {
-            background: #2980b9;
-            color: #fff;
-            font-size: 15px;
-            padding:1px 0;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-
-
-        .episode-number:hover {
-            color: var(--primary-color);
-            transform: scale(1.1); /* تأثير تكبير عند التمرير */
-        }
-
-
-        .saved {
-            background-color: red;
-            color: white;
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            transition: 0.3s;
-            margin-right:450px;
-
-        }
-        .not-saved {
-            background-color: green;
-            color: white;
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            transition: 0.3s;
-            margin-right:450px;
-        }
-
+    .sidebar {
+        display: none;
+    }
+}
+/* Responsive Design */
 @media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
 
-        .anime-image img {
-           margin-top: 10px;
-        }
+    }
 
-        .anime-info {
-           margin-top: 10px;
-        }
+    .search-bar {
+        width: 50%;
+        margin: 0;
+    }
+
+    .hero-content {
+        padding: 1rem;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .section-header {
+        margin-top: 6rem;
+    }
+    .nav-buttons {
+
+      display: none;
         
-            .anime-title {
-            margin-bottom: 0em;
-            margin-top: 100px;
+    }
+    .icon-button {
+        position: absolute;
+        right: 90%;
+        top: 16%;
+    }
+    /* Anime Grid */
+  .anime-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1.3rem;
+   }
 
-        }
-
-        .icon-button1 {
-
-            display: flex;
-        }
-
-            .saved {
-    
-            margin-right:110px;
-
-        }
-             .not-saved {
-            margin-right:110px;
-        }
+    .anime-card {
+        background-color: var(--bg-darker);
+        border-radius: 1rem;
+        overflow: hidden;
+        transition: transform 0.3s;
+        margin-right: 0rem;
+    }
+    .watch-button {
+        padding: .5rem 1rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
 }
