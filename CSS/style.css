@@ -12,11 +12,7 @@
 
     
 }
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+
 body.light-mode {
     background-color: var(--bg-light);
     color: var(--text-dark);
@@ -274,7 +270,7 @@ body.light-mode {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 5em;
+    margin-top: 4rem;
 }
 
 .section-header h2 {
@@ -438,7 +434,7 @@ body {
     right: 0;
 }
 /* إخفاء الزر والقائمة على الشاشات الكبيرة */
-@media (min-width: 500px) {
+@media (min-width: 768px) {
     .menu-btn {
         display: none;
     }
@@ -448,7 +444,7 @@ body {
     }
 }
 /* Responsive Design */
-@media (max-width: 500px) {
+@media (max-width: 768px) {
     .nav-container {
         flex-direction: column;
 
@@ -459,16 +455,9 @@ body {
         margin: 0;
     }
 
-    .hero-content {
-        padding: 1rem;
-    }
-
-    .hero h1 {
-        font-size: 2rem;
-    }
 
     .section-header {
-        margin-top: 7rem;
+        margin-top: 6rem;
     }
     .nav-buttons {
 
@@ -483,7 +472,7 @@ body {
     /* Anime Grid */
   .anime-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 1.3rem;
    }
 
@@ -496,7 +485,7 @@ body {
     }
     .watch-button {
         padding: .5rem 1rem;
-        font-size: 1rem;
+        font-size: 0.9rem;
         font-weight: 600;
     }
 }
