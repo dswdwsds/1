@@ -12,7 +12,11 @@
 
     
 }
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body.light-mode {
     background-color: var(--bg-light);
     color: var(--text-dark);
@@ -270,7 +274,7 @@ body.light-mode {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 4rem;
+    margin-top: 5em;
 }
 
 .section-header h2 {
@@ -464,7 +468,7 @@ body {
     }
 
     .section-header {
-        margin-top: 6rem;
+        margin-top: 7rem;
     }
     .nav-buttons {
 
