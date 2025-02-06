@@ -434,7 +434,9 @@ body {
     right: 0;
 }
 /* إخفاء الزر والقائمة على الشاشات الكبيرة */
-@media (min-width: 768px) {
+@media (min-width: 768px)
+
+{
     .menu-btn {
         display: none;
     }
@@ -488,4 +490,11 @@ body {
         font-size: 0.9rem;
         font-weight: 600;
     }
+    .hero {
+    position: relative;
+    height: 250px;
+    background: linear-gradient(to bottom, transparent, var(--bg-dark));
+    margin-top: 7rem;
+    overflow: hidden;
+}
 }
