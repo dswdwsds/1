@@ -1,0 +1,51 @@
+    :root {
+        --primary-color: #ef4444;
+        --bg-light1: #adadad;
+        --bg-light: #ffffff;
+        --text-dark: #000000;
+        --text-gray-dark: #4b5563;
+        --bg-lighter: #006aff;
+    }
+
+    /* Dark/Light mode toggle */
+    body.dark-mode {
+        background-color: var(--bg-dark);
+        color: var(--text-light);
+    }
+
+    body.light-mode {
+        background-color: var(--bg-light);
+        color:  var(--text-dark);
+    }
+
+    #themeToggle {
+        background-color: transparent;
+        border-radius: 50%;
+        padding: 0.05rem;
+    }
+
+    /* Style for the theme icon */
+    #themeIcon {
+        transition: transform 0.3s ease;
+    }
+
+    body.light-mode {
+        background-color: var(--bg-light);
+        color: var(--text-dark);
+    }
+    
+        /* style */
+    body.light-mode .icon-button:hover {
+        color: var(--primary-color);
+        
+    }
+    body.light-mode .hero {
+        background: linear-gradient(to bottom, transparent, var(--bg-light));
+    }
+    
+    body.light-mode .anime-card {
+        background-color: var(--bg-lighter);
+    }
+    body.light-mode .navbar {
+        background-color: var(--bg-light1);
+    }
