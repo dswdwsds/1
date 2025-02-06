@@ -371,9 +371,10 @@ body {
 }
 
 .sidebar ul li a {
+    border-radius: 10rem;
     color: white;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 20px;
     display: block;
     padding: 10px 20px;
     transition: background 0.3s ease;
