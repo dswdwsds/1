@@ -1,11 +1,12 @@
 :root {
     --primary-color1: #adadad;
-    --bg-light1: #adadad;
-    --bg-light: #ffffff;
+    --bg-light1: #006aff;
+    --bg-light: #adadad;
     --text-dark: #000000;
     --text-gray-dark: #4b5563;
     --bg-lighter: #006aff;
     --bg-lighter2: #ffffff;
+    --bg-lighter3: #00429f;
 }
 
 /* Dark/Light mode toggle */
@@ -51,17 +52,17 @@ body.light-mode .navbar {
     background-color: var(--bg-light1);
 }
 body.light-mode .watch-button {
-     background-color: var(--bg-light1);
+     background-color: var(--bg-light);
     color: var(--text-dark);
 }
 body.light-mode .rating {
-     background-color: var(--bg-light1);
+     background-color: var(--bg-light);
 }
 body.light-mode .anime-meta span {
     color: var(--text-dark);
 }
 body.light-mode .menu-btn {
-    background-color: var( --bg-lighter2);
+    background-color: var( --bg-lighter3);
     color: var(--text-dark);
 }
 body.light-mode .search-bar input {
