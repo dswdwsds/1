@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل دخول باستخدام جوجل وحفظ البيانات</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .g-signin2 {
+            display: inline-block;
+            margin: 20px auto;
+        }
+        #data-form {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- زر تسجيل الدخول -->
+    <div id="google-signin-btn"></div>
+
+    <!-- نموذج إدخال البيانات -->
+    <form id="data-form">
+        <h2>أدخل بياناتك</h2>
+        <input type="text" id="name" placeholder="اسمك" required><br><br>
+        <input type="email" id="email" placeholder="بريدك الإلكتروني" required><br><br>
+        <button type="button" onclick="saveData()">حفظ البيانات</button>
+    </form>
+
+    <!-- ربط مكتبة Google Sign-In -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script>
+        // تهيئة زر تسجيل الدخول
+        function onGoogleSignIn(googleUser) {
+            const profile = googleUser.getBasicProfile();
+            const userId = profile.getId(); // الحصول على معرف المستخدم
+
+            // عرض نموذج إدخال البيانات
+            document.getElementById('data-form').style.display = 'block';
+
+            // تخزين معرف المستخدم في Local Storage
+            localStorage.setItem('userId', userId);
+        }
+
+        // فحص إذا كان المستخدم قد سجل الدخول سابقًا
+        function checkSignedInUser() {
+            const userId = localStorage.getItem('userId');
+            if (userId) {
+                document.getElementById('data-form').style.display = 'block';
+            }
+        }
+
+        // تهيئة زر تسجيل الدخول عند تحميل الصفحة
+        window.onload = function () {
+            gapi.signin2.render('google-signin-btn', {
+                'scope': 'profile email https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive',
+                'width': 240,
+                'height': 50,
+                'longtitle': true,
+                'theme': 'dark',
+                'onsuccess': onGoogleSignIn
+            });
+
+            checkSignedInUser();
+        };
+
+        // حفظ البيانات في Google Sheets
+        async function saveData() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const userId = localStorage.getItem('userId');
+
+            // التحقق من وجود ورقة عمل للمستخدم
+            const spreadsheetId = await getOrCreateSpreadsheet(userId);
+
+            // إضافة البيانات إلى الورقة
+            const values = [[name, email]]; // البيانات التي سيتم حفظها
+            const resource = {
+                values: values
+            };
+
+            try {
+                const response = await gapi.client.sheets.spreadsheets.values.append({
+                    spreadsheetId: spreadsheetId,
+                    range: 'Sheet1!A:B',
+                    valueInputOption: 'RAW',
+                    resource: resource
+                });
+
+                alert('تم حفظ البيانات بنجاح!');
+            } catch (error) {
+                console.error('خطأ أثناء حفظ البيانات:', error);
+                alert('حدث خطأ أثناء حفظ البيانات.');
+            }
+        }
+
+        // الحصول على أو إنشاء ورقة عمل للمستخدم
+        async function getOrCreateSpreadsheet(userId) {
+            const driveResponse = await gapi.client.drive.files.list({
+                q: `name='${userId}_spreadsheet' and mimeType='application/vnd.google-apps.spreadsheet'`
+            });
+
+            if (driveResponse.result.files.length > 0) {
+                // إذا كانت الورقة موجودة، استرجع معرفها
+                return driveResponse.result.files[0].id;
+            } else {
+                // إذا لم تكن الورقة موجودة، قم بإنشائها
+                const spreadsheet = {
+                    properties: {
+                        title: `${userId}_spreadsheet`
+                    }
+                };
+
+                const createResponse = await gapi.client.sheets.spreadsheets.create({
+                    resource: spreadsheet
+                });
+
+                return createResponse.result.spreadsheetId;
+            }
+        }
+
+        // تهيئة Google API
+        function handleClientLoad() {
+            gapi.load('client:auth2', initClient);
+        }
+
+        async function initClient() {
+    await gapi.client.init({
+        apiKey: 'AIzaSyCYour_API_KeyHere', // استبدل YOUR_API_KEY بمفتاح API الخاص بك
+        clientId: '1234567890-neonidiom.apps.googleusercontent.com', // استبدل YOUR_CLIENT_ID بمعرف العميل الخاص بك
+        discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4', 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
+        scope: 'profile email https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive'
+    });
+}
+
+        window.addEventListener('load', handleClientLoad);
+    </script>
+
+</body>
+</html>
