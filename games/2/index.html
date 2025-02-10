@@ -5,10 +5,22 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity Web Player | movment</title>
     <link rel="stylesheet" href="../../CSS/style.css">
+    <script src="../../navbar.js" defer></script>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
   <body>
+    <!-- تحميل الشريط العلوي من ملف -->
+    <script>
+      fetch('navbar.html')
+          .then(response => response.text())
+          .then(data => document.getElementById('navbar-container').innerHTML = data);
+  </script>
+
+
+<div id="navbar-container"></div>
+
+
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
       <div id="unity-loading-bar">
