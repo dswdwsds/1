@@ -10,7 +10,7 @@ function applyTheme() {
         document.body.classList.add(savedTheme);
     } else {
         // إذا لم يكن هناك ثيم محفوظ، يمكن تعيين الثيم الافتراضي
-        document.body.classList.add('light-mode'); // أو 'dark-mode' حسب الرغبة
+        document.body.classList.add('dark-mode'); // أو 'dark-mode' حسب الرغبة
     }
 }
 
