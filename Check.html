@@ -27,19 +27,6 @@
             #status-element.verified {
                 color: green;
             }
-            #change-button {
-                padding: 10px 20px;
-                font-size: 1em;
-                cursor: pointer;
-                margin-top: 20px;
-                background-color: #007bff;
-                color: white;
-                border: none;
-                border-radius: 5px;
-            }
-            #change-button:hover {
-                background-color: #0056b3;
-            }
         </style>
     </head>
     
@@ -53,9 +40,6 @@
                 .then(response => response.text())
                 .then(data => document.getElementById('navbar-container').innerHTML = data);
         </script>
-
-        <!-- زر تغيير الحالة -->
-        <button id="change-button">تغيير الحالة</button>
 
         <!-- العنصر الذي يعرض حالة التحقق -->
         <div id="status-element" class="checking">الحالة: جاري التحقق...</div>
@@ -79,23 +63,21 @@
                 }
             }
 
-            // تابع يقوم بتغيير الـ class (مثال)
-            function changeClass() {
-                let element = document.getElementById("status-element");
-                
-                // إذا كان العنصر لا يحتوي على الكلاس "verified"، أضفه
-                if (!element.classList.contains("verified")) {
-                    element.classList.add("verified");
-                } else {
-                    element.classList.remove("verified");
-                }
+            // مراقب التغييرات في الـ class
+            const observer = new MutationObserver(() => {
+                checkStatus();  // التحقق من الحالة عند تغيير الـ class
+            });
 
-                // تحديث الرسالة بعد تغيير الكلاس
-                checkStatus();
-            }
+            // إعداد المراقب لمراقبة التغييرات في class
+            const config = { attributes: true, attributeFilter: ['class'] };
+            const targetNode = document.getElementById("status-element");
+            observer.observe(targetNode, config);
 
-            // تنفيذ التغيير عند الضغط على الزر
-            document.getElementById("change-button").addEventListener("click", changeClass);
+            // مثال لتغيير الـ class في الصفحة (هذا يمكن تغييره حسب الحاجة)
+            setTimeout(() => {
+                targetNode.classList.remove("checking");
+                targetNode.classList.add("verified");
+            }, 5000);  // بعد 5 ثواني، سيتم تغيير الكلاس إلى "verified"
         </script>
 
     </body>
