@@ -75,11 +75,6 @@
             const targetNode = document.getElementById("status-element");
             observer.observe(targetNode, config);
 
-            // مثال لتغيير الـ class في الصفحة (هذا يمكن تغييره حسب الحاجة)
-            setTimeout(() => {
-                targetNode.classList.remove("checking");
-                targetNode.classList.add("verified");
-            }, 5000);  // بعد 5 ثواني، سيتم تغيير الكلاس إلى "verified"
         </script>
 
     </body>
