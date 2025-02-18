@@ -5,22 +5,98 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="facebook check">
         <meta name="facebook-check">
-        <title>AMK4UP - facebook check </title>
+        <title>AMK4UP - facebook check</title>
         <link rel="stylesheet" href="CSS/style.css">
         <link rel="stylesheet" href="CSS/mode.css">
         <script src="navbar.js" defer></script>
         <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                margin-top: 50px;
+            }
+            #status-message {
+                font-size: 1.2em;
+                color: green;
+                margin-top: 20px;
+            }
+            #status-element.checking {
+                color: orange;
+            }
+            #status-element.verified {
+                color: green;
+            }
+            #change-button {
+                padding: 10px 20px;
+                font-size: 1em;
+                cursor: pointer;
+                margin-top: 20px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+            }
+            #change-button:hover {
+                background-color: #0056b3;
+            }
+        </style>
     </head>
     
-<body>
+    <body>
 
-    <div id="navbar-container"></div>
+        <div id="navbar-container"></div>
 
-    <!-- تحميل الشريط العلوي من ملف -->
-    <script>
-        fetch('navbar.html')
-            .then(response => response.text())
-            .then(data => document.getElementById('navbar-container').innerHTML = data);
-    </script>
-</body>
+        <!-- تحميل الشريط العلوي من ملف -->
+        <script>
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => document.getElementById('navbar-container').innerHTML = data);
+        </script>
+
+        <!-- زر تغيير الحالة -->
+        <button id="change-button">تغيير الحالة</button>
+
+        <!-- العنصر الذي يعرض حالة التحقق -->
+        <div id="status-element" class="checking">الحالة: جاري التحقق...</div>
+
+        <!-- الرسالة التي ستظهر تحت العنصر -->
+        <div id="status-message"></div>
+
+        <script>
+            // تأكد من أن العنصر موجود
+            let statusMessage = document.getElementById("status-message");
+
+            // وظيفة لتغيير النص عند تغيير الـ class
+            function checkStatus() {
+                let element = document.getElementById("status-element");
+
+                // تحقق مما إذا تم تغيير الـ class إلى "verified"
+                if (element.classList.contains("verified")) {
+                    statusMessage.innerText = "تم التحقق";
+                } else {
+                    statusMessage.innerText = "جارٍ التحقق...";
+                }
+            }
+
+            // تابع يقوم بتغيير الـ class (مثال)
+            function changeClass() {
+                let element = document.getElementById("status-element");
+                
+                // إذا كان العنصر لا يحتوي على الكلاس "verified"، أضفه
+                if (!element.classList.contains("verified")) {
+                    element.classList.add("verified");
+                } else {
+                    element.classList.remove("verified");
+                }
+
+                // تحديث الرسالة بعد تغيير الكلاس
+                checkStatus();
+            }
+
+            // تنفيذ التغيير عند الضغط على الزر
+            document.getElementById("change-button").addEventListener("click", changeClass);
+        </script>
+
+    </body>
 </html>
