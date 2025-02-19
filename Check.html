@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>التحقق من الكود</title>
+    <title>التحقق من الكود باستخدام Google Sheets</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; direction: rtl; }
         input, button { padding: 10px; margin: 10px; font-size: 18px; }
@@ -17,9 +17,7 @@
     <p id="result"></p>
 
     <script>
-        const BIN_ID = "67b5c688ad19ca34f809a660"; // الـ BIN ID الخاص بك
-        const API_KEY = "67b5c6611ea5ae6cf02909f8"; // استبدل بـ API Key الخاص بك من JSONBin
-        const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+        const API_URL = "https://script.google.com/macros/s/AKfycbxaxWtAbyc8McWKghIQrnkEZyPkCawvQV6fMVDcUROo3UMR_K-L1b8g_b3NPunp8PAdkA/exec";
 
         async function checkCode() {
             let userCode = document.getElementById("userCode").value.trim();
@@ -32,46 +30,23 @@
             }
 
             try {
-                // جلب الأكواد من JSONBin
-                let response = await fetch(BIN_URL, {
-                    headers: { "X-Master-Key": API_KEY }
-                });
-
+                let response = await fetch(`${API_URL}?code=${userCode}`);
                 let data = await response.json();
-                let codes = data.record.codes;
 
-                let codeEntry = codes.find(entry => entry.code === userCode);
-
-                if (!codeEntry) {
+                if (data.valid) {
+                    if (data.used === true) {
+                        resultText.innerHTML = "⚠️ الكود تم استخدامه مسبقًا!";
+                        resultText.style.color = "orange";
+                    } else {
+                        resultText.innerHTML = "✅ الكود صالح!";
+                        resultText.style.color = "green";
+                    }
+                } else {
                     resultText.innerHTML = "❌ الكود غير صحيح!";
                     resultText.style.color = "red";
-                } else if (codeEntry.used) {
-                    resultText.innerHTML = "⚠️ الكود تم استخدامه مسبقًا!";
-                    resultText.style.color = "orange";
-                } else {
-                    resultText.innerHTML = "✅ الكود صالح!";
-                    resultText.style.color = "green";
-
-                    // تحديث الكود ليصبح مستخدمًا
-                    codeEntry.used = true;
-
-                    // إرسال التحديث إلى JSONBin
-                    await fetch(BIN_URL, {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-Master-Key": API_KEY
-                        },
-                        body: JSON.stringify({ codes })
-                    });
-
-                    // توجيه المستخدم إلى صفحة نجاح
-                    setTimeout(() => {
-                        window.location.href = "success.html";
-                    }, 2000);
                 }
             } catch (error) {
-                resultText.innerHTML = "❌ حدث خطأ في الاتصال بالخادم!";
+                resultText.innerHTML = "❌ خطأ في الاتصال بالخادم!";
                 resultText.style.color = "red";
             }
         }
