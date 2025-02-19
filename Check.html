@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>التحقق من الكود باستخدام Firebase</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.1.4/fingerprint2.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.1.4/fingerprint2.min.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; direction: rtl; }
         input, button { padding: 10px; margin: 10px; font-size: 18px; }
@@ -35,20 +35,15 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // 🔹 إنشاء معرف الجهاز
-        function getDeviceId() {
-            let deviceId = localStorage.getItem("deviceId");
-            if (!deviceId) {
-                deviceId = "device-" + Math.random().toString(36).substr(2, 9);
-                localStorage.setItem("deviceId", deviceId);
-            }
-            return deviceId;
-        }
+        // 🔹 توليد معرف الجهاز باستخدام FingerprintJS
+        let deviceId = "unknown";
+        Fingerprint2.get((components) => {
+            deviceId = Fingerprint2.x64hash128(components.map(pair => pair.value).join(''), 31);
+        });
 
         async function checkCode() {
             let userCode = document.getElementById("userCode").value.trim();
             let resultText = document.getElementById("result");
-            let deviceId = getDeviceId();
 
             if (!userCode) {
                 resultText.innerHTML = "⚠️ الرجاء إدخال كود!";
