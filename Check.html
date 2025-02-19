@@ -62,24 +62,26 @@
 
         // 🔹 التأكد من `deviceId` قبل السماح بالتحقق
         async function initializeDevice() {
-            userIP = await getUserIP();
-            deviceId = await generateDeviceId();
+    userIP = await getUserIP();
+    userIP = userIP.replace(/\./g, "_"); // 🔹 استبدال النقاط (_) لتجنب خطأ Firebase
+    deviceId = await generateDeviceId();
 
-            let ipRef = db.ref("devices/" + userIP);
-            ipRef.get().then((snapshot) => {
-                if (snapshot.exists()) {
-                    deviceId = snapshot.val().deviceId; // استخدم `deviceId` المحفوظ لهذا IP
-                    console.log("✅ معرف الجهاز مسترجع من Firebase:", deviceId);
-                } else {
-                    // حفظ معرف الجهاز الجديد مع IP في Firebase
-                    ipRef.set({ deviceId: deviceId });
-                    console.log("🆕 معرف جهاز جديد مسجل:", deviceId);
-                }
-
-                document.getElementById("checkButton").disabled = false;
-                document.getElementById("result").innerText = "تم التعرف على الجهاز، أدخل الكود!";
-            });
+    let ipRef = db.ref("devices/" + userIP);
+    ipRef.get().then((snapshot) => {
+        if (snapshot.exists()) {
+            deviceId = snapshot.val().deviceId; // استخدم `deviceId` المحفوظ لهذا IP
+            console.log("✅ معرف الجهاز مسترجع من Firebase:", deviceId);
+        } else {
+            // حفظ معرف الجهاز الجديد مع IP في Firebase
+            ipRef.set({ deviceId: deviceId });
+            console.log("🆕 معرف جهاز جديد مسجل:", deviceId);
         }
+
+        document.getElementById("checkButton").disabled = false;
+        document.getElementById("result").innerText = "تم التعرف على الجهاز، أدخل الكود!";
+    });
+}
+
 
         initializeDevice(); // تشغيل التحقق من الجهاز عند تحميل الصفحة
 
