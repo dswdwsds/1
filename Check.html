@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>التحقق من الكود باستخدام Firebase</title>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; direction: rtl; }
         input, button { padding: 10px; margin: 10px; font-size: 18px; }
@@ -19,7 +19,7 @@
     <p id="result"></p>
 
     <script>
-        // 🔹 إعداد Firebase
+        // 🔹 إعداد Firebase (استخدم القيم الصحيحة من Firebase Console)
         const firebaseConfig = {
             apiKey: "AIzaSyAQpXUUOLyN2B6IWGb5Ru2Dl8NZPNimTEg",
             authDomain: "wep1-25124.firebaseapp.com",
@@ -31,7 +31,7 @@
         };
 
         // 🔹 تهيئة Firebase
-        const app = firebase.initializeApp(firebaseConfig);
+        firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
         async function checkCode() {
