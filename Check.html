@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>التحقق من الكود باستخدام Google Sheets</title>
+    <title>التحقق من الكود باستخدام Firebase</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; direction: rtl; }
         input, button { padding: 10px; margin: 10px; font-size: 18px; }
@@ -17,7 +19,20 @@
     <p id="result"></p>
 
     <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbxaxWtAbyc8McWKghIQrnkEZyPkCawvQV6fMVDcUROo3UMR_K-L1b8g_b3NPunp8PAdkA/exec";
+        // 🔹 إعداد Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAQpXUUOLyN2B6IWGb5Ru2Dl8NZPNimTEg",
+            authDomain: "wep1-25124.firebaseapp.com",
+            databaseURL: "https://wep1-25124-default-rtdb.firebaseio.com/",
+            projectId: "wep1-25124",
+            storageBucket: "wep1-25124.appspot.com",
+            messagingSenderId: "400763524699",
+            appId: "YOUR_APP_ID" // استبدله بـ App ID من Firebase
+        };
+
+        // 🔹 تهيئة Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
         async function checkCode() {
             let userCode = document.getElementById("userCode").value.trim();
@@ -29,26 +44,28 @@
                 return;
             }
 
-            try {
-                let response = await fetch(`${API_URL}?code=${userCode}`);
-                let data = await response.json();
-
-                if (data.valid) {
-                    if (data.used === true) {
+            let ref = db.ref("codes/" + userCode);
+            ref.get().then((snapshot) => {
+                if (snapshot.exists()) {
+                    let data = snapshot.val();
+                    if (data.used) {
                         resultText.innerHTML = "⚠️ الكود تم استخدامه مسبقًا!";
                         resultText.style.color = "orange";
                     } else {
                         resultText.innerHTML = "✅ الكود صالح!";
                         resultText.style.color = "green";
+
+                        // تحديث الكود ليصبح مستخدمًا
+                        ref.update({ used: true });
                     }
                 } else {
                     resultText.innerHTML = "❌ الكود غير صحيح!";
                     resultText.style.color = "red";
                 }
-            } catch (error) {
-                resultText.innerHTML = "❌ خطأ في الاتصال بالخادم!";
+            }).catch(error => {
+                resultText.innerHTML = `❌ خطأ في الاتصال! (${error.message})`;
                 resultText.style.color = "red";
-            }
+            });
         }
     </script>
 </body>
