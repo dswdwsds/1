@@ -34,9 +34,20 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
+        // 🔹 إنشاء معرف الجهاز
+        function getDeviceId() {
+            let deviceId = localStorage.getItem("deviceId");
+            if (!deviceId) {
+                deviceId = "device-" + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem("deviceId", deviceId);
+            }
+            return deviceId;
+        }
+
         async function checkCode() {
             let userCode = document.getElementById("userCode").value.trim();
             let resultText = document.getElementById("result");
+            let deviceId = getDeviceId();
 
             if (!userCode) {
                 resultText.innerHTML = "⚠️ الرجاء إدخال كود!";
@@ -44,19 +55,19 @@
                 return;
             }
 
-            let ref = db.ref(userCode); // 🔹 تعديل المسار ليكون مباشرًا إلى الكود
+            let ref = db.ref(userCode);
             ref.get().then((snapshot) => {
                 if (snapshot.exists()) {
                     let data = snapshot.val();
-                    if (data.used) {
-                        resultText.innerHTML = "⚠️ الكود تم استخدامه مسبقًا!";
-                        resultText.style.color = "orange";
+                    if (data.used && data.deviceId !== deviceId) {
+                        resultText.innerHTML = "❌ الكود مستخدم بالفعل من جهاز آخر!";
+                        resultText.style.color = "red";
                     } else {
                         resultText.innerHTML = "✅ الكود صالح!";
                         resultText.style.color = "green";
 
-                        // تحديث الكود ليصبح مستخدمًا
-                        ref.update({ used: true });
+                        // تحديث الكود ليصبح مستخدمًا وتسجيل معرف الجهاز
+                        ref.update({ used: true, deviceId: deviceId });
                     }
                 } else {
                     resultText.innerHTML = "❌ الكود غير صحيح!";
