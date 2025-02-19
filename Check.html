@@ -35,9 +35,22 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // 🔹 توليد معرف الجهاز باستخدام FingerprintJS
         let deviceId = "unknown";
+        let userIP = "unknown";
 
+        // 🔹 الحصول على IP الجهاز
+        async function getUserIP() {
+            try {
+                let response = await fetch("https://api64.ipify.org?format=json");
+                let data = await response.json();
+                return data.ip;
+            } catch (error) {
+                console.error("❌ خطأ في جلب IP:", error);
+                return "unknown";
+            }
+        }
+
+        // 🔹 توليد معرف الجهاز باستخدام FingerprintJS
         function generateDeviceId() {
             return new Promise((resolve) => {
                 Fingerprint2.get((components) => {
@@ -47,12 +60,28 @@
             });
         }
 
-        // 🔹 الحصول على معرف الجهاز قبل السماح بالتحقق
-        generateDeviceId().then(id => {
-            deviceId = id;
-            document.getElementById("checkButton").disabled = false;
-            document.getElementById("result").innerText = "تم التعرف على الجهاز، أدخل الكود!";
-        });
+        // 🔹 التأكد من `deviceId` قبل السماح بالتحقق
+        async function initializeDevice() {
+            userIP = await getUserIP();
+            deviceId = await generateDeviceId();
+
+            let ipRef = db.ref("devices/" + userIP);
+            ipRef.get().then((snapshot) => {
+                if (snapshot.exists()) {
+                    deviceId = snapshot.val().deviceId; // استخدم `deviceId` المحفوظ لهذا IP
+                    console.log("✅ معرف الجهاز مسترجع من Firebase:", deviceId);
+                } else {
+                    // حفظ معرف الجهاز الجديد مع IP في Firebase
+                    ipRef.set({ deviceId: deviceId });
+                    console.log("🆕 معرف جهاز جديد مسجل:", deviceId);
+                }
+
+                document.getElementById("checkButton").disabled = false;
+                document.getElementById("result").innerText = "تم التعرف على الجهاز، أدخل الكود!";
+            });
+        }
+
+        initializeDevice(); // تشغيل التحقق من الجهاز عند تحميل الصفحة
 
         async function checkCode() {
             let userCode = document.getElementById("userCode").value.trim();
