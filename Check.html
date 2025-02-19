@@ -16,8 +16,8 @@
 <body>
     <h2>الرجاء إدخال الكود:</h2>
     <input type="text" id="userCode" placeholder="أدخل الكود هنا">
-    <button onclick="checkCode()">تحقق</button>
-    <p id="result"></p>
+    <button id="checkButton" disabled onclick="checkCode()">تحقق</button>
+    <p id="result">جاري التعرف على الجهاز...</p>
 
     <script>
         // 🔹 إعداد Firebase
@@ -37,8 +37,21 @@
 
         // 🔹 توليد معرف الجهاز باستخدام FingerprintJS
         let deviceId = "unknown";
-        Fingerprint2.get((components) => {
-            deviceId = Fingerprint2.x64hash128(components.map(pair => pair.value).join(''), 31);
+
+        function generateDeviceId() {
+            return new Promise((resolve) => {
+                Fingerprint2.get((components) => {
+                    let fingerprint = Fingerprint2.x64hash128(components.map(pair => pair.value).join(''), 31);
+                    resolve(fingerprint);
+                });
+            });
+        }
+
+        // 🔹 الحصول على معرف الجهاز قبل السماح بالتحقق
+        generateDeviceId().then(id => {
+            deviceId = id;
+            document.getElementById("checkButton").disabled = false;
+            document.getElementById("result").innerText = "تم التعرف على الجهاز، أدخل الكود!";
         });
 
         async function checkCode() {
