@@ -19,7 +19,7 @@
     <p id="result"></p>
 
     <script>
-        // 🔹 إعداد Firebase (استخدم القيم الصحيحة من Firebase Console)
+        // 🔹 إعداد Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyAQpXUUOLyN2B6IWGb5Ru2Dl8NZPNimTEg",
             authDomain: "wep1-25124.firebaseapp.com",
@@ -27,7 +27,7 @@
             projectId: "wep1-25124",
             storageBucket: "wep1-25124.appspot.com",
             messagingSenderId: "400763524699",
-            appId: "1:400763524699:web:b3d5b77815de059ad9117e" // استبدله بـ App ID من Firebase
+            appId: "1:400763524699:web:b3d5b77815de059ad9117e"
         };
 
         // 🔹 تهيئة Firebase
@@ -44,7 +44,7 @@
                 return;
             }
 
-            let ref = db.ref("codes/" + userCode);
+            let ref = db.ref(userCode); // 🔹 تعديل المسار ليكون مباشرًا إلى الكود
             ref.get().then((snapshot) => {
                 if (snapshot.exists()) {
                     let data = snapshot.val();
