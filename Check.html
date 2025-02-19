@@ -35,15 +35,15 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        let deviceId = "unknown";
+        let deviceId = localStorage.getItem("deviceId") || "unknown";
         let userIP = "unknown";
 
-        // 🔹 الحصول على IP الجهاز
+        // 🔹 الحصول على IP الجهاز واستبدال النقاط (_) لتجنب مشاكل Firebase
         async function getUserIP() {
             try {
                 let response = await fetch("https://api64.ipify.org?format=json");
                 let data = await response.json();
-                return data.ip;
+                return data.ip.replace(/\./g, "_"); // 🔹 استبدال النقاط (_) لتجنب خطأ Firebase
             } catch (error) {
                 console.error("❌ خطأ في جلب IP:", error);
                 return "unknown";
@@ -62,26 +62,35 @@
 
         // 🔹 التأكد من `deviceId` قبل السماح بالتحقق
         async function initializeDevice() {
-    userIP = await getUserIP();
-    userIP = userIP.replace(/\./g, "_"); // 🔹 استبدال النقاط (_) لتجنب خطأ Firebase
-    deviceId = await generateDeviceId();
+            userIP = await getUserIP();
 
-    let ipRef = db.ref("devices/" + userIP);
-    ipRef.get().then((snapshot) => {
-        if (snapshot.exists()) {
-            deviceId = snapshot.val().deviceId; // استخدم `deviceId` المحفوظ لهذا IP
-            console.log("✅ معرف الجهاز مسترجع من Firebase:", deviceId);
-        } else {
-            // حفظ معرف الجهاز الجديد مع IP في Firebase
-            ipRef.set({ deviceId: deviceId });
-            console.log("🆕 معرف جهاز جديد مسجل:", deviceId);
+            // إذا كان `deviceId` مخزنًا في LocalStorage، استخدمه فورًا
+            if (deviceId !== "unknown") {
+                console.log("✅ تم استرجاع معرف الجهاز من LocalStorage:", deviceId);
+                document.getElementById("checkButton").disabled = false;
+                document.getElementById("result").innerText = "تم التعرف على الجهاز، أدخل الكود!";
+                return;
+            }
+
+            // إذا لم يكن `deviceId` مخزنًا، ابحث عنه في Firebase باستخدام IP
+            let ipRef = db.ref("devices/" + userIP);
+            ipRef.get().then(async (snapshot) => {
+                if (snapshot.exists()) {
+                    deviceId = snapshot.val().deviceId; // 🔹 استخدم `deviceId` المحفوظ لهذا IP
+                    console.log("✅ معرف الجهاز مسترجع من Firebase:", deviceId);
+                } else {
+                    // 🔹 إذا لم يكن هناك `deviceId` مخزن، أنشئ واحدًا جديدًا واحفظه
+                    deviceId = await generateDeviceId();
+                    ipRef.set({ deviceId: deviceId });
+                    console.log("🆕 معرف جهاز جديد مسجل:", deviceId);
+                }
+
+                // 🔹 تخزين `deviceId` في LocalStorage ليبقى ثابتًا
+                localStorage.setItem("deviceId", deviceId);
+                document.getElementById("checkButton").disabled = false;
+                document.getElementById("result").innerText = "تم التعرف على الجهاز، أدخل الكود!";
+            });
         }
-
-        document.getElementById("checkButton").disabled = false;
-        document.getElementById("result").innerText = "تم التعرف على الجهاز، أدخل الكود!";
-    });
-}
-
 
         initializeDevice(); // تشغيل التحقق من الجهاز عند تحميل الصفحة
 
@@ -106,7 +115,7 @@
                         resultText.innerHTML = "✅ الكود صالح!";
                         resultText.style.color = "green";
 
-                        // تحديث الكود ليصبح مستخدمًا وتسجيل معرف الجهاز
+                        // 🔹 تحديث الكود ليصبح مستخدمًا وتسجيل معرف الجهاز
                         ref.update({ used: true, deviceId: deviceId });
                     }
                 } else {
