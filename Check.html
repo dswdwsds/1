@@ -1,81 +1,80 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="facebook check">
-        <meta name="facebook-check">
-        <title>AMK4UP - facebook check</title>
-        <link rel="stylesheet" href="CSS/style.css">
-        <link rel="stylesheet" href="CSS/mode.css">
-        <script src="navbar.js" defer></script>
-        <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon">
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                text-align: center;
-                margin-top: 100px;
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التحقق من الكود</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; direction: rtl; }
+        input, button { padding: 10px; margin: 10px; font-size: 18px; }
+        button { cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>الرجاء إدخال الكود:</h2>
+    <input type="text" id="userCode" placeholder="أدخل الكود هنا">
+    <button onclick="checkCode()">تحقق</button>
+    <p id="result"></p>
+
+    <script>
+        const BIN_ID = "67b5c688ad19ca34f809a660"; // الـ BIN ID الخاص بك
+        const API_KEY = "YOUR_API_KEY"; // استبدل بـ API Key الخاص بك من JSONBin
+        const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
+        async function checkCode() {
+            let userCode = document.getElementById("userCode").value.trim();
+            let resultText = document.getElementById("result");
+
+            if (!userCode) {
+                resultText.innerHTML = "⚠️ الرجاء إدخال كود!";
+                resultText.style.color = "orange";
+                return;
             }
-            #status-message {
-                font-size: 1.2em;
-                color: green;
-                margin-top: 20px;
-            }
-            #status-element.checking {
-                color: orange;
-                margin-top: 20px;
-            }
-            #status-element.verified {
-                color: green;
-                margin-top: 20px;
-            }
-        </style>
-    </head>
-    
-    <body>
 
-        <div id="navbar-container"></div>
+            try {
+                // جلب الأكواد من JSONBin
+                let response = await fetch(BIN_URL, {
+                    headers: { "X-Master-Key": API_KEY }
+                });
 
-        <!-- تحميل الشريط العلوي من ملف -->
-        <script>
-            fetch('navbar.html')
-                .then(response => response.text())
-                .then(data => document.getElementById('navbar-container').innerHTML = data);
-        </script>
+                let data = await response.json();
+                let codes = data.record.codes;
 
-        <!-- العنصر الذي يعرض حالة التحقق -->
-        <div id="status-element" class="checking1"> الحالة: متوقف</div>
+                let codeEntry = codes.find(entry => entry.code === userCode);
 
-        <!-- الرسالة التي ستظهر تحت العنصر -->
-        <div id="status-message"></div>
-
-        <script>
-            // تأكد من أن العنصر موجود
-            let statusMessage = document.getElementById("status-message");
-
-            // وظيفة لتغيير النص عند تغيير الـ class
-            function checkStatus() {
-                let element = document.getElementById("status-element");
-
-                // تحقق مما إذا تم تغيير الـ class إلى "verified"
-                if (element.classList.contains("verified")) {
-                    statusMessage.innerText = "تم التحقق";
+                if (!codeEntry) {
+                    resultText.innerHTML = "❌ الكود غير صحيح!";
+                    resultText.style.color = "red";
+                } else if (codeEntry.used) {
+                    resultText.innerHTML = "⚠️ الكود تم استخدامه مسبقًا!";
+                    resultText.style.color = "orange";
                 } else {
-                    statusMessage.innerText = "جارٍ التحقق...";
+                    resultText.innerHTML = "✅ الكود صالح!";
+                    resultText.style.color = "green";
+
+                    // تحديث الكود ليصبح مستخدمًا
+                    codeEntry.used = true;
+
+                    // إرسال التحديث إلى JSONBin
+                    await fetch(BIN_URL, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-Master-Key": API_KEY
+                        },
+                        body: JSON.stringify({ codes })
+                    });
+
+                    // توجيه المستخدم إلى صفحة نجاح
+                    setTimeout(() => {
+                        window.location.href = "success.html";
+                    }, 2000);
                 }
+            } catch (error) {
+                resultText.innerHTML = "❌ حدث خطأ في الاتصال بالخادم!";
+                resultText.style.color = "red";
             }
-
-            // مراقب التغييرات في الـ class
-            const observer = new MutationObserver(() => {
-                checkStatus();  // التحقق من الحالة عند تغيير الـ class
-            });
-
-            // إعداد المراقب لمراقبة التغييرات في class
-            const config = { attributes: true, attributeFilter: ['class'] };
-            const targetNode = document.getElementById("status-element");
-            observer.observe(targetNode, config);
-
-        </script>
-
-    </body>
+        }
+    </script>
+</body>
 </html>
