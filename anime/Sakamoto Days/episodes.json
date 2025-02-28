@@ -1,0 +1,337 @@
+[
+    {
+        "number": 1,
+        "title": "الحلقة 1",
+        "link": "../episodes/المشاهده.html?episode=1",
+        "image": "../../../images/Sakamoto Days.WebP",
+        "servers": [
+            { "serverName": "سيرفرات متعددة", "url": "https://megamax.me/iframe/9l0fqqMwxoG5X" },
+            { "serverName": "vidmoly", "url": "https://vidmoly.to/embed-v1g61tdr01dh.html" },
+            { "serverName": "uqload-3", "url": "https://uqload.net/embed-qqzd0odtbvqs.html" }
+        ]
+    },
+    {
+        "number": 2,
+        "title": "الحلقة 2",
+        "link": "../episodes/المشاهده.html?episode=2",
+        "image": "../../../images/Medalist.WebP",
+        "servers": [
+            { "serverName": "سيرفرات متعددة", "url": "https://megamax.me/iframe/WeIv6hvz4ZxiH" },
+            { "serverName": "vidmoly", "url": "https://vidmoly.to/embed-3qrpfay4xhfv.html" },
+            { "serverName": "uqload-3", "url": "https://uqload.net/embed-to31vp2ybh2n.html" }
+        ]
+    },
+    
+        {
+            "number": 3,
+            "title": "الحلقة 3",
+            "link": "../episodes/المشاهده.html?episode=3",
+            "image": "../../../images/Medalist.WebP",
+            "servers": [
+                {
+                    "serverName": "سيرفرات متعددة (HD)",
+                    "url": "https://megamax.me/iframe/DrWmkAp3fI6A6"
+                },
+                {
+                    "serverName": "uqload (HD)",
+                    "url": "https://uqload.net/embed-u7jxt6g5p4c5.html"
+                },
+                {
+                    "serverName": "ok.ru (HD)",
+                    "url": "https://www.ok.ru/videoembed/8732932377306"
+                },
+                {
+                    "serverName": "vidmoly (HD)",
+                    "url": "//vidmoly.to/embed-oqqwutki022m.html"
+                },
+                {
+                    "serverName": "Mega (HD)",
+                    "url": "https://mega.nz/embed/YeVXRYhI!uLBsiMhvIZ4dcoURCGK2aaxqgvIEO9a-pbjPFW9obi4"
+                },
+                {
+                    "serverName": "Mp4upload (HD)",
+                    "url": "https://www.mp4upload.com/embed-gq5sb9x7vcnb.html"
+                },
+                {
+                    "serverName": "Sendvid (HD)",
+                    "url": "https://sendvid.com/embed/oq7v8909"
+                },
+                {
+                    "serverName": "ok.ru (FHD)",
+                    "url": "https://www.ok.ru/videoembed/8732922809050"
+                },
+                {
+                    "serverName": "Mega (FHD)",
+                    "url": "https://mega.nz/embed/fRAlFA4C!I2TU5md_81BsuOkJGCy8nI___HDP1GojumP9B0HbIcU"
+                },
+                {
+                    "serverName": "Mp4upload (FHD)",
+                    "url": "https://www.mp4upload.com/embed-sui9rzgqzeiy.html"
+                },
+                {
+                    "serverName": "ok.ru (SD)",
+                    "url": "https://www.ok.ru/videoembed/8732936833754"
+                },
+                {
+                    "serverName": "Mega (SD)",
+                    "url": "https://mega.nz/embed/ICFxCIIb!1OcXxyfMEXloVWMRVKJ_cSSr0nFg1nuptZxHRacBmwk"
+                },
+                {
+                    "serverName": "Mp4upload (SD)",
+                    "url": "https://www.mp4upload.com/embed-gny16jmpu6g5.html"
+                }
+            ]
+        },
+        {
+            "number": 4,
+            "title": "الحلقة 4",
+            "link": "../episodes/المشاهده.html?episode=4",
+            "image": "../../../images/Medalist.WebP",
+            "servers": [
+                {
+                    "serverName": "سيرفرات متعددة (HD)",
+                    "url": "https://megamax.me/iframe/cCyNGTqouMCCM"
+                },
+                {
+                    "serverName": "uqload (HD)",
+                    "url": "https://uqload.net/embed-3olaww74linm.html"
+                },
+                {
+                    "serverName": "ok.ru (HD)",
+                    "url": "https://www.ok.ru/videoembed/8756116261594"
+                },
+                {
+                    "serverName": "vidmoly (HD)",
+                    "url": "//vidmoly.to/embed-jw3xhuiujbkr.html"
+                },
+                {
+                    "serverName": "Mega (HD)",
+                    "url": "https://mega.nz/embed/ZCd1TBRT!XnBNdJwC4ZDVfMQr7rP9fr--IcKfNsIkz0k-j_y1vKs"
+                },
+                {
+                    "serverName": "Mp4upload (HD)",
+                    "url": "https://www.mp4upload.com/embed-c1i8zygqnz9m.html"
+                },
+                {
+                    "serverName": "Sendvid (HD)",
+                    "url": "https://sendvid.com/embed/mcn3ppy4"
+                },
+                {
+                    "serverName": "ok.ru (FHD)",
+                    "url": "https://www.ok.ru/videoembed/8756096928474"
+                },
+                {
+                    "serverName": "Mp4upload (FHD)",
+                    "url": "https://www.mp4upload.com/embed-1y056w23vdim.html"
+                },
+                {
+                    "serverName": "ok.ru (SD)",
+                    "url": "https://www.ok.ru/videoembed/8756142410458"
+                },
+                {
+                    "serverName": "Mega (SD)",
+                    "url": "https://mega.nz/embed/1PUSnZCa!0d5wssBVSOSD2yCbDQcFzQG5BV8MkBR1l0MlZvb9sM0"
+                },
+                {
+                    "serverName": "Mp4upload (SD)",
+                    "url": "https://www.mp4upload.com/embed-eu9b9bj79xgt.html"
+                }
+            ]
+        },
+        {
+            "number": 5,
+            "title": "الحلقة 5",
+            "link": "../episodes/المشاهده.html?episode=5",
+            "image": "../../../images/Medalist.WebP",
+            "servers": [
+                {
+                    "serverName": "سيرفرات متعددة (HD)",
+                    "url": "https://megamax.me/iframe/XMK5QINAm4DEA"
+                },
+                {
+                    "serverName": "uqload (HD)",
+                    "url": "https://uqload.net/embed-bf8fr3jb7nur.html"
+                },
+                {
+                    "serverName": "ok.ru (HD)",
+                    "url": "https://www.ok.ru/videoembed/8780919278298"
+                },
+                {
+                    "serverName": "vidmoly (HD)",
+                    "url": "//vidmoly.to/embed-ji6kkpt2sfel.html"
+                },
+                {
+                    "serverName": "voe.sx (HD)",
+                    "url": "https://voe.sx/e/6b7kkifiodiv"
+                },
+                {
+                    "serverName": "Mega (HD)",
+                    "url": "https://mega.nz/embed/qbgQCDZC!9iZX5Pxq7bTZptdqFOzb8nIMIMV_VQaf0srDHqegh-A"
+                },
+                {
+                    "serverName": "DoodStream (HD)",
+                    "url": "https://d000d.com/e/rxzt46dfrf36"
+                },
+                {
+                    "serverName": "Mp4upload (HD)",
+                    "url": "https://www.mp4upload.com/embed-2yss8nw5vi50.html"
+                },
+                {
+                    "serverName": "Sendvid (HD)",
+                    "url": "https://sendvid.com/embed/z98vbrei"
+                },
+                {
+                    "serverName": "ok.ru (FHD)",
+                    "url": "https://www.ok.ru/videoembed/8780916132570"
+                },
+                {
+                    "serverName": "Mega (FHD)",
+                    "url": "https://mega.nz/embed/2T5VHbZQ!eqLpVzhp9cRWNmRBMdomYSbLqRHU6Am1yDeb477ACuo"
+                },
+                {
+                    "serverName": "Mp4upload (FHD)",
+                    "url": "https://www.mp4upload.com/embed-fpi402jatxrt.html"
+                },
+                {
+                    "serverName": "ok.ru (SD)",
+                    "url": "https://www.ok.ru/videoembed/8780925045466"
+                },
+                {
+                    "serverName": "Mega (SD)",
+                    "url": "https://mega.nz/embed/PCpDyD6R!GTnsVRZaDHeRvKkQtOmw81S4pHbiBZUKDFDvjLgfTOM"
+                },
+                {
+                    "serverName": "Mp4upload (SD)",
+                    "url": "https://www.mp4upload.com/embed-k4c6g1sntnyg.html"
+                }
+            ]
+        },
+        {
+            "number": 6,
+            "title": "الحلقة 6",
+            "link": "../episodes/المشاهده.html?episode=6",
+            "image": "../../../images/Medalist.WebP",
+            "servers": [
+                {
+                    "serverName": "سيرفرات متعددة (HD)",
+                    "url": "https://megamax.me/iframe/kwZitvcgjcTlc"
+                },
+                {
+                    "serverName": "uqload (HD)",
+                    "url": "https://uqload.net/embed-smqizmz5n3a2.html"
+                },
+                {
+                    "serverName": "ok.ru (HD)",
+                    "url": "https://www.ok.ru/videoembed/8806849579738"
+                },
+                {
+                    "serverName": "vidmoly (HD)",
+                    "url": "//vidmoly.to/embed-kx2xomv7g0xy.html"
+                },
+                {
+                    "serverName": "voe.sx (HD)",
+                    "url": "https://voe.sx/e/1rl64lh3ylnk"
+                },
+                {
+                    "serverName": "Mega (HD)",
+                    "url": "https://mega.nz/embed/TFRW0QQA!4buWqQXza6wAjbDnoJ1USk2VSiig3-7h3vCMtFDiQOc"
+                },
+                {
+                    "serverName": "Mp4upload (HD)",
+                    "url": "https://www.mp4upload.com/embed-7a0szq97irxi.html"
+                },
+                {
+                    "serverName": "Sendvid (HD)",
+                    "url": "https://sendvid.com/embed/b8oe8jho"
+                },
+                {
+                    "serverName": "ok.ru (FHD)",
+                    "url": "https://www.ok.ru/videoembed/8806839421658"
+                },
+                {
+                    "serverName": "Mega (FHD)",
+                    "url": "https://mega.nz/embed/rAxyVbwA!xD6E0A3UzSYxtluf3WC4g2jZFlKEW_CaOew9GT_hI2A"
+                },
+                {
+                    "serverName": "Mp4upload (FHD)",
+                    "url": "https://www.mp4upload.com/embed-xt9ok5tcceo6.html"
+                },
+                {
+                    "serverName": "ok.ru (SD)",
+                    "url": "https://www.ok.ru/videoembed/8806854232794"
+                },
+                {
+                    "serverName": "Mega (SD)",
+                    "url": "https://mega.nz/embed/nBwVRS5Z!8L5Zr5RzBL0s1kG39RuZLcHWZjQWlkUs3ldmXb4QBiE"
+                },
+                {
+                    "serverName": "Mp4upload (SD)",
+                    "url": "https://www.mp4upload.com/embed-yfyzatewzu7f.html"
+                }
+            ]
+        },
+        {
+            "number": 7,
+            "title": "الحلقة 7",
+            "link": "../episodes/المشاهده.html?episode=7",
+            "image": "../../../images/Medalist.WebP",
+            "servers": [
+                {
+                    "serverName": "سيرفرات متعددة (HD)",
+                    "url": "https://megamax.me/iframe/VhRNLLf6DvQIE"
+                },
+                {
+                    "serverName": "uqload (HD)",
+                    "url": "https://uqload.net/embed-0rbldqf6v51b.html"
+                },
+                {
+                    "serverName": "ok.ru (HD)",
+                    "url": "https://www.ok.ru/videoembed/8839147817690"
+                },
+                {
+                    "serverName": "vidmoly (HD)",
+                    "url": "//vidmoly.to/embed-7l3l6isxahjm.html"
+                },
+                {
+                    "serverName": "voe.sx (HD)",
+                    "url": "https://voe.sx/e/gbehom6vkkul"
+                },
+                {
+                    "serverName": "Mega (HD)",
+                    "url": "https://mega.nz/embed/rJB2AQaY!TqxRKrYv75PQPFQlPYdtJUXOyJQSdARksksiTkQbu_U"
+                },
+                {
+                    "serverName": "Mp4upload (HD)",
+                    "url": "https://www.mp4upload.com/embed-zy21z4yqo8w0.html"
+                },
+                {
+                    "serverName": "Sendvid (HD)",
+                    "url": "https://sendvid.com/embed/r5fxyrvu"
+                },
+                {
+                    "serverName": "ok.ru (FHD)",
+                    "url": "https://www.ok.ru/videoembed/8839140805338"
+                },
+                {
+                    "serverName": "Mega (FHD)",
+                    "url": "https://mega.nz/embed/yV5QQBIS!AaitkGr3nqxvagGC-VHQL3C336IOe9bvszghp8n4tQA"
+                },
+                {
+                    "serverName": "Mp4upload (FHD)",
+                    "url": "https://www.mp4upload.com/embed-1twv8wrd32gj.html"
+                },
+                {
+                    "serverName": "ok.ru (SD)",
+                    "url": "https://www.ok.ru/videoembed/8839151487706"
+                },
+                {
+                    "serverName": "Mega (SD)",
+                    "url": "https://mega.nz/embed/ScoRTZjB!jiU3qWYbPVUkFcEj_lfXb1PcxmwQmVvdAfYZWPcULe0"
+                },
+                {
+                    "serverName": "Mp4upload (SD)",
+                    "url": "https://www.mp4upload.com/embed-pe6nvkmtu05d.html"
+                }
+            ]
+        }
+]
