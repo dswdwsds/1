@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ao no Miburo - تعريف الأنمي">
+    <title>Ao no Miburo - تعريف الأنمي</title>
+    <link rel="stylesheet" href="../../../CSS/Profile.css">
+    <link rel="stylesheet" href="../../../CSS/style.css">
+    <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon">
+</head>
+
+
+<body>
+    <div id="navbar-container"></div>
+    <div class="container">
+        <h1 class="anime-title">Ao no Miburo</h1>
+
+        <button id="saveButton" class="not-saved">اضافة للمفضل</button>
+        <script src="../../../navbar.js"></script> <!-- استدعاء الملف الموحد -->
+
+        <div class="content-wrapper">
+            <div class="anime-image">
+                <img src="../../../images/Ao no Miburo.WebP" alt="صورة أنمي Ao no Miburo">
+            </div>
+            <div class="anime-info">
+                <div class="info-item">
+                    <strong>التصنيف:</strong> <button class="icon-button1"><a href="../../../tag/wep/أكشن.html">أكشن</a></button>
+<button class="icon-button1"><a href="../../../tag/wep/تاريخي.html">تاريخي</a></button>
+<button class="icon-button1"><a href="../../../tag/wep/ساموراي.html">ساموراي</a></button>
+<button class="icon-button1"><a href="../../../tag/wep/شونين.html">شونين</a></button>
+                    
+                </div>
+
+                <div class="info-item">
+                    <strong>النوع:</strong> TV
+                </div>
+                <div class="info-item">
+
+                    <strong>حالة الأنمي:</strong> <button class='icon-button1'></button><a href='../../../tag/wep/مستمر.html'>مستمر</a></button>
+
+                  
+
+                </div>
+
+                <div class="info-item">
+
+                    <strong>عدد الحلقات:</strong> 14
+
+                </div>
+
+                <div class="info-item">
+
+                    <strong>مدة الحلقة:</strong> 24 دقيقة
+
+                </div>
+
+                <div class="info-item">
+
+                    <strong>الموسم:</strong> <button class='icon-button1'><a href='../../../navbar/الموسم/خريف 2024/خريف 2024.html'>خريف 2024</a></button>
+
+                   
+
+                </div>
+
+                <div class="info-item">
+
+                    <strong>المصدر:</strong> مانجا
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="story">
+
+            <h2>Story:</h2> <p>تدور أحداث القصة في عام 1863، حيث تغرب شمس الشوغونية، وتقف اليابان على أعتاب تغيير هائل، وتغرق شوارع العاصمة الوطنية في الدماء، حيث مهدت الاضطرابات السياسية والتوترات المتزايدة بين الرونين المتجولين عديمي السيادة والساموراي الحكوميين الطريق لأحد أكثر الأوقات اضطرابًا في تاريخ اليابان، واليتيم الشاب نيو ليس غريبًا على الحقائق القاسية في العالم، ومع ذلك لا يسعه إلا التمسك بشغفه المتقد بالعدالة ورغبته في تغيير العالم للأفضل</p>
+
+           
+
+        </div>
+
+        <div class="episodes-section">
+
+            <h2>حلقات الأنمي:</h2>
+
+            <div class="episodes-grid">
+
+                <!-- الحلقات سيتم إضافتها هنا بواسطة جافا سكربت -->
+
+            </div>
+
+            <script>
+
+                // تحميل الحلقات من ملف JSON
+
+                fetch('../episodes.json')  <!-- تأكد من المسار الصحيح للملف -->
+
+                    .then(response => response.json())
+
+                    .then(episodes => {
+
+                        const episodesGrid = document.querySelector('.episodes-grid');
+
+                        // إنشاء الحلقات ديناميكيًا
+
+                        episodes.forEach(episode => {
+                            const episodeItem = document.createElement('a');
+                            episodeItem.className = 'episode-item';
+                            episodeItem.href = episode.link;
+
+                            episodeItem.innerHTML = `
+                                <img src="${episode.image}" alt="الحلقة ${episode.number}">
+                                <div class="episode-number">الحلقة ${episode.number}</div>
+                            `;
+
+                            episodesGrid.appendChild(episodeItem);
+
+                        });
+
+                    })
+
+                    .catch(error => console.error('خطأ في تحميل الحلقات:', error));
+
+            </script>    
+
+        </div>
+
+    </div>
+
+         <!-- تحميل الشريط العلوي من ملف -->
+
+         <script>
+            fetch('../../../navbar.html')
+                .then(response => response.text())
+                .then(data => document.getElementById('navbar-container').innerHTML = data);
+
+        </script>
+
+</body>
+
+
+
+</html>
+
