@@ -5,9 +5,54 @@
         "link": "../episodes/المشاهده.html?episode=1",
         "image": "../../../images/Okinawa de Suki ni Natta Ko ga Hougen Sugite Tsurasugiru.WebP",
         "servers": [
-            { "serverName": "سيرفرات متعددة", "url": "https://megamax.me/iframe/9l0fqqMwxoG5X" },
-            { "serverName": "vidmoly", "url": "https://vidmoly.to/embed-v1g61tdr01dh.html" },
-            { "serverName": "uqload-3", "url": "https://uqload.net/embed-qqzd0odtbvqs.html" }
+            {
+                "serverName": "سيرفرات متعددة (HD)",
+                "url": "https://megamax.me/iframe/5hGmKQwnLlpQ5"
+            },
+            {
+                "serverName": "uqload (HD)",
+                "url": "https://uqload.net/embed-b3g4d6qztm6x.html"
+            },
+            {
+                "serverName": "ok.ru (HD)",
+                "url": "https://www.ok.ru/videoembed/8676444343002"
+            },
+            {
+                "serverName": "vidmoly (HD)",
+                "url": "//vidmoly.to/embed-126rmshdug0m.html"
+            },
+            {
+                "serverName": "Mega (HD)",
+                "url": "https://mega.nz/embed/Uv0SyZbb!SiGVdUnMMm0nikWP6ARSTXcCDSSWv1--kt6hXoi60mI"
+            },
+            {
+                "serverName": "Mp4upload (HD)",
+                "url": "https://www.mp4upload.com/embed-kow61p8lsdky.html"
+            },
+            {
+                "serverName": "ok.ru (FHD)",
+                "url": "https://www.ok.ru/videoembed/8676429204186"
+            },
+            {
+                "serverName": "Mega (FHD)",
+                "url": "https://mega.nz/embed/RytgzTxb!VLqIckRMHlGrjoMpkw7EfB5tSBry9MlR6hpwzwcl0lQ"
+            },
+            {
+                "serverName": "Mp4upload (FHD)",
+                "url": "https://www.mp4upload.com/embed-uuzwe2e340f7.html"
+            },
+            {
+                "serverName": "ok.ru (SD)",
+                "url": "https://www.ok.ru/videoembed/8676453386970"
+            },
+            {
+                "serverName": "Mega (SD)",
+                "url": "https://mega.nz/embed/QiFWWLAL!-b3rDDRTwIIT5G7_fFixexpLpkxA_efE_iovg1gczXU"
+            },
+            {
+                "serverName": "Mp4upload (SD)",
+                "url": "https://www.mp4upload.com/embed-e3yxsnmdhaav.html"
+            }
         ]
     },
     {
@@ -16,9 +61,434 @@
         "link": "../episodes/المشاهده.html?episode=2",
         "image": "../../../images/Okinawa de Suki ni Natta Ko ga Hougen Sugite Tsurasugiru.WebP",
         "servers": [
-            { "serverName": "سيرفرات متعددة", "url": "https://megamax.me/iframe/WeIv6hvz4ZxiH" },
-            { "serverName": "vidmoly", "url": "https://vidmoly.to/embed-3qrpfay4xhfv.html" },
-            { "serverName": "uqload-3", "url": "https://uqload.net/embed-to31vp2ybh2n.html" }
+            {
+                "serverName": "سيرفرات متعددة (HD)",
+                "url": "https://megamax.me/iframe/fsWHQKp30pDgz"
+            },
+            {
+                "serverName": "uqload (HD)",
+                "url": "https://uqload.net/embed-kozxofa3ixth.html"
+            },
+            {
+                "serverName": "ok.ru (HD)",
+                "url": "https://www.ok.ru/videoembed/8700781136602"
+            },
+            {
+                "serverName": "vidmoly (HD)",
+                "url": "//vidmoly.to/embed-qy6jmmwia7b6.html"
+            },
+            {
+                "serverName": "Mega (HD)",
+                "url": "https://mega.nz/embed/X2AH2QbD!VRZMb8gt7yfxkP39MPqJB4TIQA6YPn-Of06THQJ1_JI"
+            },
+            {
+                "serverName": "Mp4upload (HD)",
+                "url": "https://www.mp4upload.com/embed-qtz0sk2nilww.html"
+            },
+            {
+                "serverName": "Sendvid (HD)",
+                "url": "https://sendvid.com/embed/zmth38ko"
+            },
+            {
+                "serverName": "ok.ru (FHD)",
+                "url": "https://www.ok.ru/videoembed/8700774189786"
+            },
+            {
+                "serverName": "Mp4upload (FHD)",
+                "url": "https://www.mp4upload.com/embed-5jmpjiw8y56u.html"
+            },
+            {
+                "serverName": "ok.ru (SD)",
+                "url": "https://www.ok.ru/videoembed/8700791032538"
+            },
+            {
+                "serverName": "Mega (SD)",
+                "url": "https://mega.nz/embed/73AC3Rob!6UfQGwIR932ywcxasll-trkq8dcHRRCg8Rn5AsPqDNI"
+            },
+            {
+                "serverName": "Mp4upload (SD)",
+                "url": "https://www.mp4upload.com/embed-kiv89e075spi.html"
+            }
+        ]
+    },
+    {
+        "number": 3,
+        "title": "الحلقة 3",
+        "link": "../episodes/المشاهده.html?episode=3",
+        "image": "../../../images/Okinawa de Suki ni Natta Ko ga Hougen Sugite Tsurasugiru.WebP",
+        "servers": [
+            {
+                "serverName": "سيرفرات متعددة (HD)",
+                "url": "https://megamax.me/iframe/H0w1LHzK9CIik"
+            },
+            {
+                "serverName": "uqload (HD)",
+                "url": "https://uqload.net/embed-jxavjnzd9ksb.html"
+            },
+            {
+                "serverName": "ok.ru (HD)",
+                "url": "https://www.ok.ru/videoembed/8726492285658"
+            },
+            {
+                "serverName": "vidmoly (HD)",
+                "url": "//vidmoly.to/embed-s9vyd7kobev3.html"
+            },
+            {
+                "serverName": "Mega (HD)",
+                "url": "https://mega.nz/embed/sbFTWDRJ!AUA8HDnxQ48WiYCvxgHYIU6oCWAB18E69yBI0BugR0M"
+            },
+            {
+                "serverName": "Mp4upload (HD)",
+                "url": "https://www.mp4upload.com/embed-kv4aqkppaeno.html"
+            },
+            {
+                "serverName": "Sendvid (HD)",
+                "url": "https://sendvid.com/embed/cvsjiapl"
+            },
+            {
+                "serverName": "ok.ru (FHD)",
+                "url": "https://www.ok.ru/videoembed/8726483110618"
+            },
+            {
+                "serverName": "Mega (FHD)",
+                "url": "https://mega.nz/embed/jFQSTBSa!te3jcJWzN4uL9wYE5yxTg78u9arohGE-AYqeCrNpQp8"
+            },
+            {
+                "serverName": "Mp4upload (FHD)",
+                "url": "https://www.mp4upload.com/embed-2ax5m1122vz7.html"
+            },
+            {
+                "serverName": "ok.ru (SD)",
+                "url": "https://www.ok.ru/videoembed/8726503164634"
+            },
+            {
+                "serverName": "Mega (SD)",
+                "url": "https://mega.nz/embed/hX0hwK7b!sc1KJPHeHLpdssa50p_TZhZ6JhmNYddK3QV03SCrsag"
+            },
+            {
+                "serverName": "Mp4upload (SD)",
+                "url": "https://www.mp4upload.com/embed-x8smxgk1s6l5.html"
+            }
+        ]
+    },
+    {
+        "number": 4,
+        "title": "الحلقة 4",
+        "link": "../episodes/المشاهده.html?episode=4",
+        "image": "../../../images/Okinawa de Suki ni Natta Ko ga Hougen Sugite Tsurasugiru.WebP",
+        "servers": [
+            {
+                "serverName": "سيرفرات متعددة (HD)",
+                "url": "https://megamax.me/iframe/ivyX4aDsvijmO"
+            },
+            {
+                "serverName": "uqload (HD)",
+                "url": "https://uqload.net/embed-mp3u4a0gquuu.html"
+            },
+            {
+                "serverName": "ok.ru (HD)",
+                "url": "https://www.ok.ru/videoembed/8751906556634"
+            },
+            {
+                "serverName": "vidmoly (HD)",
+                "url": "//vidmoly.to/embed-tju5y2aojn6s.html"
+            },
+            {
+                "serverName": "Mega (HD)",
+                "url": "https://mega.nz/embed/UOMXzARB!k54ySZsJh1gICorHWOV-aU6VNe2efv38H5QhRxSOBtg"
+            },
+            {
+                "serverName": "Mp4upload (HD)",
+                "url": "https://www.mp4upload.com/embed-kja0rxb9xyod.html"
+            },
+            {
+                "serverName": "Sendvid (HD)",
+                "url": "https://sendvid.com/embed/qq89vdw5"
+            },
+            {
+                "serverName": "ok.ru (FHD)",
+                "url": "https://www.ok.ru/videoembed/8751888665306"
+            },
+            {
+                "serverName": "Mega (FHD)",
+                "url": "https://mega.nz/embed/WBBixAZR!43V6z7v7L3HEllzWaGhqRHD3MCs9M1PX_9niw9s4WsE"
+            },
+            {
+                "serverName": "Mp4upload (FHD)",
+                "url": "https://www.mp4upload.com/embed-932r6p8al61k.html"
+            },
+            {
+                "serverName": "ok.ru (SD)",
+                "url": "https://www.ok.ru/videoembed/8751917239002"
+            },
+            {
+                "serverName": "Mega (SD)",
+                "url": "https://mega.nz/embed/hPtEwJwC!ht6NyPjxltexx7hxfVc-AHjWZ4pThiKa4jeNjvOoZok"
+            },
+            {
+                "serverName": "Mp4upload (SD)",
+                "url": "https://www.mp4upload.com/embed-1pxkcxshthhh.html"
+            }
+        ]
+    },
+    {
+        "number": 5,
+        "title": "الحلقة 5",
+        "link": "../episodes/المشاهده.html?episode=5",
+        "image": "../../../images/Okinawa de Suki ni Natta Ko ga Hougen Sugite Tsurasugiru.WebP",
+        "servers": [
+            {
+                "serverName": "سيرفرات متعددة (HD)",
+                "url": "https://megamax.me/iframe/43M0E2YuW1s0M"
+            },
+            {
+                "serverName": "uqload (HD)",
+                "url": "https://uqload.net/embed-ox0xkfry3ash.html"
+            },
+            {
+                "serverName": "ok.ru (HD)",
+                "url": "https://www.ok.ru/videoembed/8777066744538"
+            },
+            {
+                "serverName": "vidmoly (HD)",
+                "url": "//vidmoly.to/embed-ar2tts2aas1x.html"
+            },
+            {
+                "serverName": "voe.sx (HD)",
+                "url": "https://voe.sx/e/3iy90f9ofoag"
+            },
+            {
+                "serverName": "Mega (HD)",
+                "url": "https://mega.nz/embed/K6IGVBwJ!jkbTNokN3L1d3FSqQwTTOdsSrCrHyI2rqUR86Q8ByzI"
+            },
+            {
+                "serverName": "DoodStream (HD)",
+                "url": "https://d000d.com/e/g1vic2lputic"
+            },
+            {
+                "serverName": "Mp4upload (HD)",
+                "url": "https://www.mp4upload.com/embed-0lvjvgnu0lm3.html"
+            },
+            {
+                "serverName": "Sendvid (HD)",
+                "url": "https://sendvid.com/embed/ct9zdmye"
+            },
+            {
+                "serverName": "ok.ru (FHD)",
+                "url": "https://www.ok.ru/videoembed/8776990329562"
+            },
+            {
+                "serverName": "Mp4upload (FHD)",
+                "url": "https://www.mp4upload.com/embed-a55xeut8febw.html"
+            },
+            {
+                "serverName": "ok.ru (SD)",
+                "url": "https://www.ok.ru/videoembed/8777071266522"
+            },
+            {
+                "serverName": "Mega (SD)",
+                "url": "https://mega.nz/embed/C3pmmZxA!XgvzdXEENqDL7MCjZ6bhqog4AfLQTqnVQtKwOlWknO0"
+            },
+            {
+                "serverName": "Mp4upload (SD)",
+                "url": "https://www.mp4upload.com/embed-y36io1c8tjnf.html"
+            }
+        ]
+    },
+    {
+        "number": 6,
+        "title": "الحلقة 6",
+        "link": "../episodes/المشاهده.html?episode=6",
+        "image": "../../../images/Okinawa de Suki ni Natta Ko ga Hougen Sugite Tsurasugiru.WebP",
+        "servers": [
+            {
+                "serverName": "سيرفرات متعددة (HD)",
+                "url": "https://megamax.me/iframe/MMRtFkwTAsJSO"
+            },
+            {
+                "serverName": "uqload (HD)",
+                "url": "https://uqload.net/embed-j7ivo3zpddud.html"
+            },
+            {
+                "serverName": "ok.ru (HD)",
+                "url": "https://www.ok.ru/videoembed/8800649546458"
+            },
+            {
+                "serverName": "vidmoly (HD)",
+                "url": "//vidmoly.to/embed-dsg6iughci18.html"
+            },
+            {
+                "serverName": "voe.sx (HD)",
+                "url": "https://voe.sx/e/oqtqnbaxtc9z"
+            },
+            {
+                "serverName": "Mega (HD)",
+                "url": "https://mega.nz/embed/TZojjDAJ!DxkB0AmzYDkvxfNWRosYj9eWxjdnDwSEWKjLNvr1Se8"
+            },
+            {
+                "serverName": "Mp4upload (HD)",
+                "url": "https://www.mp4upload.com/embed-f0llqboe609i.html"
+            },
+            {
+                "serverName": "Sendvid (HD)",
+                "url": "https://sendvid.com/embed/9xwrzyqs"
+            },
+            {
+                "serverName": "ok.ru (FHD)",
+                "url": "https://www.ok.ru/videoembed/8800640436954"
+            },
+            {
+                "serverName": "Mega (FHD)",
+                "url": "https://mega.nz/embed/vUJEzCAI!mIInT2iL8jQ33CpC8c9wAguGvS8hG-CFvFJYS1iB7OE"
+            },
+            {
+                "serverName": "Mp4upload (FHD)",
+                "url": "https://www.mp4upload.com/embed-b7188zmx6da0.html"
+            },
+            {
+                "serverName": "ok.ru (SD)",
+                "url": "https://www.ok.ru/videoembed/8800658459354"
+            },
+            {
+                "serverName": "Mega (SD)",
+                "url": "https://mega.nz/embed/yA4XzIIA!NB1A0V2o-3NOwfxh3LruBpkT1RS53GpbTYUsljLwlv4"
+            },
+            {
+                "serverName": "Mp4upload (SD)",
+                "url": "https://www.mp4upload.com/embed-qw0evlk17um8.html"
+            }
+        ]
+    },
+    {
+        "number": 7,
+        "title": "الحلقة 7",
+        "link": "../episodes/المشاهده.html?episode=7",
+        "image": "../../../images/Okinawa de Suki ni Natta Ko ga Hougen Sugite Tsurasugiru.WebP",
+        "servers": [
+            {
+                "serverName": "سيرفرات متعددة (HD)",
+                "url": "https://megamax.me/iframe/nL43KJC6oZsIJ"
+            },
+            {
+                "serverName": "uqload (HD)",
+                "url": "https://uqload.net/embed-m35olc6m67di.html"
+            },
+            {
+                "serverName": "ok.ru (HD)",
+                "url": "https://www.ok.ru/videoembed/8826913819354"
+            },
+            {
+                "serverName": "vidmoly (HD)",
+                "url": "//vidmoly.to/embed-b9w5xdgug6ak.html"
+            },
+            {
+                "serverName": "voe.sx (HD)",
+                "url": "https://voe.sx/e/ypig9dyrkzxm"
+            },
+            {
+                "serverName": "Mega (HD)",
+                "url": "https://mega.nz/embed/aEJU0LQB!I_J0lput5Yl8DiBmQ1PdRcRhfT1z9qfN4Wm9BnVmWcc"
+            },
+            {
+                "serverName": "Mp4upload (HD)",
+                "url": "https://www.mp4upload.com/embed-cm4c5qc32q4o.html"
+            },
+            {
+                "serverName": "Sendvid (HD)",
+                "url": "https://sendvid.com/embed/xcyl0lgs"
+            },
+            {
+                "serverName": "ok.ru (FHD)",
+                "url": "https://www.ok.ru/videoembed/8826908052186"
+            },
+            {
+                "serverName": "Mega (FHD)",
+                "url": "https://mega.nz/embed/uMhA3DZI!n4Hf9k9Mi7ReHY1bWDmRwIabW6ZwA1FLk7hHkfXAR1s"
+            },
+            {
+                "serverName": "Mp4upload (FHD)",
+                "url": "https://www.mp4upload.com/embed-aqmfhnvyg7w3.html"
+            },
+            {
+                "serverName": "ok.ru (SD)",
+                "url": "https://www.ok.ru/videoembed/8826917882586"
+            },
+            {
+                "serverName": "Mega (SD)",
+                "url": "https://mega.nz/embed/3UR03SSC!DowRgFVVLVAUUqMXlb8SqUNtpWlqH0vjDUuEj2OkHXw"
+            },
+            {
+                "serverName": "Mp4upload (SD)",
+                "url": "https://www.mp4upload.com/embed-yju9nlbjv9hi.html"
+            }
+        ]
+    },
+    {
+        "number": 8,
+        "title": "الحلقة 8",
+        "link": "../episodes/المشاهده.html?episode=8",
+        "image": "../../../images/Okinawa de Suki ni Natta Ko ga Hougen Sugite Tsurasugiru.WebP",
+        "servers": [
+            {
+                "serverName": "سيرفرات متعددة (HD)",
+                "url": "https://megamax.me/iframe/pLRo6vPx8Ys49"
+            },
+            {
+                "serverName": "uqload (HD)",
+                "url": "https://uqload.net/embed-c0untjufcq3t.html"
+            },
+            {
+                "serverName": "ok.ru (HD)",
+                "url": "https://www.ok.ru/videoembed/8851921963738"
+            },
+            {
+                "serverName": "vidmoly (HD)",
+                "url": "//vidmoly.to/embed-shss4gfipzk8.html"
+            },
+            {
+                "serverName": "voe.sx (HD)",
+                "url": "https://voe.sx/e/jkqji2dpu9fp"
+            },
+            {
+                "serverName": "Mega (HD)",
+                "url": "https://mega.nz/embed/NMJnXJpI!TzCfu5AQLAkDBfqWdrMAWTVX9u0TQsnWlxGn6K5EFoc"
+            },
+            {
+                "serverName": "DoodStream (HD)",
+                "url": "https://d000d.com/e/r3do7lj2z7q7"
+            },
+            {
+                "serverName": "Mp4upload (HD)",
+                "url": "https://www.mp4upload.com/embed-l9nggsn7pdkd.html"
+            },
+            {
+                "serverName": "Sendvid (HD)",
+                "url": "https://sendvid.com/embed/yqhomn2q"
+            },
+            {
+                "serverName": "ok.ru (FHD)",
+                "url": "https://www.ok.ru/videoembed/8851915672282"
+            },
+            {
+                "serverName": "Mega (FHD)",
+                "url": "https://mega.nz/embed/sMBSESrC!eKXaajUmI3qRfku5G_vL0A0xcGpe0Gp19Il8m5MEtks"
+            },
+            {
+                "serverName": "Mp4upload (FHD)",
+                "url": "https://www.mp4upload.com/embed-llxgb21sdr59.html"
+            },
+            {
+                "serverName": "ok.ru (SD)",
+                "url": "https://www.ok.ru/videoembed/8851928124122"
+            },
+            {
+                "serverName": "Mega (SD)",
+                "url": "https://mega.nz/embed/5BZjib7B!3s-8G703KIRWIEWt3STa-h2xva8hH685tPwqZdIj4dI"
+            },
+            {
+                "serverName": "Mp4upload (SD)",
+                "url": "https://www.mp4upload.com/embed-kyk3z7gsba5d.html"
+            }
         ]
     }
 ]
