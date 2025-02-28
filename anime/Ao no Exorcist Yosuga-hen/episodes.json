@@ -5,9 +5,54 @@
         "link": "../episodes/المشاهده.html?episode=1",
         "image": "../../../images/Ao no Exorcist Yosuga-hen.WebP",
         "servers": [
-            { "serverName": "سيرفرات متعددة", "url": "https://megamax.me/iframe/MeZ8sHbmhHyds" },
-            { "serverName": "vidmoly", "url": "https://vidmoly.to/embed-tu8ee9ujziy0.html" },
-            { "serverName": "uqload-3", "url": "https://uqload.net/embed-cpebe5mvxuee.html" }
+            {
+                "serverName": "سيرفرات متعددة (HD)",
+                "url": "https://megamax.me/iframe/MeZ8sHbmhHyds"
+            },
+            {
+                "serverName": "uqload (HD)",
+                "url": "https://uqload.net/embed-cpebe5mvxuee.html"
+            },
+            {
+                "serverName": "ok.ru (HD)",
+                "url": "https://www.ok.ru/videoembed/8676393290458"
+            },
+            {
+                "serverName": "vidmoly (HD)",
+                "url": "//vidmoly.to/embed-tu8ee9ujziy0.html"
+            },
+            {
+                "serverName": "Mega (HD)",
+                "url": "https://mega.nz/embed/J31n3S4Y!AFK3TDTRMTo-byNw_nVGMojwlsQ6sfI32oRzlRFtWpM"
+            },
+            {
+                "serverName": "Mp4upload (HD)",
+                "url": "https://www.mp4upload.com/embed-vo4iilpvyxvm.html"
+            },
+            {
+                "serverName": "ok.ru (FHD)",
+                "url": "https://www.ok.ru/videoembed/8676376971994"
+            },
+            {
+                "serverName": "Mega (FHD)",
+                "url": "https://mega.nz/embed/Aq0UgJAJ!MSn_FzdGrS16HA110GDQSglc3o_dzA5fNEIjkgiqNtw"
+            },
+            {
+                "serverName": "Mp4upload (FHD)",
+                "url": "https://www.mp4upload.com/embed-2y8sgnh5je8j.html"
+            },
+            {
+                "serverName": "ok.ru (SD)",
+                "url": "https://www.ok.ru/videoembed/8676399450842"
+            },
+            {
+                "serverName": "Mega (SD)",
+                "url": "https://mega.nz/embed/pmtUyRCT!JAZNlmD_6guiaBPUI7pAIKpi6Ve5sQwIyOgjIWByXKQ"
+            },
+            {
+                "serverName": "Mp4upload (SD)",
+                "url": "https://www.mp4upload.com/embed-55b25ccyo66z.html"
+            }
         ]
     },
     {
@@ -16,9 +61,58 @@
         "link": "../episodes/المشاهده.html?episode=2",
         "image": "../../../images/Ao no Exorcist Yosuga-hen.WebP",
         "servers": [
-            { "serverName": "سيرفرات متعددة", "url": "https://megamax.me/iframe/otjbhbOjUzI0M" },
-            { "serverName": "vidmoly", "url": "https://vidmoly.to/embed-spxqldxh92p8.html" },
-            { "serverName": "uqload-3", "url": "https://uqload.net/embed-sj5jgplzen0e.html" }
+            {
+                "serverName": "سيرفرات متعددة (HD)",
+                "url": "https://megamax.me/iframe/otjbhbOjUzI0M"
+            },
+            {
+                "serverName": "uqload (HD)",
+                "url": "https://uqload.net/embed-sj5jgplzen0e.html"
+            },
+            {
+                "serverName": "ok.ru (HD)",
+                "url": "https://www.ok.ru/videoembed/8700742601434"
+            },
+            {
+                "serverName": "vidmoly (HD)",
+                "url": "//vidmoly.to/embed-spxqldxh92p8.html"
+            },
+            {
+                "serverName": "Mega (HD)",
+                "url": "https://mega.nz/embed/vroCWDpC!bFOm5G1vmcpJ47CtiNkuWRi7mBDKj1VMmw911E1xOs8"
+            },
+            {
+                "serverName": "Mp4upload (HD)",
+                "url": "https://www.mp4upload.com/embed-twce8uzzxldp.html"
+            },
+            {
+                "serverName": "Sendvid (HD)",
+                "url": "https://sendvid.com/embed/mwgqhukm"
+            },
+            {
+                "serverName": "ok.ru (FHD)",
+                "url": "https://www.ok.ru/videoembed/8700732246746"
+            },
+            {
+                "serverName": "Mega (FHD)",
+                "url": "https://mega.nz/embed/PnZDHBwJ!EwZH5-tTEDq-EGVtD0MK3Ctv1azkqJlx24772jbrHCg"
+            },
+            {
+                "serverName": "Mp4upload (FHD)",
+                "url": "https://www.mp4upload.com/embed-0ji43whbbum3.html"
+            },
+            {
+                "serverName": "ok.ru (SD)",
+                "url": "https://www.ok.ru/videoembed/8700747647706"
+            },
+            {
+                "serverName": "Mega (SD)",
+                "url": "https://mega.nz/embed/imQCGIZZ!ta0BDTSZpybzRi4q5YSinrI1ojY_rKjlzZG_ceqh-h0"
+            },
+            {
+                "serverName": "Mp4upload (SD)",
+                "url": "https://www.mp4upload.com/embed-3b2c072c4fda.html"
+            }
         ]
     },
     {
@@ -27,9 +121,374 @@
         "link": "../episodes/المشاهده.html?episode=3",
         "image": "../../../images/Ao no Exorcist Yosuga-hen.WebP",
         "servers": [
-            { "serverName": "سيرفرات متعددة", "url": "https://megamax.me/iframe/JDAaplCMoK5Bg" },
-            { "serverName": "vidmoly", "url": "https://vidmoly.to/embed-sol1l644ioso.html" },
-            { "serverName": "uqload-3", "url": "https://uqload.net/embed-tdfyydk8irw0.html" }
+            {
+                "serverName": "سيرفرات متعددة (HD)",
+                "url": "https://megamax.me/iframe/JDAaplCMoK5Bg"
+            },
+            {
+                "serverName": "uqload (HD)",
+                "url": "https://uqload.net/embed-tdfyydk8irw0.html"
+            },
+            {
+                "serverName": "ok.ru (HD)",
+                "url": "https://www.ok.ru/videoembed/8726370650842"
+            },
+            {
+                "serverName": "vidmoly (HD)",
+                "url": "//vidmoly.to/embed-sol1l644ioso.html"
+            },
+            {
+                "serverName": "Mp4upload (HD)",
+                "url": "https://www.mp4upload.com/embed-68bvg0d2rmrk.html"
+            },
+            {
+                "serverName": "Sendvid (HD)",
+                "url": "https://sendvid.com/embed/a5o87wcz"
+            },
+            {
+                "serverName": "ok.ru (FHD)",
+                "url": "https://www.ok.ru/videoembed/8726362458842"
+            },
+            {
+                "serverName": "Mega (FHD)",
+                "url": "https://mega.nz/embed/WVhWURyT!2V8TdI7F-TM5j3EBQJJOEXtLLinSKe17HrwbbiTMcCs"
+            },
+            {
+                "serverName": "Mp4upload (FHD)",
+                "url": "https://www.mp4upload.com/embed-lvfyuir37myy.html"
+            },
+            {
+                "serverName": "ok.ru (SD)",
+                "url": "https://www.ok.ru/videoembed/8726374583002"
+            },
+            {
+                "serverName": "Mp4upload (SD)",
+                "url": "https://www.mp4upload.com/embed-xw1r8z1khlwj.html"
+            }
+        ]
+    },
+    {
+        "number": 4,
+        "title": "الحلقة 4",
+        "link": "../episodes/المشاهده.html?episode=4",
+        "image": "../../../images/Ao no Exorcist Yosuga-hen.WebP",
+        "servers": [
+            {
+                "serverName": "سيرفرات متعددة (HD)",
+                "url": "https://megamax.me/iframe/wUYIReLh6TDpj"
+            },
+            {
+                "serverName": "uqload (HD)",
+                "url": "https://uqload.net/embed-kn16mrq3a09v.html"
+            },
+            {
+                "serverName": "ok.ru (HD)",
+                "url": "https://www.ok.ru/videoembed/8751854914266"
+            },
+            {
+                "serverName": "vidmoly (HD)",
+                "url": "//vidmoly.to/embed-i8p5kxzxc0lh.html"
+            },
+            {
+                "serverName": "Mega (HD)",
+                "url": "https://mega.nz/embed/kT00AIhB!ic0TlJoOFKWNdEFrbXUEQCy1WL9fGDPBFeQ7ScgVcdU"
+            },
+            {
+                "serverName": "Mp4upload (HD)",
+                "url": "https://www.mp4upload.com/embed-89qwjwp5ibmg.html"
+            },
+            {
+                "serverName": "Sendvid (HD)",
+                "url": "https://sendvid.com/embed/hld4zuyt"
+            },
+            {
+                "serverName": "ok.ru (FHD)",
+                "url": "https://www.ok.ru/videoembed/8751843445466"
+            },
+            {
+                "serverName": "Mega (FHD)",
+                "url": "https://mega.nz/embed/qMJhVDYb!M7XMQNsb8gV87P4uIjzt7BoJKOa1Z6PXzcZxzdSiWVk"
+            },
+            {
+                "serverName": "Mp4upload (FHD)",
+                "url": "https://www.mp4upload.com/embed-2up4p2wnt96p.html"
+            },
+            {
+                "serverName": "ok.ru (SD)",
+                "url": "https://www.ok.ru/videoembed/8751862647514"
+            },
+            {
+                "serverName": "Mega (SD)",
+                "url": "https://mega.nz/embed/5DtgEaKA!H9l_lpxCMvPWufErj_XH9qG_5F2t_Ia8M48dORtk8F4"
+            },
+            {
+                "serverName": "Mp4upload (SD)",
+                "url": "https://www.mp4upload.com/embed-3m7a9nsf2fuq.html"
+            }
+        ]
+    },
+    {
+        "number": 5,
+        "title": "الحلقة 5",
+        "link": "../episodes/المشاهده.html?episode=5",
+        "image": "../../../images/Ao no Exorcist Yosuga-hen.WebP",
+        "servers": [
+            {
+                "serverName": "سيرفرات متعددة (HD)",
+                "url": "https://megamax.me/iframe/5Ybah2yb6Pmzu"
+            },
+            {
+                "serverName": "uqload (HD)",
+                "url": "https://uqload.net/embed-3w25uvveij4p.html"
+            },
+            {
+                "serverName": "ok.ru (HD)",
+                "url": "https://www.ok.ru/videoembed/8776939211482"
+            },
+            {
+                "serverName": "vidmoly (HD)",
+                "url": "//vidmoly.to/embed-7l50qmdi6nhl.html"
+            },
+            {
+                "serverName": "voe.sx (HD)",
+                "url": "https://voe.sx/e/6qbfgsggt6u8"
+            },
+            {
+                "serverName": "Mega (HD)",
+                "url": "https://mega.nz/embed/emJwlQbY!Z-1Yr_zWLCN6V33JXIuO_sckVfIueBQLV_kvxG42R_Y"
+            },
+            {
+                "serverName": "DoodStream (HD)",
+                "url": "https://d000d.com/e/ra135ryxxcpv"
+            },
+            {
+                "serverName": "Mp4upload (HD)",
+                "url": "https://www.mp4upload.com/embed-u1tek0ph4yu1.html"
+            },
+            {
+                "serverName": "Sendvid (HD)",
+                "url": "https://sendvid.com/embed/aqbc345z"
+            },
+            {
+                "serverName": "ok.ru (FHD)",
+                "url": "https://www.ok.ru/videoembed/8776928266970"
+            },
+            {
+                "serverName": "Mega (FHD)",
+                "url": "https://mega.nz/embed/Oro1zAyD!kIBHZ7pirKvilLxBlnntVrE5yroH158nD5ltC8hlE6A"
+            },
+            {
+                "serverName": "Mp4upload (FHD)",
+                "url": "https://www.mp4upload.com/embed-ibkdcfffmxln.html"
+            },
+            {
+                "serverName": "ok.ru (SD)",
+                "url": "https://www.ok.ru/videoembed/8776950811354"
+            },
+            {
+                "serverName": "Mega (SD)",
+                "url": "https://mega.nz/embed/mqwxgajY!qaLPevTYQcU66synIH98fX9pBLw4q3gHQCoz5urXpT4"
+            },
+            {
+                "serverName": "Mp4upload (SD)",
+                "url": "https://www.mp4upload.com/embed-6wvrzs17jdh4.html"
+            }
+        ]
+    },
+    {
+        "number": 6,
+        "title": "الحلقة 6",
+        "link": "../episodes/المشاهده.html?episode=6",
+        "image": "../../../images/Ao no Exorcist Yosuga-hen.WebP",
+        "servers": [
+            {
+                "serverName": "سيرفرات متعددة (HD)",
+                "url": "https://megamax.me/iframe/8XEvm1wqGl74o"
+            },
+            {
+                "serverName": "uqload (HD)",
+                "url": "https://uqload.net/embed-giybudtaigm8.html"
+            },
+            {
+                "serverName": "ok.ru (HD)",
+                "url": "https://www.ok.ru/videoembed/8800612780762"
+            },
+            {
+                "serverName": "vidmoly (HD)",
+                "url": "//vidmoly.to/embed-g847uts8f5yf.html"
+            },
+            {
+                "serverName": "voe.sx (HD)",
+                "url": "https://voe.sx/e/tt3araaqrlrk"
+            },
+            {
+                "serverName": "Mega (HD)",
+                "url": "https://mega.nz/embed/mEBTiSZS!uMFGCBJY-H4gFsBdLXnyyyyRwsSKJM-m9acgydtDU0w"
+            },
+            {
+                "serverName": "Mp4upload (HD)",
+                "url": "https://www.mp4upload.com/embed-k0pwg4qs0ig6.html"
+            },
+            {
+                "serverName": "Sendvid (HD)",
+                "url": "https://sendvid.com/embed/88di8sno"
+            },
+            {
+                "serverName": "ok.ru (FHD)",
+                "url": "https://www.ok.ru/videoembed/8800603212506"
+            },
+            {
+                "serverName": "Mega (FHD)",
+                "url": "https://mega.nz/embed/3IIATTCa!5KC_QXiF91TU1_BAgYSof_tb_XxLho7VYEeLlKWG6R8"
+            },
+            {
+                "serverName": "Mp4upload (FHD)",
+                "url": "https://www.mp4upload.com/embed-27d4hc4dl7b8.html"
+            },
+            {
+                "serverName": "ok.ru (SD)",
+                "url": "https://www.ok.ru/videoembed/8800618351322"
+            },
+            {
+                "serverName": "Mega (SD)",
+                "url": "https://mega.nz/embed/nYYiHAaZ!3AgHaOV4_rCJSpHz56DjfZpM_0In19TsOyQEp-3OYLo"
+            },
+            {
+                "serverName": "Mp4upload (SD)",
+                "url": "https://www.mp4upload.com/embed-61q65vpz2a7k.html"
+            }
+        ]
+    },
+    {
+        "number": 7,
+        "title": "الحلقة 7",
+        "link": "../episodes/المشاهده.html?episode=7",
+        "image": "../../../images/Ao no Exorcist Yosuga-hen.WebP",
+        "servers": [
+            {
+                "serverName": "سيرفرات متعددة (HD)",
+                "url": "https://megamax.me/iframe/4lcIcXxlj0lum"
+            },
+            {
+                "serverName": "uqload (HD)",
+                "url": "https://uqload.net/embed-rf6ejccxqvtg.html"
+            },
+            {
+                "serverName": "ok.ru (HD)",
+                "url": "https://www.ok.ru/videoembed/8826895141594"
+            },
+            {
+                "serverName": "vidmoly (HD)",
+                "url": "//vidmoly.to/embed-6vtjsfq3m4it.html"
+            },
+            {
+                "serverName": "voe.sx (HD)",
+                "url": "https://voe.sx/e/vqjgucam6hvc"
+            },
+            {
+                "serverName": "Mega (HD)",
+                "url": "https://mega.nz/embed/CdwXQZoQ!FITEJUIZ0i1iJ9tNHolVXeDXKTbLn7lI8ymjP_1uKxU"
+            },
+            {
+                "serverName": "Mp4upload (HD)",
+                "url": "https://www.mp4upload.com/embed-bb5r12j07kus.html"
+            },
+            {
+                "serverName": "Sendvid (HD)",
+                "url": "https://sendvid.com/embed/0d987wj9"
+            },
+            {
+                "serverName": "ok.ru (FHD)",
+                "url": "https://www.ok.ru/videoembed/8826890881754"
+            },
+            {
+                "serverName": "Mega (FHD)",
+                "url": "https://mega.nz/embed/KdY0UbgS!2orJ5LoE8lL0IvNpEYlOIIlZuUzgEGihq5qfTI1pdlg"
+            },
+            {
+                "serverName": "Mp4upload (FHD)",
+                "url": "https://www.mp4upload.com/embed-qxr8rqig5efh.html"
+            },
+            {
+                "serverName": "ok.ru (SD)",
+                "url": "https://www.ok.ru/videoembed/8826898221786"
+            },
+            {
+                "serverName": "Mega (SD)",
+                "url": "https://mega.nz/embed/2UAnDbpA!GS62v4kVAhgP4YY0wNUAQOE7Kcx479sFQY2J4YOegMU"
+            },
+            {
+                "serverName": "Mp4upload (SD)",
+                "url": "https://www.mp4upload.com/embed-oytsbduqr89x.html"
+            }
+        ]
+    },
+    {
+        "number": 8,
+        "title": "الحلقة 8",
+        "link": "../episodes/المشاهده.html?episode=8",
+        "image": "../../../images/Ao no Exorcist Yosuga-hen.WebP",
+        "servers": [
+            {
+                "serverName": "سيرفرات متعددة (HD)",
+                "url": "https://megamax.me/iframe/yHZ8nUn7DDYdO"
+            },
+            {
+                "serverName": "uqload (HD)",
+                "url": "https://uqload.net/embed-6bvdsok7l1tq.html"
+            },
+            {
+                "serverName": "ok.ru (HD)",
+                "url": "https://www.ok.ru/videoembed/8851859507930"
+            },
+            {
+                "serverName": "vidmoly (HD)",
+                "url": "//vidmoly.to/embed-lsoczvrnpr16.html"
+            },
+            {
+                "serverName": "voe.sx (HD)",
+                "url": "https://voe.sx/e/ro1qvkru7xij"
+            },
+            {
+                "serverName": "Mega (HD)",
+                "url": "https://mega.nz/embed/ABwCBLYT!mvCRYgeiUVyO_veJ_xgnCNlCJLfKxRIwvXuaZMZID3k"
+            },
+            {
+                "serverName": "DoodStream (HD)",
+                "url": "https://d000d.com/e/ua2o1vw9hrfx"
+            },
+            {
+                "serverName": "Mp4upload (HD)",
+                "url": "https://www.mp4upload.com/embed-42cz7g3iwfsd.html"
+            },
+            {
+                "serverName": "Sendvid (HD)",
+                "url": "https://sendvid.com/embed/qrbwt5lt"
+            },
+            {
+                "serverName": "ok.ru (FHD)",
+                "url": "https://www.ok.ru/videoembed/8851852036826"
+            },
+            {
+                "serverName": "Mega (FHD)",
+                "url": "https://mega.nz/embed/4MhVjBQK!fYdbHUbNdHxUAbvX3SmrCjNHbx1Z7Mh0BcrRTjDINRo"
+            },
+            {
+                "serverName": "Mp4upload (FHD)",
+                "url": "https://www.mp4upload.com/embed-e58m8007m21v.html"
+            },
+            {
+                "serverName": "ok.ru (SD)",
+                "url": "https://www.ok.ru/videoembed/8851868158682"
+            },
+            {
+                "serverName": "Mega (SD)",
+                "url": "https://mega.nz/embed/gVYQEbDC!pIlWFF9Amwktq5oAvTYZL5n3zx9-1i3D4mXdFSYPLSE"
+            },
+            {
+                "serverName": "Mp4upload (SD)",
+                "url": "https://www.mp4upload.com/embed-5p3ii77nfp97.html"
+            }
         ]
     }
 ]
