@@ -1,5 +1,26 @@
 [
     {
+        "name": "A-Rank Party wo Ridatsu shita Ore wa, Moto Oshiego-tachi to Meikyuu Shinbu wo Mezasu.",
+        "link": "anime/A-Rank Party wo Ridatsu shita Ore wa, Moto Oshiego-tachi to Meikyuu Shinbu wo Mezasu./Profile/A-Rank Party wo Ridatsu shita Ore wa, Moto Oshiego-tachi to Meikyuu Shinbu wo Mezasu..html",
+        "image": "images/Ao_no_Miburo.WebP",
+        "rating": "يعرض الان"
+
+    },
+    {
+        "name": "Ao_no_Miburo",
+        "link": "anime/Ao_no_Miburo/Profile/Ao_no_Miburo.html",
+        "image": "images/Ao_no_Miburo.WebP",
+        "rating": "يعرض الان"
+
+    },
+    {
+        "name": "Sakamoto Days",
+        "link": "anime/Sakamoto Days/Profile/Sakamoto Days.html",
+        "image": "images/Sakamoto Days.WebP",
+        "rating": "يعرض الان"
+
+    },
+    {
         "name": "Okinawa de Suki ni Natta Ko ga Hougen Sugite Tsurasugiru",
         "link": "anime/Okinawa de Suki ni Natta Ko ga Hougen Sugite Tsurasugiru/Profile/Okinawa de Suki ni Natta Ko ga Hougen Sugite Tsurasugiru.html",
         "image": "images/Okinawa de Suki ni Natta Ko ga Hougen Sugite Tsurasugiru.WebP",
@@ -30,4 +51,5 @@
         "rating": "يعرض الان",
         "episodes": "الحلقة3"
     }
+    
 ]
