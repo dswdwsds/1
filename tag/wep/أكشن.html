@@ -21,25 +21,33 @@
     </main>
 
     <script>
+        // تحميل قائمة تصنيفات الأنمي
         async function loadAnimeCategories() {
             try {
                 const response = await fetch('../jave/animeCategories.json');
-                const data = await response.json();
+                if (!response.ok) throw new Error("فشل تحميل animeCategories.json");
                 
+                const data = await response.json();
+                if (!Array.isArray(data.animes)) throw new Error("البيانات في animeCategories.json غير صحيحة!");
+
+                // تحميل كل ملف JSON في القائمة
                 for (const animeFile of data.animes) {
                     await loadAnimeData(animeFile);
                 }
             } catch (error) {
-                console.error('خطأ في تحميل تصنيفات الأنمي:', error);
+                console.error('❌ خطأ في تحميل تصنيفات الأنمي:', error);
             }
         }
 
+        // تحميل بيانات كل أنمي من ملف JSON منفصل
         async function loadAnimeData(animeFile) {
             try {
                 const response = await fetch(`../jave/${animeFile}`);
+                if (!response.ok) throw new Error(`فشل تحميل الملف: ${animeFile}`);
+
                 const anime = await response.json();
-                
                 const animeGrid = document.getElementById('animeGrid');
+
                 const card = document.createElement('div');
                 card.className = 'anime-card';
                 card.innerHTML = `
@@ -55,25 +63,27 @@
                     <div class="anime-info">
                         <h3>${anime.name}</h3>
                         <div class="anime-meta">
-                            <span>${anime.categories.join(', ')}</span>
+                            <span>${Array.isArray(anime.categories) ? anime.categories.join(', ') : 'غير متوفر'}</span>
                             <a href="${anime.link}" class="watch-button">شاهد الآن</a>
                         </div>
                     </div>
                 `;
                 animeGrid.appendChild(card);
             } catch (error) {
-                console.error(`خطأ في تحميل بيانات الأنمي: ${animeFile}`, error);
+                console.error(`❌ خطأ في تحميل بيانات الأنمي من ${animeFile}:`, error);
             }
         }
 
+        // تحميل التصنيفات عند تحميل الصفحة
         loadAnimeCategories();
     </script>
 
     <script>
+        // تحميل الشريط العلوي (Navbar)
         fetch('../../navbar.html')
             .then(response => response.text())
             .then(data => document.getElementById('navbar-container').innerHTML = data)
-            .catch(error => console.error('خطأ في تحميل الشريط العلوي:', error));
+            .catch(error => console.error('❌ خطأ في تحميل الشريط العلوي:', error));
     </script>
 </body>
 </html>
