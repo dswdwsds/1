@@ -78,34 +78,38 @@
 
         // عرض الأنميات بناءً على التصنيف
         function displayFilteredAnime(animeList) {
-            const animeGrid = document.getElementById('animeGrid');
-            
-            animeList.forEach(anime => {
-                const card = document.createElement('div');
-                card.className = 'anime-card';
-                card.setAttribute('data-categories', anime.categories.join(',')); // حفظ التصنيفات في العنصر
+    const animeGrid = document.getElementById('animeGrid');
+    animeGrid.innerHTML = ''; // تفريغ المحتوى قبل الإضافة
 
-                card.innerHTML = `
-                    <div class="anime-image">
-                        <img src="${anime.image}" alt="${anime.name}" loading="lazy">
-                        <div class="rating">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                            </svg>
-                            ${anime.rating ?? 'N/A'}
-                        </div>
+    animeList.forEach(anime => {
+        if (!category || anime.categories.includes(category)) { // التحقق من التصنيف
+            const card = document.createElement('div');
+            card.className = 'anime-card';
+            card.setAttribute('data-categories', anime.categories.join(',')); // حفظ التصنيفات في العنصر
+
+            card.innerHTML = `
+                <div class="anime-image">
+                    <img src="${anime.image}" alt="${anime.name}" loading="lazy">
+                    <div class="rating">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        ${anime.rating ?? 'N/A'}
                     </div>
-                    <div class="anime-info">
-                        <h3>${anime.name}</h3>
-                        <div class="anime-meta">
-                            <span>${Array.isArray(anime.categories) ? anime.categories.join(', ') : 'غير متوفر'}</span>
-                            <a href="${anime.link}" class="watch-button">شاهد الآن</a>
-                        </div>
+                </div>
+                <div class="anime-info">
+                    <h3>${anime.name}</h3>
+                    <div class="anime-meta">
+                        <span>${Array.isArray(anime.categories) ? anime.categories.join(', ') : 'غير متوفر'}</span>
+                        <a href="${anime.link}" class="watch-button">شاهد الآن</a>
                     </div>
-                `;
-                animeGrid.appendChild(card);
-            });
+                </div>
+            `;
+            animeGrid.appendChild(card);
         }
+    });
+}
+
 
         // تحميل البيانات عند فتح الصفحة
         loadAnimeCategories();
