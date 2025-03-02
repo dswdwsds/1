@@ -89,7 +89,7 @@
                 animeData.categories.forEach(category => {
                     const button = document.createElement('button');
                     button.className = "icon-button1";
-                    button.innerHTML = `<a href="../../../category.html?category=${encodeURIComponent(category)}">${category}</a>`;
+                    button.innerHTML = `<a href="../category.html?category=${encodeURIComponent(category)}">${category}</a>`;
                     categoryButtons.appendChild(button);
                 });
             } catch (error) {
