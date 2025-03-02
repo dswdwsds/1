@@ -103,7 +103,7 @@
 
     <!-- ✅ تحميل الحلقات من ملف JSON -->
     <script>
-        fetch('../../../tag/jave/Medalist.json')
+        fetch('../episodes.json')
             .then(response => response.json())
             .then(episodes => {
                 const episodesGrid = document.getElementById('episodesGrid');
