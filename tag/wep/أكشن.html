@@ -15,17 +15,22 @@
 
     <main>
         <div class="section-header">
-            <h1 id="categoryTitle">التصنيف</h1>
+            <h1>تصنيفات الأنمي</h1>
         </div>
 
+        <!-- أزرار التصنيفات -->
+        <div id="categoryButtons">
+            <button class="filter-btn" onclick="filterAnime('all')">عرض الكل</button>
+        </div>
+
+        <!-- عرض الأنميات -->
         <div class="anime-grid" id="animeGrid"></div>
-        <a href="index.html" class="back-button">🔙 الرجوع إلى الصفحة الرئيسية</a>
     </main>
 
     <script>
-        let categoryName = new URLSearchParams(window.location.search).get('category'); // قراءة التصنيف من الرابط
-        document.getElementById('categoryTitle').textContent = `تصنيف: ${categoryName}`;
+        let allAnimes = []; // تخزين كل الأنميات للفلترة
 
+        // تحميل قائمة تصنيفات الأنمي
         async function loadAnimeCategories() {
             try {
                 const response = await fetch('../jave/animeCategories.json');
@@ -37,31 +42,35 @@
                 for (const animeFile of data.animes) {
                     await loadAnimeData(animeFile);
                 }
+
+                generateCategoryButtons(); // إنشاء أزرار التصنيفات بعد تحميل الأنميات
             } catch (error) {
                 console.error('❌ خطأ في تحميل تصنيفات الأنمي:', error);
             }
         }
 
+        // تحميل بيانات كل أنمي
         async function loadAnimeData(animeFile) {
             try {
                 const response = await fetch(`../jave/${animeFile}`);
                 if (!response.ok) throw new Error(`فشل تحميل الملف: ${animeFile}`);
 
                 const anime = await response.json();
-                
-                // التحقق مما إذا كان الأنمي يحتوي على التصنيف المطلوب
-                if (anime.categories.includes(categoryName)) {
-                    displayAnime(anime);
-                }
+                allAnimes.push(anime); // تخزين الأنمي في القائمة
+
+                displayAnime(anime); // عرض الأنمي مباشرة
             } catch (error) {
                 console.error(`❌ خطأ في تحميل بيانات الأنمي من ${animeFile}:`, error);
             }
         }
 
+        // عرض الأنمي في الصفحة
         function displayAnime(anime) {
             const animeGrid = document.getElementById('animeGrid');
+
             const card = document.createElement('div');
             card.className = 'anime-card';
+            card.setAttribute('data-categories', anime.categories.join(',')); // حفظ التصنيفات في العنصر
 
             card.innerHTML = `
                 <div class="anime-image">
@@ -76,7 +85,7 @@
                 <div class="anime-info">
                     <h3>${anime.name}</h3>
                     <div class="anime-meta">
-                        <span>${anime.categories.join(', ')}</span>
+                        <span>${Array.isArray(anime.categories) ? anime.categories.join(', ') : 'غير متوفر'}</span>
                         <a href="${anime.link}" class="watch-button">شاهد الآن</a>
                     </div>
                 </div>
@@ -84,10 +93,42 @@
             animeGrid.appendChild(card);
         }
 
+        // توليد أزرار التصنيفات بناءً على البيانات
+        function generateCategoryButtons() {
+            const categories = new Set(); // تخزين التصنيفات بدون تكرار
+            allAnimes.forEach(anime => anime.categories.forEach(cat => categories.add(cat)));
+
+            const categoryButtons = document.getElementById('categoryButtons');
+            categories.forEach(category => {
+                const button = document.createElement('button');
+                button.className = "filter-btn";
+                button.textContent = category;
+                button.onclick = () => filterAnime(category);
+                categoryButtons.appendChild(button);
+            });
+        }
+
+        // فلترة الأنميات حسب التصنيف
+        function filterAnime(category) {
+            const animeCards = document.querySelectorAll('.anime-card');
+
+            animeCards.forEach(card => {
+                const categories = card.getAttribute('data-categories').split(',');
+
+                if (category === 'all' || categories.includes(category)) {
+                    card.style.display = "block"; // عرض العنصر
+                } else {
+                    card.style.display = "none"; // إخفاء العنصر
+                }
+            });
+        }
+
+        // تحميل البيانات عند فتح الصفحة
         loadAnimeCategories();
     </script>
 
     <script>
+        // تحميل الشريط العلوي (Navbar)
         fetch('../../navbar.html')
             .then(response => response.text())
             .then(data => document.getElementById('navbar-container').innerHTML = data)
