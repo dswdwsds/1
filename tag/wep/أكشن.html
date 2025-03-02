@@ -52,7 +52,7 @@
         // تحميل بيانات كل أنمي
         async function loadAnimeData(animeFile) {
             try {
-                const response = await fetch(`../jave/${animeFile}`);
+                const response = await fetch(`${animeFile}`);
                 if (!response.ok) throw new Error(`فشل تحميل الملف: ${animeFile}`);
 
                 const anime = await response.json();
