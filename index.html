@@ -28,7 +28,25 @@
         </div>
     </header>
     
-        
+<script>
+    // توليد أزرار التصنيفات مع الروابط للصفحات الخاصة بها
+    function generateCategoryButtons() {
+        const categories = new Set(); // تخزين التصنيفات بدون تكرار
+        allAnimes.forEach(anime => anime.categories.forEach(cat => categories.add(cat)));
+    
+        const categoryButtons = document.getElementById('categoryButtons');
+        categories.forEach(category => {
+            const button = document.createElement('button');
+            button.className = "filter-btn";
+            button.textContent = category;
+            button.onclick = () => {
+                window.location.href = `category.html?category=${encodeURIComponent(category)}`;
+            };
+            categoryButtons.appendChild(button);
+        });
+    }
+</script>
+
 <!-- قسم مميز -->
 <main>
     <div class="section-header">
