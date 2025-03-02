@@ -1,3 +1,10 @@
-{
-    "categories": ["أكشن", "مغامرات"]
-}
+[
+    {
+        "name": "naruto",
+        "link": "../../anime/naruto/Profile/naruto.html",
+        "image": "../../images/naruto.WebP",
+        "categories": ["أكشن", "مغامرات"],
+        "rating": "يعرض الان"
+
+    }
+]
