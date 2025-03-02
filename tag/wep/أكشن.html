@@ -20,7 +20,7 @@
 
         <!-- أزرار التصنيفات -->
         <div id="categoryButtons">
-            <button class="icon-button" onclick="filterAnime('all')">عرض الكل</button>
+            <button class="watch-button" onclick="filterAnime('all')">عرض الكل</button>
         </div>
 
         <!-- عرض الأنميات -->
@@ -101,7 +101,7 @@
             const categoryButtons = document.getElementById('categoryButtons');
             categories.forEach(category => {
                 const button = document.createElement('button');
-                button.className = "icon-button";
+                button.className = "watch-button";
                 button.textContent = category;
                 button.onclick = () => filterAnime(category);
                 categoryButtons.appendChild(button);
