@@ -60,16 +60,19 @@
 
         // تحميل بيانات كل أنمي من الملف الخاص به
         async function loadAnimeData(animeFile) {
-            try {
-                const response = await fetch(`${animeFile}`);
-                if (!response.ok) throw new Error(`❌ فشل تحميل الملف: ${animeFile}`);
+    try {
+        const response = await fetch(`${animeFile}`);
+        if (!response.ok) throw new Error(`❌ فشل تحميل الملف: ${animeFile}`);
 
-                return await response.json(); // إرجاع بيانات الأنمي كمصفوفة
-            } catch (error) {
-                console.error(error);
-                return [];
-            }
-        }
+        const data = await response.json();
+        
+        // إذا كان `data` كائنًا وليس مصفوفة، ضعه داخل مصفوفة
+        return Array.isArray(data) ? data : [data];
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
 
         // عرض الأنميات بناءً على التصنيف
         function displayFilteredAnime(animeList) {
