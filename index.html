@@ -96,7 +96,10 @@
             })
             .then(animeList => {
                 const animeGrid = document.getElementById('animeGrid');
-    
+      // تحديد الحد الأقصى للعناصر المعروضة
+      const maxItems = 5; // هنا يمكنك تغيير العدد كما تشاء
+                const limitedPages = pages.slice(0, maxItems); // تقليص العدد حسب الحد الأقصى
+               // إنشاء بطاقة لكل صفحة
                 animeList.forEach(page => {
                     const card = document.createElement('div');
                     card.className = 'anime-card';
