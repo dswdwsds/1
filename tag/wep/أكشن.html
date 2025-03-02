@@ -17,64 +17,113 @@
         <div class="section-header">
             <h1>تصنيفات الأنمي</h1>
         </div>
+
+        <!-- أزرار التصنيفات -->
+        <div id="categoryButtons">
+            <button class="filter-btn" onclick="filterAnime('all')">عرض الكل</button>
+        </div>
+
+        <!-- عرض الأنميات -->
         <div class="anime-grid" id="animeGrid"></div>
     </main>
 
     <script>
+        let allAnimes = []; // تخزين كل الأنميات للفلترة
+
         // تحميل قائمة تصنيفات الأنمي
         async function loadAnimeCategories() {
             try {
                 const response = await fetch('../jave/animeCategories.json');
                 if (!response.ok) throw new Error("فشل تحميل animeCategories.json");
-                
+
                 const data = await response.json();
                 if (!Array.isArray(data.animes)) throw new Error("البيانات في animeCategories.json غير صحيحة!");
 
-                // تحميل كل ملف JSON في القائمة
                 for (const animeFile of data.animes) {
                     await loadAnimeData(animeFile);
                 }
+
+                generateCategoryButtons(); // إنشاء أزرار التصنيفات بعد تحميل الأنميات
             } catch (error) {
                 console.error('❌ خطأ في تحميل تصنيفات الأنمي:', error);
             }
         }
 
-        // تحميل بيانات كل أنمي من ملف JSON منفصل
+        // تحميل بيانات كل أنمي
         async function loadAnimeData(animeFile) {
             try {
                 const response = await fetch(`../jave/${animeFile}`);
                 if (!response.ok) throw new Error(`فشل تحميل الملف: ${animeFile}`);
 
                 const anime = await response.json();
-                const animeGrid = document.getElementById('animeGrid');
+                allAnimes.push(anime); // تخزين الأنمي في القائمة
 
-                const card = document.createElement('div');
-                card.className = 'anime-card';
-                card.innerHTML = `
-                    <div class="anime-image">
-                        <img src="${anime.image}" alt="${anime.name}" loading="lazy">
-                        <div class="rating">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                            </svg>
-                            ${anime.rating}
-                        </div>
-                    </div>
-                    <div class="anime-info">
-                        <h3>${anime.name}</h3>
-                        <div class="anime-meta">
-                            <span>${Array.isArray(anime.categories) ? anime.categories.join(', ') : 'غير متوفر'}</span>
-                            <a href="${anime.link}" class="watch-button">شاهد الآن</a>
-                        </div>
-                    </div>
-                `;
-                animeGrid.appendChild(card);
+                displayAnime(anime); // عرض الأنمي مباشرة
             } catch (error) {
                 console.error(`❌ خطأ في تحميل بيانات الأنمي من ${animeFile}:`, error);
             }
         }
 
-        // تحميل التصنيفات عند تحميل الصفحة
+        // عرض الأنمي في الصفحة
+        function displayAnime(anime) {
+            const animeGrid = document.getElementById('animeGrid');
+
+            const card = document.createElement('div');
+            card.className = 'anime-card';
+            card.setAttribute('data-categories', anime.categories.join(',')); // حفظ التصنيفات في العنصر
+
+            card.innerHTML = `
+                <div class="anime-image">
+                    <img src="${anime.image}" alt="${anime.name}" loading="lazy">
+                    <div class="rating">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        ${anime.rating}
+                    </div>
+                </div>
+                <div class="anime-info">
+                    <h3>${anime.name}</h3>
+                    <div class="anime-meta">
+                        <span>${Array.isArray(anime.categories) ? anime.categories.join(', ') : 'غير متوفر'}</span>
+                        <a href="${anime.link}" class="watch-button">شاهد الآن</a>
+                    </div>
+                </div>
+            `;
+            animeGrid.appendChild(card);
+        }
+
+        // توليد أزرار التصنيفات بناءً على البيانات
+        function generateCategoryButtons() {
+            const categories = new Set(); // تخزين التصنيفات بدون تكرار
+            allAnimes.forEach(anime => anime.categories.forEach(cat => categories.add(cat)));
+
+            const categoryButtons = document.getElementById('categoryButtons');
+            categories.forEach(category => {
+                const button = document.createElement('button');
+                button.className = "filter-btn";
+                button.textContent = category;
+                button.onclick = () => filterAnime(category);
+                categoryButtons.appendChild(button);
+            });
+        }
+
+        // فلترة الأنميات حسب التصنيف
+        function filterAnime(category) {
+            const animeCards = document.querySelectorAll('.anime-card');
+
+            animeCards.forEach(card => {
+                const categories = card.getAttribute('data-categories').split(',');
+
+                if (category === 'all' || categories.includes(category)) {
+                    card.style.display = "block"; // عرض العنصر
+                } else {
+                    card.style.display = "none"; // إخفاء العنصر
+                }
+            });
+        }
+
+        // تحميل البيانات عند فتح الصفحة
         loadAnimeCategories();
     </script>
 
