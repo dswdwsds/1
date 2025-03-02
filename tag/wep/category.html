@@ -58,18 +58,22 @@
             }
         }
 
-        // تحميل بيانات كل أنمي من الملف الخاص به
         async function loadAnimeData(animeFile) {
-            try {
-                const response = await fetch(`${animeFile}`);
-                if (!response.ok) throw new Error(`❌ فشل تحميل الملف: ${animeFile}`);
+    try {
+        const response = await fetch(animeFile);
+        if (!response.ok) throw new Error(`❌ فشل تحميل الملف: ${animeFile}`);
 
-                return await response.json(); // إرجاع بيانات الأنمي كمصفوفة
-            } catch (error) {
-                console.error(error);
-                return [];
-            }
-        }
+        const anime = await response.json();
+        
+        // تأكد أن البيانات في مصفوفة، حتى لو كان كائناً واحداً فقط
+        return Array.isArray(anime) ? anime : [anime];
+
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+
 
         // عرض الأنميات بناءً على التصنيف
         function displayFilteredAnime(animeList) {
