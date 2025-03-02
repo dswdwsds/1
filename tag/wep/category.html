@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تصنيف الأنمي</title>
+    <link rel="stylesheet" href="../../CSS/style.css">
+    <script src="../../navbar.js" defer></script>
+    <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div id="navbar-container"></div>
+
+    <main>
+        <div class="section-header">
+            <h1 id="category-title">التصنيف</h1>
+        </div>
+
+        <!-- عرض الأنميات -->
+        <div class="anime-grid" id="animeGrid"></div>
+    </main>
+
+    <script>
+        // استخراج التصنيف من رابط الصفحة
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+
+        // تحديث عنوان الصفحة بناءً على التصنيف
+        if (category) {
+            document.getElementById("category-title").textContent = "تصنيف: " + category;
+        } else {
+            document.getElementById("category-title").textContent = "جميع الأنميات";
+        }
+
+        // تحميل قائمة ملفات الأنمي
+        async function loadAnimeCategories() {
+            try {
+                const response = await fetch("../jave/animeCategories.json");
+                if (!response.ok) throw new Error("❌ فشل تحميل animeCategories.json");
+
+                const data = await response.json();
+                if (!Array.isArray(data.animes)) throw new Error("❌ البيانات غير صحيحة في animeCategories.json!");
+
+                let animeList = [];
+
+                // تحميل بيانات كل أنمي من الملفات المحددة
+                for (const animeFile of data.animes) {
+                    const animeData = await loadAnimeData(animeFile);
+                    animeList.push(...animeData); // دمج البيانات في القائمة
+                }
+
+                // تصفية الأنميات وعرضها
+                displayFilteredAnime(animeList);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        // تحميل بيانات كل أنمي من الملف الخاص به
+        async function loadAnimeData(animeFile) {
+            try {
+                const response = await fetch(`../jave/${animeFile}`);
+                if (!response.ok) throw new Error(`❌ فشل تحميل الملف: ${animeFile}`);
+
+                return await response.json(); // إرجاع بيانات الأنمي كمصفوفة
+            } catch (error) {
+                console.error(error);
+                return [];
+            }
+        }
+
+        // عرض الأنميات بناءً على التصنيف
+        function displayFilteredAnime(animeList) {
+            const animeGrid = document.getElementById("animeGrid");
+
+            // تصفية الأنميات بناءً على التصنيف المطلوب
+            const filteredAnimes = animeList.filter(anime => anime.categories.includes(category));
+
+            if (filteredAnimes.length > 0) {
+                filteredAnimes.forEach(anime => {
+                    const animeCard = document.createElement("div");
+                    animeCard.className = "anime-card";
+                    animeCard.innerHTML = `
+                        <a href="${anime.link}">
+                            <div class="anime-image">
+                                <img src="${anime.image}" alt="${anime.name}" loading="lazy">
+                            </div>
+                            <h3>${anime.name}</h3>
+                        </a>
+                    `;
+                    animeGrid.appendChild(animeCard);
+                });
+            } else {
+                // إذا لم يكن هناك أنميات لهذا التصنيف
+                animeGrid.innerHTML = "<p style='text-align: center; font-size: 18px;'>لا توجد أنميات في هذا التصنيف حاليًا.</p>";
+            }
+        }
+
+        // تحميل البيانات عند فتح الصفحة
+        loadAnimeCategories();
+    </script>
+
+    <script>
+        // تحميل الشريط العلوي (Navbar)
+        fetch('../../navbar.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('navbar-container').innerHTML = data)
+            .catch(error => console.error('❌ خطأ في تحميل الشريط العلوي:', error));
+    </script>
+</body>
+</html>
