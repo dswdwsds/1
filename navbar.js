@@ -39,56 +39,6 @@ if (themeToggle) {
 }
 
 
-// تحميل البيانات من ملف JSON
-fetch('https://abdo12249.github.io/1/navbar/%D9%82%D8%A7%D8%A6%D9%85%D8%A9%20%D8%A7%D9%84%D8%A3%D9%86%D9%85%D9%8A/%D9%82%D8%A7%D8%A6%D9%85%D8%A9%20%D8%A7%D9%84%D8%A3%D9%86%D9%85%D9%8A.json')
-    .then(response => response.json())
-    .then(data => {
-        const animeData = data;
-
-        // العنصر الذي يحتوي على القائمة
-        const animeListContainer = document.getElementById('animeList');
-        const searchInput = document.getElementById('searchInput');
-
-        // دالة لعرض الأنميات بناءً على النص المدخل في البحث
-        function displayAnimeList(filteredData) {
-            animeListContainer.innerHTML = ''; // إفراغ المحتوى القديم
-            if (filteredData.length === 0) {
-                animeListContainer.innerHTML = '<p>لم يتم العثور على نتائج.</p>'; // رسالة إذا لم يتم العثور على نتائج
-            } else {
-                filteredData.forEach(item => {
-                    const animeItem = document.createElement('div');
-                    animeItem.classList.add('search-item');
-                    animeItem.innerHTML = `<strong>${item.name}</strong>`;
-                    
-                    // إضافة حدث عند الضغط على اسم الأنمي
-                    animeItem.addEventListener('click', function() {
-                        // توجيه المستخدم إلى صفحة الأنمي باستخدام الرابط المخزن في الـ JSON
-                        window.location.href = item.link;
-                    });
-
-                    animeListContainer.appendChild(animeItem);
-                });
-            }
-        }
-
-        // إضافة مستمع للبحث
-        searchInput.addEventListener('input', function () {
-            let query = this.value.toLowerCase(); // الحصول على النص المدخل وتحويله إلى حروف صغيرة
-
-            // تصفية الأنميات بناءً على النص المدخل
-            const filteredAnime = animeData.filter(item => 
-                item.name.toLowerCase().includes(query)
-            );
-
-            // عرض الأنميات المصفاة
-            displayAnimeList(filteredAnime);
-        });
-    })
-    .catch(error => console.error('خطأ في تحميل ملف الأنمي:', error));
-
-
-
-
     // عنصر القائمة الجانبية الموبيل
     const menuBtn = document.getElementById('menu-btn');
     const sidebar = document.getElementById('sidebar');
