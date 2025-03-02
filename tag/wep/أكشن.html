@@ -101,7 +101,7 @@
             const categoryButtons = document.getElementById('categoryButtons');
             categories.forEach(category => {
                 const button = document.createElement('button');
-                button.className = "filter-btn";
+                button.className = "icon-button";
                 button.textContent = category;
                 button.onclick = () => filterAnime(category);
                 categoryButtons.appendChild(button);
