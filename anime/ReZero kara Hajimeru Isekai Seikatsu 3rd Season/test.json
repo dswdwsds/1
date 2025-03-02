@@ -1,61 +1,7 @@
 {
-    "episodes": [
-        {
-            "number": 1,
-            "title": "الحلقة 1",
-            "link": "https://abdo12249.github.io/1/anime/ReZero%20kara%20Hajimeru%20Isekai%20Seikatsu%203rd%20Season/episodes/المشاهده.html?episode=1",
-            "categories": ["فنتازيا", "دراما", "يعرض الان", "خريف 2024"],
-            "image": "https://abdo12249.github.io/1/images/ReZero%20kara%20Hajimeru%20Isekai%20Seikatsu%203rd%20Season.webp",
-            "servers": [
-                {
-                    "serverName": "سيرفرات متعددة (HD)",
-                    "url": "https://megamax.me/iframe/DMvHCRGVRQq5h"
-                },
-                {
-                    "serverName": "uqload (HD)",
-                    "url": "https://uqload.net/embed-5ktrw0djx2bm.html"
-                },
-                {
-                    "serverName": "ok.ru (HD)",
-                    "url": "https://www.ok.ru/videoembed/7350675573466"
-                },
-                {
-                    "serverName": "vidmoly (HD)",
-                    "url": "//vidmoly.to/embed-1m7g2p810141.html"
-                },
-                {
-                    "serverName": "Mega (HD)",
-                    "url": "https://mega.nz/embed/gUAlwJaK!4kpDDKIxTl53eCBPLt1Vsqy9cG44NNzFRadZTGyaRTw"
-                },
-                {
-                    "serverName": "Mp4upload (HD)",
-                    "url": "https://www.mp4upload.com/embed-w8vmlxggz2hx.html"
-                },
-                {
-                    "serverName": "Sendvid (HD)",
-                    "url": "https://sendvid.com/embed/0629tf8g"
-                },
-                {
-                    "serverName": "ok.ru (FHD)",
-                    "url": "https://www.ok.ru/videoembed/7350623144666"
-                },
-                {
-                    "serverName": "Mega (FHD)",
-                    "url": "https://mega.nz/embed/QEAT3LrS!lveeSpZ_1Ov_52OPM0-xQbrC4QqwMOq-Ra6DWWvuOBc"
-                },
-                {
-                    "serverName": "ok.ru (SD)",
-                    "url": "https://www.ok.ru/videoembed/7350694185690"
-                },
-                {
-                    "serverName": "Mega (SD)",
-                    "url": "https://mega.nz/embed/EYAnBZJY!-Z4QDVZKf8pkVGj8VCHmLUmrIjXiki0vXBiKXqENv1M"
-                },
-                {
-                    "serverName": "Mp4upload (SD)",
-                    "url": "https://www.mp4upload.com/embed-4rt8ajotuae5.html"
-                }
-            ]
-        }
-    ]
+    "number": 1,
+    "title": "الحلقة 1",
+    "link": "https://abdo12249.github.io/1/anime/ReZero kara Hajimeru Isekai Seikatsu 3rd Season/episodes/المشاهده.html?episode=1",
+    "categories": ["فنتازيا","دراما","يعرض الان","خريف 2024"],
+    "image": "https://abdo12249.github.io/1/images/ReZero kara Hajimeru Isekai Seikatsu 3rd Season"
 }
