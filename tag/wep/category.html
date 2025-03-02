@@ -48,7 +48,7 @@
                 // تحميل بيانات كل أنمي من الملفات المحددة
                 for (const animeFile of data.animes) {
                     const animeData = await loadAnimeData(animeFile);
-                    animeList.push(...animeData); // دمج البيانات في القائمة
+                    animeList.push(animeData); // دمج البيانات في القائمة
                 }
 
                 // تصفية الأنميات وعرضها
