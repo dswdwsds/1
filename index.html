@@ -84,23 +84,24 @@
     <div class="anime-grid" id="animeGrid"></div>
 
     <script>
-        // تحميل قائمة الصفحات من JSON
         fetch('tag/jave/animeCategories.json')
             .then(response => response.json())
             .then(data => {
                 const animeGrid = document.getElementById('animeGrid');
                 const animeUrls = data.animes;
-    
+
                 // جلب بيانات كل أنمي على حدة
                 return Promise.all(animeUrls.map(url => fetch(url).then(res => res.json())));
             })
             .then(animeList => {
                 const animeGrid = document.getElementById('animeGrid');
-      // تحديد الحد الأقصى للعناصر المعروضة
-      const maxItems = 5; // هنا يمكنك تغيير العدد كما تشاء
-                const limitedPages = pages.slice(0, maxItems); // تقليص العدد حسب الحد الأقصى
-               // إنشاء بطاقة لكل صفحة
-                animeList.forEach(page => {
+                
+                // تحديد الحد الأقصى للعناصر المعروضة
+                const maxItems = 5; // يمكنك تغيير العدد حسب الحاجة
+                const limitedPages = animeList.slice(0, maxItems); // تقليص العدد حسب الحد الأقصى
+                
+                // إنشاء بطاقة لكل صفحة
+                limitedPages.forEach(page => {
                     const card = document.createElement('div');
                     card.className = 'anime-card';
                     card.innerHTML = `
