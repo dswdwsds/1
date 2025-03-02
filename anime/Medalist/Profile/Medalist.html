@@ -79,7 +79,7 @@
     <script>
         async function loadAnimeCategories() {
             try {
-                const response = await fetch('../../../jave/naruto.json'); // تأكد من المسار الصحيح للملف
+                const response = await fetch('../../../tag/jave/naruto.json'); // تأكد من المسار الصحيح للملف
                 if (!response.ok) throw new Error("فشل تحميل بيانات الأنمي");
 
                 const animeData = await response.json();
