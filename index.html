@@ -240,20 +240,7 @@
             .then(data => document.getElementById('navbar-container').innerHTML = data);
     </script>
 
-<button id="toggleOffline">تفعيل/إيقاف الـ Offline Mode</button>
-<span id="status">Offline Mode: غير مفعل</span>
 
-    
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js')
-    .then(function (reg) {
-      console.log('Service worker registered.', reg);
-    }).catch(function (err) {
-      console.log('Service worker error:', err);
-    });
-}
-</script>
 
     
 </body>
