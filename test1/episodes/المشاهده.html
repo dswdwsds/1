@@ -88,7 +88,6 @@
 
                     if (episodes.length > 0 && data.animeTitle) {
                         animeTitle.textContent = data.animeTitle;
-                        document.title = `${data.animeTitle} - مشاهدة الحلقة`;
                         const metaDescription = document.querySelector('meta[name="description"]');
                         if (metaDescription) {
                             metaDescription.setAttribute('content', `مشاهدة حلقات ${data.animeTitle}`);
@@ -106,7 +105,7 @@
 
         function loadEpisodes() {
             episodesList.innerHTML = '';
-            episodes.forEach((episode, index) => {
+            episodes.forEach((episode) => {
                 const li = document.createElement('li');
                 li.className = 'episode-item';
                 li.textContent = episode.title;
@@ -139,15 +138,21 @@
         function updatePlayer() {
             const currentEpisode = episodes[currentEpisodeIndex];
             episodeTitle.textContent = `رقم الحلقة: ${currentEpisode.number}`;
+
+            // ✅ تحديث عنوان الصفحة ليشمل اسم الأنمي ورقم الحلقة
+            document.title = `${animeTitle.textContent} - الحلقة ${currentEpisode.number}`;
+
             if (!currentServerName && currentEpisode.servers.length > 0) {
                 currentServerName = currentEpisode.servers[0].serverName;
             }
+
             const currentServer = currentEpisode.servers.find(server => server.serverName === currentServerName);
             if (currentServer) {
                 videoPlayer.src = currentServer.url;
             } else {
                 console.warn('لا يوجد سيرفر مناسب.');
             }
+
             loadServerButtons();
         }
 
