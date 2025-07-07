@@ -1,0 +1,26 @@
+{
+  "dr-stone": {
+    "title": "Dr. Stone Science Future",
+    "description": "القسم الأول من الموسم الرابع.",
+    "image": "../images/Dr. Stone Science Future.webp",
+    "tags": ["خيال علمي", "شونين", "مغامرات", "كوميدي"],
+    "type": "TV",
+    "status": "يعرض الان",
+    "episodeCount": "غير متوفر",
+    "duration": "24 دقيقة",
+    "season": "شتاء 2025",
+    "source": "مانجا",
+    "episodes": [
+      {
+        "number": 1,
+        "link": "https://abdo12249.github.io/1/anime/Dr. Stone Science Future/episodes/المشاهده.html?episode=1",
+        "image": "../images/Dr. Stone Science Future.webp"
+      },
+      {
+        "number": 2,
+        "link": "https://abdo12249.github.io/1/anime/Dr. Stone Science Future/episodes/المشاهده.html?episode=2",
+        "image": "../images/Dr. Stone Science Future.webp"
+      }
+    ]
+  }
+}

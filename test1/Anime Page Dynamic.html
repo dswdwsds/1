@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="عرض أنمي ديناميكي">
+    <title>عرض الأنمي</title>
+    <link rel="stylesheet" href="../CSS/Profile.css">
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div id="navbar-container"></div>
+    <div class="container">
+        <h1 class="anime-title">جارٍ التحميل...</h1>
+
+        <button id="saveButton" class="not-saved">اضافة للمفضل</button>
+        <script src="../navbar.js"></script>
+
+        <div class="content-wrapper">
+            <div class="anime-image">
+                <img src="" alt="صورة الأنمي">
+            </div>
+            <div class="anime-info" id="anime-info">
+                <!-- سيتم توليد معلومات الأنمي هنا -->
+            </div>
+        </div>
+
+        <div class="story">
+            <h2>Story:</h2>
+            <p>...</p>
+        </div>
+
+        <div class="episodes-section">
+            <h2>حلقات الأنمي:</h2>
+            <div class="episodes-grid"></div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const animeId = urlParams.get('id');
+
+        fetch('data/animes.json')
+            .then(res => res.json())
+            .then(data => {
+                const anime = data[animeId];
+                if (!anime) {
+                    document.body.innerHTML = '<h1>الأنمي غير موجود</h1>';
+                    return;
+                }
+
+                document.querySelector('.anime-title').textContent = anime.title;
+                document.querySelector('.anime-image img').src = anime.image;
+                document.querySelector('.anime-image img').alt = anime.title;
+                document.querySelector('.story p').textContent = anime.description;
+
+                const infoBox = document.getElementById('anime-info');
+                infoBox.innerHTML = `
+                    <div class="info-item">
+                        <strong>التصنيف:</strong>
+                        ${anime.tags.map(tag => `<button class="icon-button1"><a href="../../../tag/wep/category.html?category=${tag}">${tag}</a></button>`).join(' ')}
+                    </div>
+                    <div class="info-item"><strong>النوع:</strong> ${anime.type}</div>
+                    <div class="info-item"><strong>حالة الأنمي:</strong> <button class='icon-button1'><a href='../../../tag/wep/category.html?category=${anime.status}'>${anime.status}</a></button></div>
+                    <div class="info-item"><strong>عدد الحلقات:</strong> ${anime.episodeCount}</div>
+                    <div class="info-item"><strong>مدة الحلقة:</strong> ${anime.duration}</div>
+                    <div class="info-item"><strong>الموسم:</strong> <button class='icon-button1'><a href='../../../tag/wep/category.html?category=${anime.season}'>${anime.season}</a></button></div>
+                    <div class="info-item"><strong>المصدر:</strong> ${anime.source}</div>
+                `;
+
+                const episodesGrid = document.querySelector('.episodes-grid');
+                anime.episodes.forEach(episode => {
+                    const epEl = document.createElement('a');
+                    epEl.href = episode.link;
+                    epEl.className = 'episode-item';
+                    epEl.innerHTML = `
+                        <img src="${episode.image}" alt="الحلقة ${episode.number}">
+                        <div class="episode-number">الحلقة ${episode.number}</div>
+                    `;
+                    episodesGrid.appendChild(epEl);
+                });
+            })
+            .catch(error => console.error('خطأ في تحميل بيانات الأنمي:', error));
+
+        fetch('../navbar.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('navbar-container').innerHTML = data);
+    </script>
+</body>
+</html>
