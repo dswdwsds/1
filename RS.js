@@ -70,6 +70,5 @@ if (reverseHistoryButton) {
 }
 
 // إضافة الصفحة الحالية للسجل (ما عدا سجل المشاهدة)
-const currentPage = document.title || "صفحة غير معنونة";
-addToHistory(currentPage, window.location.href);
+
 displayHistory();
