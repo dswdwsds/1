@@ -22,9 +22,7 @@
             <div class="anime-image">
                 <img src="" alt="صورة الأنمي">
             </div>
-            <div class="anime-info" id="anime-info">
-                <!-- سيتم توليد معلومات الأنمي هنا -->
-            </div>
+            <div class="anime-info" id="anime-info"></div>
         </div>
 
         <div class="story">
@@ -76,10 +74,15 @@
                     <div class="info-item"><strong>اسم ملف الحلقات:</strong> <code>episodes/${animeId}.json</code></div>
                 `;
 
-                // تحميل الحلقات من ملف episodes.json منفصل لكل أنمي
+                // تحميل ملف الحلقات من ملف منفصل
                 fetch(`episodes/${animeId}.json`)
                     .then(res => res.json())
-                    .then(episodes => {
+                    .then(episodeData => {
+                        const episodes = Array.isArray(episodeData) ? episodeData : episodeData.episodes;
+                        if (!Array.isArray(episodes)) {
+                            throw new Error("صيغة ملف الحلقات غير صحيحة");
+                        }
+
                         const episodesGrid = document.querySelector('.episodes-grid');
                         episodes.forEach(episode => {
                             const epEl = document.createElement('a');
