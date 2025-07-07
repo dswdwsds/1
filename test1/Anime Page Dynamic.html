@@ -42,7 +42,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const animeId = urlParams.get('id');
 
-        fetch('data/animes.json')
+        fetch('animes.json')
             .then(res => res.json())
             .then(data => {
                 const anime = data[animeId];
