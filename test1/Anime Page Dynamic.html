@@ -60,13 +60,13 @@
                 infoBox.innerHTML = `
                     <div class="info-item">
                         <strong>التصنيف:</strong>
-                        ${anime.tags.map(tag => `<button class="icon-button1"><a href="../../../tag/wep/category.html?category=${tag}">${tag}</a></button>`).join(' ')}
+                        ${anime.tags.map(tag => `<button class="icon-button1"><a href="/1/tag/wep/category.html?category=${encodeURIComponent(tag)}">${tag}</a></button>`).join(' ')}
                     </div>
                     <div class="info-item"><strong>النوع:</strong> ${anime.type}</div>
-                    <div class="info-item"><strong>حالة الأنمي:</strong> <button class='icon-button1'><a href='../../../tag/wep/category.html?category=${anime.status}'>${anime.status}</a></button></div>
+                    <div class="info-item"><strong>حالة الأنمي:</strong> <button class='icon-button1'><a href='/1/tag/wep/category.html?category=${encodeURIComponent(anime.status)}'>${anime.status}</a></button></div>
                     <div class="info-item"><strong>عدد الحلقات:</strong> ${anime.episodeCount}</div>
                     <div class="info-item"><strong>مدة الحلقة:</strong> ${anime.duration}</div>
-                    <div class="info-item"><strong>الموسم:</strong> <button class='icon-button1'><a href='../../../tag/wep/category.html?category=${anime.season}'>${anime.season}</a></button></div>
+                    <div class="info-item"><strong>الموسم:</strong> <button class='icon-button1'><a href='/1/tag/wep/category.html?category=${encodeURIComponent(anime.season)}'>${anime.season}</a></button></div>
                     <div class="info-item"><strong>المصدر:</strong> ${anime.source}</div>
                 `;
 
