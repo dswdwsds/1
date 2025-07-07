@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مشاهدة الحلقة</title>
+    <meta name="description" content="عرض أنمي ديناميكي" id="meta-description">
     <link rel="stylesheet" href="../../CSS/episodes.css">
     <link rel="stylesheet" href="../../CSS/style.css">
     <script src="../../RS.js" defer></script>
@@ -79,10 +80,14 @@
             fetch(`${animeId}.json`)
                 .then(response => response.json())
                 .then(data => {
-                    episodes = data;
-                    if (episodes.length > 0 && episodes[0].animeTitle) {
-                        animeTitle.textContent = episodes[0].animeTitle;
-                        document.title = episodes[0].animeTitle + ' - مشاهدة الحلقة';
+                    episodes = data.episodes;
+                    if (episodes.length > 0 && data.animeTitle) {
+                        animeTitle.textContent = data.animeTitle;
+                        document.title = data.animeTitle + ' - مشاهدة الحلقة';
+                        const metaDescription = document.querySelector('meta[name="description"]');
+                        if (metaDescription) {
+                            metaDescription.setAttribute('content', `مشاهدة حلقات ${data.animeTitle}`);
+                        }
                     }
                     loadEpisodes();
                     setEpisodeFromURL();
@@ -127,7 +132,6 @@
 
         function updatePlayer() {
             const currentEpisode = episodes[currentEpisodeIndex];
-            animeTitle.textContent = currentEpisode.animeTitle || 'اسم الأنمي';
             episodeTitle.textContent = `رقم الحلقة: ${currentEpisode.number}`;
             if (!currentServerName && currentEpisode.servers.length > 0) {
                 currentServerName = currentEpisode.servers[0].serverName;

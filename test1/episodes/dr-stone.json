@@ -1,4 +1,6 @@
-[
+{
+ "animeTitle": "Dr. Stone Science Future",
+  "episodes": [
     {
         "number": 1,
         "title": "الحلقة 1",
@@ -508,4 +510,5 @@
             }
         ]
     }
-]
+    ]
+}
