@@ -68,19 +68,29 @@
                     <div class="info-item"><strong>مدة الحلقة:</strong> ${anime.duration}</div>
                     <div class="info-item"><strong>الموسم:</strong> <button class='icon-button1'><a href='/1/tag/wep/category.html?category=${encodeURIComponent(anime.season)}'>${anime.season}</a></button></div>
                     <div class="info-item"><strong>المصدر:</strong> ${anime.source}</div>
+                    <div class="info-item"><strong>اسم ملف الحلقات:</strong> <code>episodes/${animeId}.json</code></div>
                 `;
 
-                const episodesGrid = document.querySelector('.episodes-grid');
-                anime.episodes.forEach(episode => {
-                    const epEl = document.createElement('a');
-                    epEl.href = episode.link;
-                    epEl.className = 'episode-item';
-                    epEl.innerHTML = `
-                        <img src="${episode.image}" alt="الحلقة ${episode.number}">
-                        <div class="episode-number">الحلقة ${episode.number}</div>
-                    `;
-                    episodesGrid.appendChild(epEl);
-                });
+                // تحميل الحلقات من ملف episodes.json منفصل لكل أنمي
+                fetch(`episodes/${animeId}.json`)
+                    .then(res => res.json())
+                    .then(episodes => {
+                        const episodesGrid = document.querySelector('.episodes-grid');
+                        episodes.forEach(episode => {
+                            const epEl = document.createElement('a');
+                            epEl.href = episode.link;
+                            epEl.className = 'episode-item';
+                            epEl.innerHTML = `
+                                <img src="${episode.image}" alt="الحلقة ${episode.number}">
+                                <div class="episode-number">الحلقة ${episode.number}</div>
+                            `;
+                            episodesGrid.appendChild(epEl);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('خطأ في تحميل ملف الحلقات:', error);
+                        document.querySelector('.episodes-section').style.display = 'none';
+                    });
             })
             .catch(error => console.error('خطأ في تحميل بيانات الأنمي:', error));
 
