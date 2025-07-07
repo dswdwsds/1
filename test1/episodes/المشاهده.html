@@ -76,7 +76,7 @@
                 return;
             }
 
-            fetch(`../../episodes/${animeId}.json`)
+            fetch(`episodes/${animeId}.json`)
                 .then(response => response.json())
                 .then(data => {
                     episodes = data;
