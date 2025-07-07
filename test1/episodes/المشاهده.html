@@ -77,18 +77,24 @@
                 return;
             }
 
-            fetch(`${animeId}.json`)
+            fetch(`../episodes/${animeId}.json`)
                 .then(response => response.json())
                 .then(data => {
+                    if (!data.episodes || !Array.isArray(data.episodes)) {
+                        throw new Error("الملف لا يحتوي على قائمة الحلقات بشكل صحيح.");
+                    }
+
                     episodes = data.episodes;
+
                     if (episodes.length > 0 && data.animeTitle) {
                         animeTitle.textContent = data.animeTitle;
-                        document.title = data.animeTitle + ' - مشاهدة الحلقة';
+                        document.title = `${data.animeTitle} - مشاهدة الحلقة`;
                         const metaDescription = document.querySelector('meta[name="description"]');
                         if (metaDescription) {
                             metaDescription.setAttribute('content', `مشاهدة حلقات ${data.animeTitle}`);
                         }
                     }
+
                     loadEpisodes();
                     setEpisodeFromURL();
                 })
