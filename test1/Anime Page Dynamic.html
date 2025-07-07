@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="عرض أنمي ديناميكي">
-    <title>عرض الأنمي</title>
+    <meta name="description" content="عرض أنمي ديناميكي" id="meta-description">
+    <title id="page-title">عرض الأنمي</title>
     <link rel="stylesheet" href="../CSS/Profile.css">
     <link rel="stylesheet" href="../CSS/style.css">
     <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon">
@@ -50,6 +50,11 @@
                     document.body.innerHTML = '<h1>الأنمي غير موجود</h1>';
                     return;
                 }
+
+                // تحديث العنوان والوصف
+                document.title = anime.title + ' - AMK4UP - موقع مشاهدة الانمي';
+                const metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc) metaDesc.setAttribute('content', anime.title + ' - تعريف الأنمي');
 
                 document.querySelector('.anime-title').textContent = anime.title;
                 document.querySelector('.anime-image img').src = anime.image;
