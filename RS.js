@@ -6,16 +6,22 @@ let history = JSON.parse(localStorage.getItem(historyKey)) || [];
 // إضافة الصفحة الحالية إلى السجل (مع تجنب صفحة سجل المشاهدة والتكرار)
 function addToHistory(pageName, pageURL = window.location.href) {
     // لا تسجل صفحة سجل المشاهدة
-    if (pageName.includes("سجل المشاهدة") || pageURL.includes("watch-history") || pageURL.includes("سجل")) {
+    if (
+        pageName.includes("سجل المشاهدة") ||
+        pageURL.includes("watch-history") ||
+        pageURL.includes("سجل")
+    ) {
         return;
     }
 
-    // تجنب التكرار
-    const exists = history.some(entry => entry.url === pageURL);
-    if (!exists) {
-        history.push({ name: pageName, url: pageURL });
-        localStorage.setItem(historyKey, JSON.stringify(history));
-    }
+    // حذف أي نسخة قديمة لنفس الرابط
+    history = history.filter(entry => entry.url !== pageURL);
+
+    // إضافة الصفحة إلى أول السجل (الأحدث في الأعلى)
+    history.unshift({ name: pageName, url: pageURL });
+
+    // حفظ التحديث
+    localStorage.setItem(historyKey, JSON.stringify(history));
 }
 
 // عرض السجل في الصفحة
@@ -58,7 +64,7 @@ function reverseHistory() {
     displayHistory();
 }
 
-// ربط الأزرار بالوظائف
+// ربط الأزرار بالوظائف إن وجدت
 const clearHistoryButton = document.getElementById("clear-history");
 if (clearHistoryButton) {
     clearHistoryButton.addEventListener("click", clearHistory);
@@ -69,7 +75,9 @@ if (reverseHistoryButton) {
     reverseHistoryButton.addEventListener("click", reverseHistory);
 }
 
-// إضافة الصفحة الحالية للسجل (ما عدا سجل المشاهدة)
-const currentPage = document.title || "صفحة غير معنونة";
-addToHistory(currentPage, window.location.href);
+// ❌ لا تضف الصفحة هنا تلقائياً، خلي صفحات مثل "المشاهدة.html" تضيفها بنفسها بعد تحميل البيانات
+// const currentPage = document.title || "صفحة غير معنونة";
+// addToHistory(currentPage, window.location.href);
+
+// ✅ لكن اعرض السجل إن وجد عنصر العرض
 displayHistory();
