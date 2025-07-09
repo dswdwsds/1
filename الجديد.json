@@ -1,10 +1,5 @@
-[
-    {
-        "name": "Dr. Stone Science Future",
-        "link": "test1/Anime Page Dynamic.html?id=dr-stone",
-        "image": "images/Dr. Stone Science Future.webp",
-        "rating": "يعرض الان",
-        "episodes": "الحلقة3"
-
-    }
-]
+{
+  "animes": [
+    https://abdo12249.github.io/1/test1/episodes/dr-stone.json
+  ]
+}
