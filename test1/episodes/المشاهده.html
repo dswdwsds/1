@@ -105,9 +105,17 @@
 
         function loadEpisodes() {
             episodesList.innerHTML = '';
+            const currentEpisodeNumber = parseInt(getQueryParam('episode'), 10); // رقم الحلقة من الرابط
+
             episodes.forEach((episode) => {
                 const li = document.createElement('li');
                 li.className = 'episode-item';
+
+                // ✅ إذا كانت هذه هي الحلقة الحالية، أضف الكلاس active
+                if (episode.number === currentEpisodeNumber) {
+                    li.classList.add('active');
+                }
+
                 li.textContent = episode.title;
                 li.addEventListener('click', () => {
                     window.location.href = `?id=${getQueryParam('id')}&episode=${episode.number}`;
@@ -115,6 +123,7 @@
                 episodesList.appendChild(li);
             });
         }
+
 
         function loadServerButtons() {
             serverButtonsContainer.innerHTML = '';
