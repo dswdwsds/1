@@ -170,6 +170,13 @@ body.light-mode .anime-info-header p {
     background-color: #dc2626;
 }
 
+.episode-item.active {
+    background-color: var(--primary-color, #ef4444);
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
 /* التصميم للأجهزة الصغيرة */
 @media (max-width: 768px) {
     .container {
