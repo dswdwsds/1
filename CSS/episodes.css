@@ -51,16 +51,18 @@ body.light-mode .anime-info-header p {
 
 /* الشريط الجانبي */
 .episodes {
-    margin-top: 190px;
+    margin-top: 200px;
     margin-right: 30px;
-    height: 900px;
     width: 300px;
+    max-height: calc(100vh - 100px); /* لا يتعدى طول الشاشة */
     background-color: var(--bg-darker);
     border-left: 1px solid #ddd;
     padding: 10px;
     box-sizing: border-box;
     overflow-y: auto;
+    border-radius: 8px;
 }
+
 
 .episodes h2 {
     text-align: center;
