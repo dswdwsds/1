@@ -15,5 +15,69 @@
     "duration": "24 دقيقة",
     "season": "شتاء 2025",
     "source": "مانجا"
-  }
+  },
+  "animeTitle": "Dr. Stone Science Future",
+  "episodes": [
+    {
+      "number": 10,
+      "title": "الحلقة 10",
+      "date": "2025-06-04 01:08:12",
+      "link": "https://abdo12249.github.io/1/test1/episodes/المشاهده.html?id=dr-stone&episode=1",
+      "image": "https://abdo12249.github.io/1/images/Dr. Stone Science Future.webp",
+      "servers": [
+        {
+          "serverName": "سيرفرات متعددة (HD)",
+          "url": "https://megamax.me/iframe/0RDcZVxzK35We"
+        },
+        {
+          "serverName": "uqload (HD)",
+          "url": "https://uqload.net/embed-jc2bfc9eb3lc.html"
+        },
+        {
+          "serverName": "ok.ru (HD)",
+          "url": "https://www.ok.ru/videoembed/8693643152090"
+        },
+        {
+          "serverName": "vidmoly (HD)",
+          "url": "//vidmoly.to/embed-takeqsy5bu06.html"
+        },
+        {
+          "serverName": "Mega (HD)",
+          "url": "https://mega.nz/embed/bz4WhDYK!Y-KRYn6_7uwa7BS5ss_C07zOrXHob9kq6RmGf8YpL9w"
+        },
+        {
+          "serverName": "Mp4upload (HD)",
+          "url": "https://www.mp4upload.com/embed-9pb6f3rcz92p.html"
+        },
+        {
+          "serverName": "Sendvid (HD)",
+          "url": "https://sendvid.com/embed/9u288jrg"
+        },
+        {
+          "serverName": "ok.ru (FHD)",
+          "url": "https://www.ok.ru/videoembed/8693633387226"
+        },
+        {
+          "serverName": "Mega (FHD)",
+          "url": "https://mega.nz/embed/GmRXTCRJ!BrPQ-zDZmEfZsRKS6SrnRHayj1MB-lfyZOJJalanYtY"
+        },
+        {
+          "serverName": "Mp4upload (FHD)",
+          "url": "https://www.mp4upload.com/embed-behxmk23vbip.html"
+        },
+        {
+          "serverName": "ok.ru (SD)",
+          "url": "https://www.ok.ru/videoembed/8693662747354"
+        },
+        {
+          "serverName": "Mega (SD)",
+          "url": "https://mega.nz/embed/e2AkHDQT!EzEnjy3FO2pvhgeUG0Blw35fHSirvksIxx0_etWk9YM"
+        },
+        {
+          "serverName": "Mp4upload (SD)",
+          "url": "https://www.mp4upload.com/embed-pzx1hjf0x2ro.html"
+        }
+      ]
+    }
+  ]
 }
