@@ -1,38 +1,10 @@
 [
     {
-        "name": "A-Rank Party wo Ridatsu shita Ore wa, Moto Oshiego-tachi to Meikyuu Shinbu wo Mezasu.",
-        "link": "anime/A-Rank Party wo Ridatsu shita Ore wa, Moto Oshiego-tachi to Meikyuu Shinbu wo Mezasu./Profile/A-Rank Party wo Ridatsu shita Ore wa, Moto Oshiego-tachi to Meikyuu Shinbu wo Mezasu.html",
-        "image": "images/A-Rank Party wo Ridatsu shita Ore wa, Moto Oshiego-tachi to Meikyuu Shinbu wo Mezasu.WebP",
-        "rating": "يعرض الان"
-
-    },
-    {
-        "name": "Ao_no_Miburo",
-        "link": "anime/Ao_no_Miburo/Profile/Ao_no_Miburo.html",
-        "image": "images/Ao no Miburo.WebP",
-        "rating": "يعرض الان"
-
-    },
-    {
-        "name": "Sakamoto Days",
-        "link": "anime/Sakamoto Days/Profile/Sakamoto Days.html",
-        "image": "images/Sakamoto Days.WebP",
-        "rating": "يعرض الان"
-
-    },
-    {
-        "name": "Ao no Exorcist Yosuga-hen",
-        "link": "anime/Ao no Exorcist Yosuga-hen/Profile/Ao no Exorcist Yosuga-hen.html",
-        "image": "images/Ao no Exorcist Yosuga-hen.WebP",
+        "name": "Dr. Stone Science Future",
+        "link": "test1/Anime Page Dynamic.html?id=dr-stone",
+        "image": "images/Dr. Stone Science Future.webp",
         "rating": "يعرض الان",
-        "episodes": ""
+        "episodes": "الحلقة3"
 
-    },
-    {
-        "name": "Solo Leveling Season 2 ",
-        "link": "anime/Solo Leveling Season 2/Profile/Solo Leveling Season 2.html",
-        "image": "images/Solo Leveling Season 2.WebP",
-        "rating": "يعرض الان",
-        "episodes": ""
     }
 ]
