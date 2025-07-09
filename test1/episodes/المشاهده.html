@@ -139,7 +139,6 @@
             const currentEpisode = episodes[currentEpisodeIndex];
             episodeTitle.textContent = `رقم الحلقة: ${currentEpisode.number}`;
 
-            // ✅ تحديث عنوان الصفحة ليشمل اسم الأنمي ورقم الحلقة
             document.title = `${animeTitle.textContent} - الحلقة ${currentEpisode.number}`;
 
             if (!currentServerName && currentEpisode.servers.length > 0) {
@@ -154,7 +153,13 @@
             }
 
             loadServerButtons();
+
+            // ✅ بعد تحديث عنوان الصفحة أضفها للسجل
+            if (typeof addToHistory === 'function') {
+                addToHistory(document.title, window.location.href);
+            }
         }
+
 
         function playEpisode(index) {
             currentEpisodeIndex = index;
