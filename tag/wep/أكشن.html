@@ -62,7 +62,7 @@
       card.innerHTML = `
         <a href="${link}" style="text-decoration: none; color: inherit;">
           <div class="anime-image">
-            <img src="${anime.image}" alt="${anime.title}" loading="lazy" />
+            <img src="${adjustPath(anime.image)}" alt="${anime.title}" loading="lazy" />
           </div>
           <div class="anime-info">
             <h3>${anime.title}</h3>
@@ -79,6 +79,13 @@
       `;
       animeGrid.appendChild(card);
     }
+function adjustPath(path) {
+  // لو المسار يبدأ بـ ../ حوّله إلى ../../
+  if (path.startsWith('../')) {
+    return path.replace('../', '../../');
+  }
+  return path;
+}
 
     // توليد أزرار التصنيفات تلقائيًا
     function generateCategoryButtons() {
