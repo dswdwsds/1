@@ -100,16 +100,29 @@
 
     // فلترة الأنميات حسب التصنيف
     function filterAnime(category) {
-      const cards = document.querySelectorAll('.anime-card');
-      cards.forEach(card => {
+    // إزالة الكلاس active من كل الأزرار
+    const allButtons = document.querySelectorAll('#categoryButtons .watch-button');
+    allButtons.forEach(btn => btn.classList.remove('active'));
+
+    // تحديد الزر المطابق وإضافة الكلاس
+    allButtons.forEach(btn => {
+        if (btn.textContent.trim() === category || (category === 'all' && btn.textContent.trim() === "عرض الكل")) {
+        btn.classList.add('active');
+        }
+    });
+
+    // فلترة البطاقات
+    const cards = document.querySelectorAll('.anime-card');
+    cards.forEach(card => {
         const cardCategories = card.getAttribute('data-categories').split(',');
         if (category === 'all' || cardCategories.includes(category)) {
-          card.style.display = 'block';
+        card.style.display = 'block';
         } else {
-          card.style.display = 'none';
+        card.style.display = 'none';
         }
-      });
+    });
     }
+
 
     // تحميل البيانات عند فتح الصفحة
     loadAnimeData();
