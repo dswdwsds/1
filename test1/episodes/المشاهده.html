@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>مشاهدة الحلقة</title>
     <meta name="description" content="عرض أنمي ديناميكي" id="meta-description">
     <link rel="stylesheet" href="../../CSS/episodes.css">
@@ -10,6 +10,7 @@
     <script src="../../RS.js" defer></script>
     <script src="../../navbar.js" defer></script>
     <link rel="icon" href="https://abdo838.github.io/1/navbar/favicon.ico" type="image/x-icon">
+
 </head>
 
 <body>
@@ -105,13 +106,12 @@
 
         function loadEpisodes() {
             episodesList.innerHTML = '';
-            const currentEpisodeNumber = parseInt(getQueryParam('episode'), 10); // رقم الحلقة من الرابط
+            const currentEpisodeNumber = parseInt(getQueryParam('episode'), 10);
 
             episodes.forEach((episode) => {
                 const li = document.createElement('li');
                 li.className = 'episode-item';
 
-                // ✅ إذا كانت هذه هي الحلقة الحالية، أضف الكلاس active
                 if (episode.number === currentEpisodeNumber) {
                     li.classList.add('active');
                 }
@@ -124,22 +124,26 @@
             });
         }
 
-
         function loadServerButtons() {
             serverButtonsContainer.innerHTML = '';
             const currentEpisode = episodes[currentEpisodeIndex];
             currentEpisode.servers.forEach(server => {
                 const button = document.createElement('button');
                 button.textContent = server.serverName;
+
+                // استخدم نفس كلاس الحلقة لتطبيق الستايل
                 button.classList.add('server-button');
+
                 if (server.serverName === currentServerName) {
                     button.classList.add('active');
                 }
+
                 button.addEventListener('click', () => {
                     currentServerName = server.serverName;
                     videoPlayer.src = server.url;
-                    loadServerButtons();
+                    loadServerButtons(); // تحديث الزر النشط
                 });
+
                 serverButtonsContainer.appendChild(button);
             });
         }
@@ -147,7 +151,6 @@
         function updatePlayer() {
             const currentEpisode = episodes[currentEpisodeIndex];
             episodeTitle.textContent = `رقم الحلقة: ${currentEpisode.number}`;
-
             document.title = `${animeTitle.textContent} - الحلقة ${currentEpisode.number}`;
 
             if (!currentServerName && currentEpisode.servers.length > 0) {
@@ -163,12 +166,10 @@
 
             loadServerButtons();
 
-            // ✅ بعد تحديث عنوان الصفحة أضفها للسجل
             if (typeof addToHistory === 'function') {
                 addToHistory(document.title, window.location.href);
             }
         }
-
 
         function playEpisode(index) {
             currentEpisodeIndex = index;
