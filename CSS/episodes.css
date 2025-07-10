@@ -207,21 +207,12 @@ body.light-mode .anime-info-header p {
 
     .anime-info-header {
         margin-top: 120px;
+        margin-left: -50px;
     }
 
-    .server-buttons button {
-        width: 100%;
-        margin: 5px 0;
-    }
 
     .video-container iframe {
         height: 250px;
-    }
-
-    .navigation-buttons {
-        flex-direction: column;
-        padding: 0;
-        gap: 10px;
     }
 
     .navigation-buttons button {
