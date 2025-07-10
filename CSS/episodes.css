@@ -177,6 +177,13 @@ body.light-mode .anime-info-header p {
     border-radius: 5px;
 }
 
+.server-button.active {
+    background-color: var(--primary-color, #ef4444);
+    color: white;
+    border: 2px solid #c53030;
+}
+
+
 /* التصميم للأجهزة الصغيرة */
 @media (max-width: 768px) {
     .container {
