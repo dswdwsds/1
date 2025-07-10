@@ -98,9 +98,9 @@ body.light-mode .anime-info-header p {
 
 /* عنوان الأنمي */
 .anime-info-header {
-    width: 100%;
+    width: 120%;
     text-align: center;
-    margin-top: 35px;
+    margin-top: 60px;
 }
 
 .anime-info-header h2,
@@ -178,9 +178,9 @@ body.light-mode .anime-info-header p {
 }
 
 .server-button.active {
-    background-color: var(--primary-color, #ef4444);
-    color: white;
-    border: 2px solid #c53030;
+    background-color:  #4b5563;
+    color: #ededed;
+    border: 3px solid #000000;
 }
 
 
@@ -206,7 +206,7 @@ body.light-mode .anime-info-header p {
     }
 
     .anime-info-header {
-        margin-top: 20px;
+        margin-top: 120px;
     }
 
     .server-buttons button {
