@@ -1,0 +1,58 @@
+{
+  "animeTitle": "Dekin no Mogura",
+  "episodes": [
+    {
+      "number": 1,
+      "title": "الحلقة 1",
+      "date": "2025-07-12 15:18:57",
+      "link": "https://abdo12249.github.io/1/test1/episodes/المشاهده.html?id=dekin-no-mogura&episode=1",
+      "image": "https://abdo12249.github.io/1/images/dekin-no-mogura.webp",
+      "servers": [
+        {
+          "serverName": "megamax",
+          "url": "https://megamax.me/iframe/ZhR3QcrTVBCsx"
+        },
+        {
+          "serverName": "mega بدون اعلانات",
+          "url": "https://mega.nz/embed/W1IiUTYR!zEQWVGdxnco527RcjSelWV5BeSJCjUtLFdsME9GtQrU"
+        },
+        {
+          "serverName": "vk",
+          "url": "https://vkvideo.ru/video_ext.php?oid=-230564661&id=456239340&autoplay=1"
+        },
+        {
+          "serverName": "videa",
+          "url": "https://videa.hu/player?v=JmwBYirk7ytLCHNO"
+        },
+        {
+          "serverName": "voe.sx",
+          "url": "https://voe.sx/e/ltmok9hdzihl"
+        },
+        {
+          "serverName": "vidmoly",
+          "url": "https://vidmoly.to/embed-1qpulc1ahvnp.html"
+        },
+        {
+          "serverName": "Mp4upload",
+          "url": "https://www.mp4upload.com/embed-w99n5mzmx3g2.html"
+        },
+        {
+          "serverName": "mega بدون اعلانات - FHD",
+          "url": "https://mega.nz/embed/ysxG3QZQ!eA-cXuMKizHWlmAjeCc9KwZt-8KDXsrbIm7hEyv6CcI"
+        },
+        {
+          "serverName": "Mp4upload - FHD",
+          "url": "https://www.mp4upload.com/embed-9mqffzhgrm8t.html"
+        },
+        {
+          "serverName": "mega بدون اعلانات - SD",
+          "url": "https://mega.nz/embed/ftIwHICR!7xTRNujxyJXrgaUGIG2k-XZIn9rV8qj96C123-Jv9GM"
+        },
+        {
+          "serverName": "Mp4upload - SD",
+          "url": "https://www.mp4upload.com/embed-645u46brsvdo.html"
+        }
+      ]
+    }
+  ]
+}
