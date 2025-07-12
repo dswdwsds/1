@@ -293,6 +293,16 @@ body {
     padding: 1rem;
 }
 
+.anime-info p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2; /* النسخة القياسية */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 .anime-info h3 {
     font-size: 1.125rem;
     font-weight: 600;
