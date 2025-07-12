@@ -1,0 +1,54 @@
+{
+  "animeTitle": "Ruri no Houseki",
+  "episodes": [
+    {
+      "number": 1,
+      "title": "الحلقة 1",
+      "date": "2025-07-12 15:19:33",
+      "link": "https://abdo12249.github.io/1/test1/episodes/المشاهده.html?id=ruri-no-houseki&episode=1",
+      "image": "https://abdo12249.github.io/1/images/ruri-no-houseki.webp",
+      "servers": [
+        {
+          "serverName": "megamax",
+          "url": "https://megamax.me/iframe/E6pyKyF62cDKS"
+        },
+        {
+          "serverName": "mega بدون اعلانات",
+          "url": "https://mega.nz/embed/akBzgBpK!ZzxldhuJXEtPjpHjK21TKnhAYApTWaQodu6ZAwB5t5U"
+        },
+        {
+          "serverName": "vk",
+          "url": "https://vkvideo.ru/video_ext.php?oid=-230564661&id=456239334&autoplay=1"
+        },
+        {
+          "serverName": "videa",
+          "url": "https://videa.hu/player?v=RQnZGxqlTDqnnfCd"
+        },
+        {
+          "serverName": "vidmoly",
+          "url": "https://vidmoly.to/embed-02k7tokwinlr.html"
+        },
+        {
+          "serverName": "voe.sx",
+          "url": "https://voe.sx/e/lgdgsoyre9qk"
+        },
+        {
+          "serverName": "Mp4upload",
+          "url": "https://www.mp4upload.com/embed-5mg6qy3snvnw.html"
+        },
+        {
+          "serverName": "mega بدون اعلانات - FHD",
+          "url": "https://mega.nz/embed/PkYQ3IrY!svqwUVuvzdu09VvOdmAi9D75eQI5o9IA2lEj6nA80rE"
+        },
+        {
+          "serverName": "mega بدون اعلانات - SD",
+          "url": "https://mega.nz/embed/25ZygAQJ!5tdNGNQm-0NBr-8EGyfP_WQo8JnDByOGWO9qPTXvNFU"
+        },
+        {
+          "serverName": "Mp4upload - SD",
+          "url": "https://www.mp4upload.com/embed-e9b3uesynn7e.html"
+        }
+      ]
+    }
+  ]
+}
