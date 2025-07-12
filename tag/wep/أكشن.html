@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,7 +8,6 @@
   <script src="../../navbar.js" defer></script>
   <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon" />
 </head>
-
 <body>
   <div id="navbar-container"></div>
 
@@ -19,9 +17,7 @@
     </div>
 
     <!-- أزرار التصنيفات -->
-    <div id="categoryButtons">
-      <button class="server-button active" onclick="filterAnime('all')">عرض الكل</button>
-    </div>
+    <div id="categoryButtons"></div>
 
     <!-- شبكة الأنميات -->
     <div class="anime-grid" id="animeGrid"></div>
@@ -48,10 +44,11 @@
 
     function displayAnime(anime) {
       const animeGrid = document.getElementById('animeGrid');
+
       const card = document.createElement('div');
       card.className = 'anime-card';
-
       const categories = anime.tags || anime.categories || [];
+
       card.setAttribute('data-categories', categories.join(','));
 
       const link = `../../test1/Anime Page Dynamic.html?id=${anime.id}`;
@@ -69,7 +66,7 @@
               <span><strong>الموسم:</strong> ${anime.season || 'غير متوفر'}</span>
               <span><strong>المدة:</strong> ${anime.duration || 'غير معروفة'}</span>
               <span><strong>الحالة:</strong> ${anime.status || 'غير معروف'}</span>
-              <span class="server-button">شاهد الآن</span>
+              <span class="watch-button">شاهد الآن</span>
             </div>
           </div>
         </a>
@@ -85,16 +82,27 @@
     }
 
     function generateCategoryButtons() {
+      const container = document.getElementById('categoryButtons');
+      container.innerHTML = '';
+
+      // زر "عرض الكل"
+      const allButton = document.createElement('button');
+      allButton.className = "server-button active";
+      allButton.textContent = "عرض الكل";
+      allButton.onclick = () => filterAnime('all');
+      container.appendChild(allButton);
+
+      // استخراج التصنيفات
       const categories = new Set();
       allAnimes.forEach(anime => {
         const tags = anime.tags || anime.categories || [];
         tags.forEach(cat => categories.add(cat));
       });
 
-      const container = document.getElementById('categoryButtons');
+      // إنشاء أزرار التصنيفات
       categories.forEach(category => {
         const button = document.createElement('button');
-        button.className = "server-button";
+        button.className = "watch-button";
         button.textContent = category;
         button.onclick = () => filterAnime(category);
         container.appendChild(button);
@@ -102,7 +110,7 @@
     }
 
     function filterAnime(category) {
-      const allButtons = document.querySelectorAll('#categoryButtons .server-button');
+      const allButtons = document.querySelectorAll('#categoryButtons .watch-button');
       allButtons.forEach(btn => btn.classList.remove('active'));
 
       allButtons.forEach(btn => {
@@ -132,5 +140,4 @@
       .catch(error => console.error('❌ خطأ في تحميل الشريط العلوي:', error));
   </script>
 </body>
-
 </html>
