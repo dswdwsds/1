@@ -46,7 +46,7 @@
 
             function renderPage(pageNumber) {
                 const animeGrid = document.getElementById("animeGrid");
-                animeGrid.innerHTML = ""; // مسح السابق
+                animeGrid.innerHTML = "";
 
                 const startIndex = (pageNumber - 1) * maxItemsPerPage;
                 const endIndex = startIndex + maxItemsPerPage;
@@ -91,33 +91,48 @@
 
             fetch('الجديد.json')
                 .then(response => response.json())
-                .then(async data => {
+                .then(data => {
                     const animeLinks = data.animes;
 
-                    for (const animeURL of animeLinks) {
-                        try {
-                            const response = await fetch(animeURL);
-                            const animeData = await response.json();
+                    return Promise.all(
+                        animeLinks.map(link =>
+                            fetch(link)
+                                .then(res => res.json())
+                                .catch(err => {
+                                    console.error("فشل تحميل:", link, err);
+                                    return null;
+                                })
+                        )
+                    );
+                })
+                .then(results => {
+                    results.forEach(animeData => {
+                        if (!animeData) return;
 
-                            animeData.episodes.forEach(ep => {
-                                allEpisodes.push({
-                                    animeTitle: animeData.animeTitle,
-                                    image: ep.image,
-                                    link: ep.link,
-                                    number: ep.number,
-                                    title: ep.title,
-                                    date: new Date(ep.date)
-                                });
+                        animeData.episodes.forEach(ep => {
+                            let dateValue;
+
+                            if (ep.date) {
+                                dateValue = new Date(ep.date);
+                            } else {
+                                // تاريخ افتراضي قديم إذا لم يوجد
+                                dateValue = new Date("1970-01-01");
+                            }
+
+                            allEpisodes.push({
+                                animeTitle: animeData.animeTitle,
+                                image: ep.image,
+                                link: ep.link,
+                                number: ep.number,
+                                title: ep.title,
+                                date: dateValue
                             });
-                        } catch (err) {
-                            console.error("فشل تحميل:", animeURL, err);
-                        }
-                    }
+                        });
+                    });
 
-                    // ترتيب حسب الأحدث
+                    // ترتيب الحلقات حسب الأحدث
                     allEpisodes.sort((a, b) => b.date - a.date);
 
-                    // تجهيز العرض
                     renderPage(1);
                     setupPagination(allEpisodes.length);
                 })
@@ -126,7 +141,7 @@
     </main>
 
     <script>
-        // تحميل الشريط العلوي من ملف navbar.html
+        // تحميل الشريط العلوي
         fetch('navbar.html')
             .then(response => response.text())
             .then(data => document.getElementById('navbar-container').innerHTML = data);
