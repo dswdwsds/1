@@ -1,0 +1,58 @@
+{
+  "animeTitle": "Hikaru ga Shinda Natsu",
+  "episodes": [
+    {
+      "number": 1,
+      "title": "الحلقة 1",
+      "date": "2025-07-12 15:24:06",
+      "link": "https://abdo12249.github.io/1/test1/episodes/المشاهده.html?id=hikaru-ga-shinda-natsu&episode=1",
+      "image": "https://abdo12249.github.io/1/images/hikaru-ga-shinda-natsu.webp",
+      "servers": [
+        {
+          "serverName": "megamax",
+          "url": "https://megamax.me/iframe/DwQ0RW4km8YAj"
+        },
+        {
+          "serverName": "mega بدون اعلانات",
+          "url": "https://mega.nz/embed/K9h3yBaQ!S2J7BAw9_OfYWo6IsQW68amP6jJJW0TvDOJz2hlnF9o"
+        },
+        {
+          "serverName": "voe.sx",
+          "url": "https://voe.sx/e/9yvgxso5tndv"
+        },
+        {
+          "serverName": "vidmoly",
+          "url": "https://vidmoly.to/embed-0ouryz0grgrp.html"
+        },
+        {
+          "serverName": "videa",
+          "url": "https://videa.hu/player?v=7BeWy7QE8lVFFw7W"
+        },
+        {
+          "serverName": "vk",
+          "url": "https://vkvideo.ru/video_ext.php?oid=-230564661&id=456239325&hd=2&hash=fb2035a6a64f692d&autoplay=1"
+        },
+        {
+          "serverName": "Mp4upload",
+          "url": "https://www.mp4upload.com/embed-p1wciii8bxv1.html"
+        },
+        {
+          "serverName": "mega بدون اعلانات - FHD",
+          "url": "https://mega.nz/embed/PwJAkTyQ!qsQ4CD0_SEySppQy2l7thCdahSb2cHPh9oPdVwWbvQ4"
+        },
+        {
+          "serverName": "Mp4upload - FHD",
+          "url": "https://www.mp4upload.com/embed-5tapeswqgp8j.html"
+        },
+        {
+          "serverName": "mega بدون اعلانات - SD",
+          "url": "https://mega.nz/embed/O8RyGZAY!jYgSwdy_cz7_lCMyip_ybIDz2Z8qkH8tlBZQwXnGyjE"
+        },
+        {
+          "serverName": "Mp4upload - SD",
+          "url": "https://www.mp4upload.com/embed-a8iewg1hp9ze.html"
+        }
+      ]
+    }
+  ]
+}
