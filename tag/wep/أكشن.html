@@ -20,7 +20,7 @@
 
     <!-- أزرار التصنيفات -->
     <div id="categoryButtons">
-      <button class="watch-button" onclick="filterAnime('all')">عرض الكل</button>
+      <button class="server-button active" onclick="filterAnime('all')">عرض الكل</button>
     </div>
 
     <!-- شبكة الأنميات -->
@@ -28,9 +28,8 @@
   </main>
 
   <script>
-    let allAnimes = []; // تخزين كل الأنميات
+    let allAnimes = [];
 
-    // تحميل ملف واحد فقط (animes.json)
     async function loadAnimeData() {
       try {
         const response = await fetch("https://abdo12249.github.io/1/test1/animes.json");
@@ -47,14 +46,12 @@
       }
     }
 
-    // عرض الأنمي في البطاقة
     function displayAnime(anime) {
       const animeGrid = document.getElementById('animeGrid');
-
       const card = document.createElement('div');
       card.className = 'anime-card';
-      const categories = anime.tags || anime.categories || [];
 
+      const categories = anime.tags || anime.categories || [];
       card.setAttribute('data-categories', categories.join(','));
 
       const link = `../../test1/Anime Page Dynamic.html?id=${anime.id}`;
@@ -72,22 +69,21 @@
               <span><strong>الموسم:</strong> ${anime.season || 'غير متوفر'}</span>
               <span><strong>المدة:</strong> ${anime.duration || 'غير معروفة'}</span>
               <span><strong>الحالة:</strong> ${anime.status || 'غير معروف'}</span>
-              <span class="watch-button">شاهد الآن</span>
+              <span class="server-button">شاهد الآن</span>
             </div>
           </div>
         </a>
       `;
       animeGrid.appendChild(card);
     }
-function adjustPath(path) {
-  // لو المسار يبدأ بـ ../ حوّله إلى ../../
-  if (path.startsWith('../')) {
-    return path.replace('../', '../../');
-  }
-  return path;
-}
 
-    // توليد أزرار التصنيفات تلقائيًا
+    function adjustPath(path) {
+      if (path.startsWith('../')) {
+        return path.replace('../', '../../');
+      }
+      return path;
+    }
+
     function generateCategoryButtons() {
       const categories = new Set();
       allAnimes.forEach(anime => {
@@ -98,46 +94,38 @@ function adjustPath(path) {
       const container = document.getElementById('categoryButtons');
       categories.forEach(category => {
         const button = document.createElement('button');
-        button.className = "watch-button";
+        button.className = "server-button";
         button.textContent = category;
         button.onclick = () => filterAnime(category);
         container.appendChild(button);
       });
-      document.querySelector('#categoryButtons .watch-button').classList.add('active');
     }
 
-    // فلترة الأنميات حسب التصنيف
     function filterAnime(category) {
-    // إزالة الكلاس active من كل الأزرار
-    const allButtons = document.querySelectorAll('#categoryButtons .watch-button');
-    allButtons.forEach(btn => btn.classList.remove('active'));
+      const allButtons = document.querySelectorAll('#categoryButtons .server-button');
+      allButtons.forEach(btn => btn.classList.remove('active'));
 
-    // تحديد الزر المطابق وإضافة الكلاس
-    allButtons.forEach(btn => {
+      allButtons.forEach(btn => {
         if (btn.textContent.trim() === category || (category === 'all' && btn.textContent.trim() === "عرض الكل")) {
-        btn.classList.add('active');
+          btn.classList.add('active');
         }
-    });
+      });
 
-    // فلترة البطاقات
-    const cards = document.querySelectorAll('.anime-card');
-    cards.forEach(card => {
+      const cards = document.querySelectorAll('.anime-card');
+      cards.forEach(card => {
         const cardCategories = card.getAttribute('data-categories').split(',');
         if (category === 'all' || cardCategories.includes(category)) {
-        card.style.display = 'block';
+          card.style.display = 'block';
         } else {
-        card.style.display = 'none';
+          card.style.display = 'none';
         }
-    });
+      });
     }
 
-
-    // تحميل البيانات عند فتح الصفحة
     loadAnimeData();
   </script>
 
   <script>
-    // تحميل الشريط العلوي
     fetch('../../navbar.html')
       .then(response => response.text())
       .then(data => document.getElementById('navbar-container').innerHTML = data)

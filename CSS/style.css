@@ -400,6 +400,13 @@ body {
 .sidebar.active {
     right: 0;
 }
+
+.server-button.active {
+    background-color:  #4b5563;
+    color: #ededed;
+    border: 3px solid #000000;
+}
+
 /* إخفاء الزر والقائمة على الشاشات الكبيرة */
 @media (min-width: 768px)
 
