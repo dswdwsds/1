@@ -412,7 +412,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
-    background-color: #f2f2f2;
+    background-color: #4b556373;
     padding: 15px;
     border-radius: 12px;
     max-width: 900px;
@@ -420,8 +420,6 @@ body {
   }
 
   #filters label {
-    display: flex;
-    flex-direction: column;
     align-items: start;
     font-weight: bold;
   }
@@ -429,10 +427,10 @@ body {
   #filters select {
     padding: 6px 10px;
     border-radius: 8px;
-    border: 1px solid #ccc;
-    background-color: white;
+    border: 5px solid #7b2d2d;
+    background-color: #0000007d;
     min-width: 140px;
-    font-size: 14px;
+    font-size: 20px;
     margin-top: 4px;
   }
 
