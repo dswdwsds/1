@@ -1,174 +1,235 @@
-<!-- ... الكود السابق كما هو ... -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 
-<!-- شبكة الأنميات -->
-<div class="anime-grid" id="animeGrid"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تصنيفات الأنمي</title>
+  <link rel="stylesheet" href="../../CSS/style.css" />
+  <script src="../../navbar.js" defer></script>
+  <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon" />
+</head>
 
-<!-- أزرار الصفحات -->
-<div id="pagination" style="text-align: center; margin-top: 20px;"></div>
+<body>
+  <div id="navbar-container"></div>
 
-<script>
-  let allAnimes = [];
-  let currentPage = 1;
-  const itemsPerPage = 30;
+  <main>
+    <div class="section-header">
+      <h1>تصنيفات الأنمي</h1>
+    </div>
 
-  async function loadAnimeData() {
-    try {
-      const response = await fetch("https://abdo12249.github.io/1/test1/animes.json");
-      if (!response.ok) throw new Error("❌ فشل تحميل animes.json");
+    <!-- أزرار التصنيفات -->
+    <div id="categoryButtons">
+      <button class="watch-button" onclick="filterAnime('all')">عرض الكل</button>
+    </div>
 
-      const data = await response.json();
-      const animeList = Object.entries(data).map(([id, anime]) => ({ id, ...anime }));
-      allAnimes = animeList;
+    <!-- شبكة الأنميات -->
+    <div class="anime-grid" id="animeGrid"></div>
 
-      generateCategoryButtons();
-      showPage(currentPage);
-      createPagination();
-    } catch (error) {
-      console.error("❌ خطأ في تحميل الأنميات:", error);
-    }
-  }
+    <!-- أزرار الصفحات -->
+    <div id="pagination" style="text-align: center; margin-top: 20px;"></div>
+  </main>
 
-  function adjustPath(path) {
-    if (path.startsWith('../')) {
-      return path.replace('../', '../../');
-    }
-    return path;
-  }
+  <script>
+    let allAnimes = [];
+    let currentPage = 1;
+    const itemsPerPage = 30;
+    let originalAnimes = [];
 
-  function displayAnime(anime) {
-    const card = document.createElement('div');
-    card.className = 'anime-card';
-    const categories = anime.tags || anime.categories || [];
+    async function loadAnimeData() {
+      try {
+        const response = await fetch("https://abdo12249.github.io/1/test1/animes.json");
+        if (!response.ok) throw new Error("❌ فشل تحميل animes.json");
 
-    card.setAttribute('data-categories', categories.join(','));
+        const data = await response.json();
+        const animeList = Object.entries(data).map(([id, anime]) => ({ id, ...anime }));
+        allAnimes = animeList;
+        originalAnimes = animeList;
 
-    const link = `../../test1/Anime Page Dynamic.html?id=${anime.id}`;
-
-    card.innerHTML = `
-      <a href="${link}" style="text-decoration: none; color: inherit;">
-        <div class="anime-image">
-          <img data-src="${adjustPath(anime.image)}" alt="${anime.title}" class="lazy-img" />
-        </div>
-        <div class="anime-info">
-          <h3>${anime.title}</h3>
-          <p>${anime.description || ''}</p>
-          <div class="anime-meta">
-            <span><strong>التصنيفات:</strong> ${categories.join(', ')}</span>
-            <span><strong>الموسم:</strong> ${anime.season || 'غير متوفر'}</span>
-            <span><strong>المدة:</strong> ${anime.duration || 'غير معروفة'}</span>
-            <span><strong>الحالة:</strong> ${anime.status || 'غير معروف'}</span>
-            <span class="watch-button">شاهد الآن</span>
-          </div>
-        </div>
-      </a>
-    `;
-    return card;
-  }
-
-  function showPage(page) {
-    const animeGrid = document.getElementById('animeGrid');
-    animeGrid.innerHTML = "";
-
-    const startIndex = (page - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const currentItems = allAnimes.slice(startIndex, endIndex);
-
-    currentItems.forEach(anime => {
-      const card = displayAnime(anime);
-      animeGrid.appendChild(card);
-    });
-
-    // تحميل الصور عند الحاجة
-    lazyLoadImages();
-  }
-
-  function createPagination() {
-    const pagination = document.getElementById('pagination');
-    pagination.innerHTML = "";
-
-    const totalPages = Math.ceil(allAnimes.length / itemsPerPage);
-
-    for (let i = 1; i <= totalPages; i++) {
-      const button = document.createElement('button');
-      button.textContent = i;
-      button.className = "watch-button";
-      if (i === currentPage) button.classList.add("active");
-
-      button.addEventListener('click', () => {
-        currentPage = i;
+        generateCategoryButtons();
         showPage(currentPage);
         createPagination();
-      });
-
-      pagination.appendChild(button);
-    }
-  }
-
-  function generateCategoryButtons() {
-    const categories = new Set();
-    allAnimes.forEach(anime => {
-      const tags = anime.tags || anime.categories || [];
-      tags.forEach(cat => categories.add(cat));
-    });
-
-    const container = document.getElementById('categoryButtons');
-    categories.forEach(category => {
-      const button = document.createElement('button');
-      button.className = "watch-button";
-      button.textContent = category;
-      button.onclick = () => filterAnime(category);
-      container.appendChild(button);
-    });
-
-    document.querySelector('#categoryButtons .watch-button').classList.add('active');
-  }
-
-  function filterAnime(category) {
-    const allButtons = document.querySelectorAll('#categoryButtons .watch-button');
-    allButtons.forEach(btn => btn.classList.remove('active'));
-
-    allButtons.forEach(btn => {
-      if (btn.textContent.trim() === category || (category === 'all' && btn.textContent.trim() === "عرض الكل")) {
-        btn.classList.add('active');
+      } catch (error) {
+        console.error("❌ خطأ في تحميل الأنميات:", error);
       }
-    });
+    }
 
-    // فلترة الأنميات ثم إعادة تحميل الصفحة الأولى
-    if (category === 'all') {
-      loadAnimeData();
-    } else {
-      const filtered = allAnimes.filter(anime => {
-        const tags = anime.tags || anime.categories || [];
-        return tags.includes(category);
+    function adjustPath(path) {
+      if (path.startsWith('../')) {
+        return path.replace('../', '../../');
+      }
+      return path;
+    }
+
+    function displayAnime(anime) {
+      const card = document.createElement('div');
+      card.className = 'anime-card';
+      const categories = anime.tags || anime.categories || [];
+
+      card.setAttribute('data-categories', categories.join(','));
+
+      const link = `../../test1/Anime Page Dynamic.html?id=${anime.id}`;
+
+      card.innerHTML = `
+        <a href="${link}" style="text-decoration: none; color: inherit;">
+          <div class="anime-image">
+            <img data-src="${adjustPath(anime.image)}" alt="${anime.title}" class="lazy-img" />
+          </div>
+          <div class="anime-info">
+            <h3>${anime.title}</h3>
+            <p>${anime.description || ''}</p>
+            <div class="anime-meta">
+              <span><strong>التصنيفات:</strong> ${categories.join(', ')}</span>
+              <span><strong>الموسم:</strong> ${anime.season || 'غير متوفر'}</span>
+              <span><strong>المدة:</strong> ${anime.duration || 'غير معروفة'}</span>
+              <span><strong>الحالة:</strong> ${anime.status || 'غير معروف'}</span>
+              <span class="watch-button">شاهد الآن</span>
+            </div>
+          </div>
+        </a>
+      `;
+      return card;
+    }
+
+    function showPage(page) {
+      const animeGrid = document.getElementById('animeGrid');
+      animeGrid.innerHTML = "";
+
+      const startIndex = (page - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const currentItems = allAnimes.slice(startIndex, endIndex);
+
+      currentItems.forEach(anime => {
+        const card = displayAnime(anime);
+        animeGrid.appendChild(card);
       });
-      allAnimes = filtered;
+
+      lazyLoadImages();
+    }
+
+    function createPagination() {
+      const pagination = document.getElementById('pagination');
+      pagination.innerHTML = "";
+
+      const totalPages = Math.ceil(allAnimes.length / itemsPerPage);
+
+      // زر السابق
+      if (currentPage > 1) {
+        const prevBtn = document.createElement('button');
+        prevBtn.textContent = "السابق";
+        prevBtn.className = "watch-button";
+        prevBtn.onclick = () => {
+          currentPage--;
+          showPage(currentPage);
+          createPagination();
+        };
+        pagination.appendChild(prevBtn);
+      }
+
+      // الأزرار الرقمية
+      for (let i = 1; i <= totalPages; i++) {
+        const button = document.createElement('button');
+        button.textContent = i;
+        button.className = "watch-button";
+        if (i === currentPage) button.classList.add("active");
+
+        button.addEventListener('click', () => {
+          currentPage = i;
+          showPage(currentPage);
+          createPagination();
+        });
+
+        pagination.appendChild(button);
+      }
+
+      // زر التالي
+      if (currentPage < totalPages) {
+        const nextBtn = document.createElement('button');
+        nextBtn.textContent = "التالي";
+        nextBtn.className = "watch-button";
+        nextBtn.onclick = () => {
+          currentPage++;
+          showPage(currentPage);
+          createPagination();
+        };
+        pagination.appendChild(nextBtn);
+      }
+    }
+
+    function generateCategoryButtons() {
+      const categories = new Set();
+      originalAnimes.forEach(anime => {
+        const tags = anime.tags || anime.categories || [];
+        tags.forEach(cat => categories.add(cat));
+      });
+
+      const container = document.getElementById('categoryButtons');
+      categories.forEach(category => {
+        const button = document.createElement('button');
+        button.className = "watch-button";
+        button.textContent = category;
+        button.onclick = () => filterAnime(category);
+        container.appendChild(button);
+      });
+
+      document.querySelector('#categoryButtons .watch-button').classList.add('active');
+    }
+
+    function filterAnime(category) {
+      const allButtons = document.querySelectorAll('#categoryButtons .watch-button');
+      allButtons.forEach(btn => btn.classList.remove('active'));
+
+      allButtons.forEach(btn => {
+        if (btn.textContent.trim() === category || (category === 'all' && btn.textContent.trim() === "عرض الكل")) {
+          btn.classList.add('active');
+        }
+      });
+
+      if (category === 'all') {
+        allAnimes = [...originalAnimes];
+      } else {
+        allAnimes = originalAnimes.filter(anime => {
+          const tags = anime.tags || anime.categories || [];
+          return tags.includes(category);
+        });
+      }
+
       currentPage = 1;
       showPage(currentPage);
       createPagination();
     }
-  }
 
-  // تحميل الصور عند الحاجة باستخدام IntersectionObserver
-  function lazyLoadImages() {
-    const images = document.querySelectorAll('.lazy-img');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          img.src = img.getAttribute('data-src');
-          img.removeAttribute('data-src');
-          observer.unobserve(img);
-        }
+    function lazyLoadImages() {
+      const images = document.querySelectorAll('.lazy-img');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.getAttribute('data-src');
+            img.removeAttribute('data-src');
+            observer.unobserve(img);
+          }
+        });
+      }, {
+        rootMargin: '0px 0px 50px 0px',
+        threshold: 0.1
       });
-    }, {
-      rootMargin: '0px 0px 50px 0px',
-      threshold: 0.1
-    });
 
-    images.forEach(img => {
-      observer.observe(img);
-    });
-  }
+      images.forEach(img => {
+        observer.observe(img);
+      });
+    }
 
-  loadAnimeData();
-</script>
+    loadAnimeData();
+  </script>
+
+  <script>
+    // تحميل الشريط العلوي
+    fetch('../../navbar.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('navbar-container').innerHTML = data)
+      .catch(error => console.error('❌ خطأ في تحميل الشريط العلوي:', error));
+  </script>
+</body>
+
+</html>
