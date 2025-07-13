@@ -16,16 +16,34 @@
       <h1>تصنيفات الأنمي</h1>
     </div>
 
-    <!-- قائمة التصنيفات Dropdown -->
-    <div id="categoryDropdown" style="text-align: center; margin: 20px;">
-      <label for="categorySelect"><strong>اختر التصنيف:</strong></label>
-      <select id="categorySelect" class="watch-button" onchange="onCategoryChange(this.value)">
-        <option value="all">عرض الكل</option>
-      </select>
+    <!-- جميع الفلاتر -->
+    <div id="filters" style="text-align: center; margin: 20px;">
+      <label><strong>التصنيف:</strong>
+        <select id="categorySelect" class="watch-button" onchange="applyFilters()">
+          <option value="all">عرض الكل</option>
+        </select>
+      </label>
+
+      <label><strong>النوع:</strong>
+        <select id="typeSelect" class="watch-button" onchange="applyFilters()">
+          <option value="all">الكل</option>
+        </select>
+      </label>
+
+      <label><strong>الحالة:</strong>
+        <select id="statusSelect" class="watch-button" onchange="applyFilters()">
+          <option value="all">الكل</option>
+        </select>
+      </label>
+
+      <label><strong>الموسم:</strong>
+        <select id="seasonSelect" class="watch-button" onchange="applyFilters()">
+          <option value="all">الكل</option>
+        </select>
+      </label>
     </div>
 
     <div class="anime-grid" id="animeGrid"></div>
-
     <div id="pagination" style="text-align: center; margin-top: 20px;"></div>
   </main>
 
@@ -52,9 +70,8 @@
         allAnimes = animeList;
         originalAnimes = animeList;
 
-        generateCategoryButtons();
-        showPage(currentPage);
-        createPagination();
+        generateFilterOptions();
+        applyFilters();
       } catch (error) {
         console.error("❌ خطأ في تحميل الأنميات:", error);
       }
@@ -82,6 +99,7 @@
             <p>${anime.description || ''}</p>
             <div class="anime-meta">
               <span><strong>التصنيفات:</strong> ${categories.join(', ')}</span>
+              <span><strong>النوع:</strong> ${anime.type || 'غير معروف'}</span>
               <span><strong>الموسم:</strong> ${anime.season || 'غير متوفر'}</span>
               <span><strong>المدة:</strong> ${anime.duration || 'غير معروفة'}</span>
               <span><strong>الحالة:</strong> ${anime.status || 'غير معروف'}</span>
@@ -158,32 +176,50 @@
       }
     }
 
-    function generateCategoryButtons() {
-      const categories = new Set();
+    function generateFilterOptions() {
+      const categorySet = new Set();
+      const typeSet = new Set();
+      const statusSet = new Set();
+      const seasonSet = new Set();
+
       originalAnimes.forEach(anime => {
-        const tags = anime.tags || anime.categories || [];
-        tags.forEach(cat => categories.add(cat));
+        (anime.tags || anime.categories || []).forEach(tag => categorySet.add(tag));
+        if (anime.type) typeSet.add(anime.type);
+        if (anime.status) statusSet.add(anime.status);
+        if (anime.season) seasonSet.add(anime.season);
       });
 
-      const select = document.getElementById("categorySelect");
+      fillSelect("categorySelect", categorySet);
+      fillSelect("typeSelect", typeSet);
+      fillSelect("statusSelect", statusSet);
+      fillSelect("seasonSelect", seasonSet);
+    }
 
-      categories.forEach(category => {
+    function fillSelect(id, values) {
+      const select = document.getElementById(id);
+      values.forEach(value => {
         const option = document.createElement("option");
-        option.value = category;
-        option.textContent = category;
+        option.value = value;
+        option.textContent = value;
         select.appendChild(option);
       });
     }
 
-    function onCategoryChange(category) {
-      if (category === 'all') {
-        allAnimes = [...originalAnimes];
-      } else {
-        allAnimes = originalAnimes.filter(anime => {
-          const tags = anime.tags || anime.categories || [];
-          return tags.includes(category);
-        });
-      }
+    function applyFilters() {
+      const selectedCategory = document.getElementById("categorySelect").value;
+      const selectedType = document.getElementById("typeSelect").value;
+      const selectedStatus = document.getElementById("statusSelect").value;
+      const selectedSeason = document.getElementById("seasonSelect").value;
+
+      allAnimes = originalAnimes.filter(anime => {
+        const tags = anime.tags || anime.categories || [];
+        const categoryMatch = selectedCategory === "all" || tags.includes(selectedCategory);
+        const typeMatch = selectedType === "all" || anime.type === selectedType;
+        const statusMatch = selectedStatus === "all" || anime.status === selectedStatus;
+        const seasonMatch = selectedSeason === "all" || anime.season === selectedSeason;
+
+        return categoryMatch && typeMatch && statusMatch && seasonMatch;
+      });
 
       currentPage = 1;
       updatePageInURL(currentPage);
