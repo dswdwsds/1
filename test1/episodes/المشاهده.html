@@ -35,11 +35,31 @@
       text-align: center;
       display: none;
     }
+
+    #resume-button {
+      padding: 10px 20px;
+      background-color: #10b981;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #resume-container {
+      text-align: center;
+      margin: 10px;
+      display: none;
+    }
   </style>
 </head>
 
 <body>
   <div id="navbar-container"></div>
+
+  <!-- زر استئناف المشاهدة -->
+  <div id="resume-container">
+    <button id="resume-button">▶️ استئناف آخر مشاهدة</button>
+  </div>
 
   <div class="container">
     <main class="main-content">
@@ -84,18 +104,20 @@
     const serverButtonsContainer = document.getElementById('server-buttons-container');
     const sandboxToggle = document.getElementById('sandbox-toggle');
     const warningMessage = document.getElementById('warning-message');
+    const resumeContainer = document.getElementById('resume-container');
+    const resumeButton = document.getElementById('resume-button');
 
-    let sandboxEnabled = localStorage.getItem("sandbox") !== "false"; // افتراضي مفعّل
+    let sandboxEnabled = localStorage.getItem("sandbox") !== "false";
 
     function applySandbox() {
       if (sandboxEnabled) {
         videoPlayer.setAttribute("sandbox", "allow-scripts allow-same-origin");
         sandboxToggle.textContent = "تعطيل وضع مانع الإعلانات";
-        warningMessage.style.display = "none";
+        warningMessage.style.display = "block";
       } else {
         videoPlayer.removeAttribute("sandbox");
         sandboxToggle.textContent = "تشغيل وضع مانع الإعلانات";
-        warningMessage.style.display = "block";
+        warningMessage.style.display = "none";
       }
     }
 
@@ -103,7 +125,7 @@
       sandboxEnabled = !sandboxEnabled;
       localStorage.setItem("sandbox", sandboxEnabled);
       applySandbox();
-      updatePlayer(); // إعادة تحميل الرابط بالحالة الجديدة
+      updatePlayer();
     });
 
     function getQueryParam(param) {
@@ -209,7 +231,7 @@
       const currentServer = currentEpisode.servers.find(server => server.serverName === currentServerName);
       if (currentServer) {
         videoPlayer.src = currentServer.url;
-        applySandbox(); // تحديث الساندبوكس بناءً على الحالة
+        applySandbox();
       } else {
         console.warn('لا يوجد سيرفر مناسب.');
       }
@@ -225,6 +247,11 @@
       currentEpisodeIndex = index;
       currentServerName = '';
       updatePlayer();
+
+      // حفظ آخر مشاهدة
+      const animeId = getQueryParam("id");
+      const episodeNumber = episodes[index].number;
+      saveLastWatched(animeId, episodeNumber);
     }
 
     function navigateEpisode(direction) {
@@ -238,9 +265,30 @@
     prevBtn.addEventListener('click', () => navigateEpisode(-1));
     nextBtn.addEventListener('click', () => navigateEpisode(1));
 
+    // استئناف المشاهدة
+    function saveLastWatched(animeId, episodeNumber) {
+      localStorage.setItem("lastWatched", JSON.stringify({ animeId, episodeNumber }));
+    }
+
+    function checkResumeOption() {
+      const saved = localStorage.getItem("lastWatched");
+      const currentAnimeId = getQueryParam("id");
+
+      if (saved) {
+        const { animeId, episodeNumber } = JSON.parse(saved);
+        if (animeId === currentAnimeId) {
+          resumeContainer.style.display = "block";
+          resumeButton.onclick = () => {
+            window.location.href = `?id=${animeId}&episode=${episodeNumber}`;
+          };
+        }
+      }
+    }
+
     window.onload = () => {
       applySandbox();
       loadEpisodesData();
+      checkResumeOption();
     };
   </script>
 
