@@ -16,8 +16,12 @@
       <h1>تصنيفات الأنمي</h1>
     </div>
 
-    <div id="categoryButtons">
-      <button class="watch-button" onclick="filterAnime('all')">عرض الكل</button>
+    <!-- قائمة التصنيفات Dropdown -->
+    <div id="categoryDropdown" style="text-align: center; margin: 20px;">
+      <label for="categorySelect"><strong>اختر التصنيف:</strong></label>
+      <select id="categorySelect" class="watch-button" onchange="onCategoryChange(this.value)">
+        <option value="all">عرض الكل</option>
+      </select>
     </div>
 
     <div class="anime-grid" id="animeGrid"></div>
@@ -161,28 +165,17 @@
         tags.forEach(cat => categories.add(cat));
       });
 
-      const container = document.getElementById('categoryButtons');
-      categories.forEach(category => {
-        const button = document.createElement('button');
-        button.className = "watch-button";
-        button.textContent = category;
-        button.onclick = () => filterAnime(category);
-        container.appendChild(button);
-      });
+      const select = document.getElementById("categorySelect");
 
-      document.querySelector('#categoryButtons .watch-button').classList.add('active');
+      categories.forEach(category => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        select.appendChild(option);
+      });
     }
 
-    function filterAnime(category) {
-      const allButtons = document.querySelectorAll('#categoryButtons .watch-button');
-      allButtons.forEach(btn => btn.classList.remove('active'));
-
-      allButtons.forEach(btn => {
-        if (btn.textContent.trim() === category || (category === 'all' && btn.textContent.trim() === "عرض الكل")) {
-          btn.classList.add('active');
-        }
-      });
-
+    function onCategoryChange(category) {
       if (category === 'all') {
         allAnimes = [...originalAnimes];
       } else {
