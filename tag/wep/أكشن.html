@@ -41,6 +41,11 @@
           <option value="all">الكل</option>
         </select>
       </label>
+
+      <!-- زر إعادة ضبط الفلاتر -->
+      <div style="margin-top: 10px;">
+        <button onclick="resetFilters()" class="watch-button">إعادة ضبط الفلاتر</button>
+      </div>
     </div>
 
     <div class="anime-grid" id="animeGrid"></div>
@@ -143,10 +148,11 @@
       pagination.innerHTML = "";
 
       const totalPages = Math.ceil(allAnimes.length / itemsPerPage);
+      const maxVisiblePages = 5;
 
       if (currentPage > 1) {
         const prevBtn = document.createElement('button');
-        prevBtn.textContent = "السابق";
+        prevBtn.textContent = "← السابق";
         prevBtn.className = "watch-button";
         prevBtn.onclick = () => {
           currentPage--;
@@ -157,25 +163,47 @@
         pagination.appendChild(prevBtn);
       }
 
-      for (let i = 1; i <= totalPages; i++) {
+      let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+      let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+      if (endPage - startPage < maxVisiblePages - 1) {
+        startPage = Math.max(1, endPage - maxVisiblePages + 1);
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
         const button = document.createElement('button');
         button.textContent = i;
         button.className = "watch-button";
         if (i === currentPage) button.classList.add("active");
-
         button.addEventListener('click', () => {
           currentPage = i;
           updatePageInURL(currentPage);
           showPage(currentPage);
           createPagination();
         });
-
         pagination.appendChild(button);
+      }
+
+      if (endPage < totalPages) {
+        const dots = document.createElement('span');
+        dots.textContent = "...";
+        dots.style.margin = "0 10px";
+        pagination.appendChild(dots);
+
+        const lastBtn = document.createElement('button');
+        lastBtn.textContent = totalPages;
+        lastBtn.className = "watch-button";
+        lastBtn.onclick = () => {
+          currentPage = totalPages;
+          updatePageInURL(currentPage);
+          showPage(currentPage);
+          createPagination();
+        };
+        pagination.appendChild(lastBtn);
       }
 
       if (currentPage < totalPages) {
         const nextBtn = document.createElement('button');
-        nextBtn.textContent = "التالي";
+        nextBtn.textContent = "التالي →";
         nextBtn.className = "watch-button";
         nextBtn.onclick = () => {
           currentPage++;
@@ -261,6 +289,17 @@
       updatePageInURL(currentPage);
       showPage(currentPage);
       createPagination();
+    }
+
+    function resetFilters() {
+      document.getElementById("categorySelect").value = "all";
+      document.getElementById("typeSelect").value = "all";
+      document.getElementById("statusSelect").value = "all";
+      document.getElementById("seasonSelect").value = "all";
+
+      currentPage = 1;
+      updatePageInURL(currentPage);
+      applyFilters();
     }
 
     function lazyLoadImages() {
