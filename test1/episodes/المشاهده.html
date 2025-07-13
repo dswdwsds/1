@@ -10,7 +10,6 @@
     <script src="../../RS.js" defer></script>
     <script src="../../navbar.js" defer></script>
     <link rel="icon" href="https://abdo838.github.io/1/navbar/favicon.ico" type="image/x-icon">
-
     <style>
         .episode-item.active {
             background-color: var(--primary-color, #ef4444);
@@ -18,9 +17,18 @@
             font-weight: bold;
             border-radius: 5px;
         }
+        #sandbox-toggle {
+            margin: 10px auto;
+            padding: 10px 20px;
+            display: block;
+            background-color: #4b5563;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
     </style>
 </head>
-
 <body>
     <div id="navbar-container"></div>
 
@@ -33,8 +41,10 @@
 
             <div class="server-buttons" id="server-buttons-container"></div>
 
+            <button id="sandbox-toggle">تعطيل وضع الحماية (Sandbox)</button>
+
             <div class="video-container">
-                <iframe id="video-player" src=""    sandbox="allow-scripts allow-same-origin" frameborder="0" allowfullscreen></iframe>
+                <iframe id="video-player" src="" frameborder="0" allowfullscreen></iframe>
             </div>
 
             <div class="navigation-buttons">
@@ -53,7 +63,6 @@
         let episodes = [];
         let currentEpisodeIndex = 0;
         let currentServerName = '';
-
         const episodesList = document.getElementById('episodes-list');
         const videoPlayer = document.getElementById('video-player');
         const animeTitle = document.getElementById('anime-title');
@@ -61,6 +70,27 @@
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
         const serverButtonsContainer = document.getElementById('server-buttons-container');
+        const sandboxToggle = document.getElementById('sandbox-toggle');
+
+        // إعداد sandbox من localStorage
+        let sandboxEnabled = localStorage.getItem("sandbox") !== "false"; // افتراضي مفعّل
+
+        function applySandbox() {
+            if (sandboxEnabled) {
+                videoPlayer.setAttribute("sandbox", "allow-scripts allow-same-origin");
+                sandboxToggle.textContent = "تعطيل وضع الحماية (Sandbox)";
+            } else {
+                videoPlayer.removeAttribute("sandbox");
+                sandboxToggle.textContent = "تشغيل وضع الحماية (Sandbox)";
+            }
+        }
+
+        sandboxToggle.addEventListener("click", () => {
+            sandboxEnabled = !sandboxEnabled;
+            localStorage.setItem("sandbox", sandboxEnabled);
+            applySandbox();
+            updatePlayer(); // لإعادة تحميل الرابط بالسلوك الصحيح
+        });
 
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -138,8 +168,6 @@
             currentEpisode.servers.forEach(server => {
                 const button = document.createElement('button');
                 button.textContent = server.serverName;
-
-                // استخدم نفس كلاس الحلقة لتطبيق الستايل
                 button.classList.add('server-button');
 
                 if (server.serverName === currentServerName) {
@@ -148,8 +176,7 @@
 
                 button.addEventListener('click', () => {
                     currentServerName = server.serverName;
-                    videoPlayer.src = server.url;
-                    loadServerButtons(); // تحديث الزر النشط
+                    updatePlayer();
                 });
 
                 serverButtonsContainer.appendChild(button);
@@ -168,6 +195,7 @@
             const currentServer = currentEpisode.servers.find(server => server.serverName === currentServerName);
             if (currentServer) {
                 videoPlayer.src = currentServer.url;
+                applySandbox(); // تطبيق حالة sandbox مع كل تغيير
             } else {
                 console.warn('لا يوجد سيرفر مناسب.');
             }
@@ -196,7 +224,10 @@
         prevBtn.addEventListener('click', () => navigateEpisode(-1));
         nextBtn.addEventListener('click', () => navigateEpisode(1));
 
-        window.onload = loadEpisodesData;
+        window.onload = () => {
+            applySandbox();
+            loadEpisodesData();
+        };
     </script>
 
     <script>
