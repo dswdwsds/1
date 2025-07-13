@@ -16,7 +16,7 @@
       <h1>تصنيفات الأنمي</h1>
     </div>
 
-    <!-- جميع الفلاتر -->
+    <!-- فلاتر Dropdown -->
     <div id="filters" style="text-align: center; margin: 20px;">
       <label><strong>التصنيف:</strong>
         <select id="categorySelect" class="watch-button" onchange="applyFilters()">
@@ -180,19 +180,35 @@
       const categorySet = new Set();
       const typeSet = new Set();
       const statusSet = new Set();
-      const seasonSet = new Set();
+      const seasonMap = new Map();
 
       originalAnimes.forEach(anime => {
         (anime.tags || anime.categories || []).forEach(tag => categorySet.add(tag));
         if (anime.type) typeSet.add(anime.type);
         if (anime.status) statusSet.add(anime.status);
-        if (anime.season) seasonSet.add(anime.season);
+        if (anime.season) seasonMap.set(anime.season.trim(), true);
       });
+
+      // ترتيب المواسم حسب التاريخ والموسم
+      const seasonOrder = { "شتاء": 1, "ربيع": 2, "صيف": 3, "خريف": 4 };
+      const sortedSeasons = [...seasonMap.keys()]
+        .map(season => {
+          const parts = season.split(" ");
+          const name = parts[0];
+          const year = parseInt(parts[1]);
+          const order = seasonOrder[name] || 99;
+          return { season, year, order };
+        })
+        .sort((a, b) => {
+          if (a.year !== b.year) return a.year - b.year;
+          return a.order - b.order;
+        })
+        .map(item => item.season);
 
       fillSelect("categorySelect", categorySet);
       fillSelect("typeSelect", typeSet);
       fillSelect("statusSelect", statusSet);
-      fillSelect("seasonSelect", seasonSet);
+      fillSelect("seasonSelect", sortedSeasons);
     }
 
     function fillSelect(id, values) {
