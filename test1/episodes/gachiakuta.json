@@ -1,0 +1,58 @@
+{
+  "animeTitle": "Gachiakuta",
+  "episodes": [
+    {
+      "number": 1,
+      "title": "الحلقة 1",
+      "date": "2025-07-14 02:54:18",
+      "link": "https://abdo12249.github.io/1/test1/المشاهده.html?id=gachiakuta&episode=1",
+      "image": "https://abdo12249.github.io/1/images/gachiakuta.webp",
+      "servers": [
+        {
+          "serverName": "megamax",
+          "url": "https://megamax.me/iframe/lrwPhM92scW06"
+        },
+        {
+          "serverName": "mega بدون اعلانات",
+          "url": "https://mega.nz/embed/mZsQybDC!Iuc0LGlJvKiTkVMhOpe85cmF5BW9HY3NWxX7cgASywA"
+        },
+        {
+          "serverName": "videa",
+          "url": "https://videa.hu/player?v=acqJkSkH6r5hTF0C"
+        },
+        {
+          "serverName": "vk",
+          "url": "https://vkvideo.ru/video_ext.php?oid=-230564661&id=456239344&autoplay=1"
+        },
+        {
+          "serverName": "voe.sx",
+          "url": "https://voe.sx/e/jo8vwpmmuj96"
+        },
+        {
+          "serverName": "vidmoly",
+          "url": "https://vidmoly.to/embed-1547c9rrv2kr.html"
+        },
+        {
+          "serverName": "Mp4upload",
+          "url": "https://www.mp4upload.com/embed-0x54v4twv741.html"
+        },
+        {
+          "serverName": "mega بدون اعلانات - FHD",
+          "url": "https://mega.nz/embed/CMtgibSZ!zUvOehuNfmCBBPTdxVu8m2ln-bBA8jhjL6W6kRlQ9gE"
+        },
+        {
+          "serverName": "Mp4upload - FHD",
+          "url": "https://www.mp4upload.com/embed-q4240arnjwwj.html"
+        },
+        {
+          "serverName": "mega بدون اعلانات - SD",
+          "url": "https://mega.nz/embed/SNEyBDiT!PhtFOgVzALP5fmfYz59U09J3-O1_y6p8Th1iVKrG6rE"
+        },
+        {
+          "serverName": "Mp4upload - SD",
+          "url": "https://www.mp4upload.com/embed-zm0bhizmjy57.html"
+        }
+      ]
+    }
+  ]
+}
