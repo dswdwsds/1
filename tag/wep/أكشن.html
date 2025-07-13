@@ -56,7 +56,18 @@
 
     function updatePageInURL(page) {
       const url = new URL(window.location);
+
+      const selectedCategory = document.getElementById("categorySelect").value;
+      const selectedType = document.getElementById("typeSelect").value;
+      const selectedStatus = document.getElementById("statusSelect").value;
+      const selectedSeason = document.getElementById("seasonSelect").value;
+
       url.searchParams.set("page", page);
+      url.searchParams.set("category", selectedCategory);
+      url.searchParams.set("type", selectedType);
+      url.searchParams.set("status", selectedStatus);
+      url.searchParams.set("season", selectedSeason);
+
       window.history.pushState({}, "", url);
     }
 
@@ -189,7 +200,6 @@
         if (anime.season) seasonMap.set(anime.season.trim(), true);
       });
 
-      // ترتيب المواسم حسب التاريخ والموسم
       const seasonOrder = { "شتاء": 1, "ربيع": 2, "صيف": 3, "خريف": 4 };
       const sortedSeasons = [...seasonMap.keys()]
         .map(season => {
@@ -199,16 +209,15 @@
           const order = seasonOrder[name] || 99;
           return { season, year, order };
         })
-        .sort((a, b) => {
-          if (a.year !== b.year) return a.year - b.year;
-          return a.order - b.order;
-        })
+        .sort((a, b) => a.year !== b.year ? a.year - b.year : a.order - b.order)
         .map(item => item.season);
 
       fillSelect("categorySelect", categorySet);
       fillSelect("typeSelect", typeSet);
       fillSelect("statusSelect", statusSet);
       fillSelect("seasonSelect", sortedSeasons);
+
+      setFiltersFromURL();
     }
 
     function fillSelect(id, values) {
@@ -219,6 +228,18 @@
         option.textContent = value;
         select.appendChild(option);
       });
+    }
+
+    function setFiltersFromURL() {
+      const category = urlParams.get("category");
+      const type = urlParams.get("type");
+      const status = urlParams.get("status");
+      const season = urlParams.get("season");
+
+      if (category) document.getElementById("categorySelect").value = category;
+      if (type) document.getElementById("typeSelect").value = type;
+      if (status) document.getElementById("statusSelect").value = status;
+      if (season) document.getElementById("seasonSelect").value = season;
     }
 
     function applyFilters() {
@@ -233,11 +254,10 @@
         const typeMatch = selectedType === "all" || anime.type === selectedType;
         const statusMatch = selectedStatus === "all" || anime.status === selectedStatus;
         const seasonMatch = selectedSeason === "all" || anime.season === selectedSeason;
-
         return categoryMatch && typeMatch && statusMatch && seasonMatch;
       });
 
-      currentPage = 1;
+      currentPage = parseInt(urlParams.get("page")) || 1;
       updatePageInURL(currentPage);
       showPage(currentPage);
       createPagination();
@@ -254,14 +274,9 @@
             observer.unobserve(img);
           }
         });
-      }, {
-        rootMargin: '0px 0px 50px 0px',
-        threshold: 0.1
-      });
+      }, { rootMargin: '0px 0px 50px 0px', threshold: 0.1 });
 
-      images.forEach(img => {
-        observer.observe(img);
-      });
+      images.forEach(img => observer.observe(img));
     }
 
     loadAnimeData();
