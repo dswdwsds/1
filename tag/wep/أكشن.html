@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,7 +8,6 @@
   <script src="../../navbar.js" defer></script>
   <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon" />
 </head>
-
 <body>
   <div id="navbar-container"></div>
 
@@ -18,23 +16,27 @@
       <h1>تصنيفات الأنمي</h1>
     </div>
 
-    <!-- أزرار التصنيفات -->
     <div id="categoryButtons">
       <button class="watch-button" onclick="filterAnime('all')">عرض الكل</button>
     </div>
 
-    <!-- شبكة الأنميات -->
     <div class="anime-grid" id="animeGrid"></div>
 
-    <!-- أزرار الصفحات -->
     <div id="pagination" style="text-align: center; margin-top: 20px;"></div>
   </main>
 
   <script>
-    let allAnimes = [];
-    let currentPage = 1;
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentPage = parseInt(urlParams.get("page")) || 1;
     const itemsPerPage = 30;
+    let allAnimes = [];
     let originalAnimes = [];
+
+    function updatePageInURL(page) {
+      const url = new URL(window.location);
+      url.searchParams.set("page", page);
+      window.history.pushState({}, "", url);
+    }
 
     async function loadAnimeData() {
       try {
@@ -55,17 +57,13 @@
     }
 
     function adjustPath(path) {
-      if (path.startsWith('../')) {
-        return path.replace('../', '../../');
-      }
-      return path;
+      return path.startsWith('../') ? path.replace('../', '../../') : path;
     }
 
     function displayAnime(anime) {
       const card = document.createElement('div');
       card.className = 'anime-card';
       const categories = anime.tags || anime.categories || [];
-
       card.setAttribute('data-categories', categories.join(','));
 
       const link = `../../test1/Anime Page Dynamic.html?id=${anime.id}`;
@@ -113,20 +111,19 @@
 
       const totalPages = Math.ceil(allAnimes.length / itemsPerPage);
 
-      // زر السابق
       if (currentPage > 1) {
         const prevBtn = document.createElement('button');
         prevBtn.textContent = "السابق";
         prevBtn.className = "watch-button";
         prevBtn.onclick = () => {
           currentPage--;
+          updatePageInURL(currentPage);
           showPage(currentPage);
           createPagination();
         };
         pagination.appendChild(prevBtn);
       }
 
-      // الأزرار الرقمية
       for (let i = 1; i <= totalPages; i++) {
         const button = document.createElement('button');
         button.textContent = i;
@@ -135,6 +132,7 @@
 
         button.addEventListener('click', () => {
           currentPage = i;
+          updatePageInURL(currentPage);
           showPage(currentPage);
           createPagination();
         });
@@ -142,13 +140,13 @@
         pagination.appendChild(button);
       }
 
-      // زر التالي
       if (currentPage < totalPages) {
         const nextBtn = document.createElement('button');
         nextBtn.textContent = "التالي";
         nextBtn.className = "watch-button";
         nextBtn.onclick = () => {
           currentPage++;
+          updatePageInURL(currentPage);
           showPage(currentPage);
           createPagination();
         };
@@ -195,6 +193,7 @@
       }
 
       currentPage = 1;
+      updatePageInURL(currentPage);
       showPage(currentPage);
       createPagination();
     }
@@ -224,12 +223,10 @@
   </script>
 
   <script>
-    // تحميل الشريط العلوي
     fetch('../../navbar.html')
       .then(response => response.text())
       .then(data => document.getElementById('navbar-container').innerHTML = data)
       .catch(error => console.error('❌ خطأ في تحميل الشريط العلوي:', error));
   </script>
 </body>
-
 </html>
