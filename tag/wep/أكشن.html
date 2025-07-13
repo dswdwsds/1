@@ -16,39 +16,43 @@
       <h1>تصنيفات الأنمي</h1>
     </div>
 
-    <!-- فلاتر Dropdown -->
-    <div id="filters" style="text-align: center; margin: 20px;">
-      <label><strong>التصنيف:</strong>
+    <!-- فلاتر الأنمي -->
+    <div id="filters">
+      <label>
+        التصنيف:
         <select id="categorySelect" class="watch-button" onchange="applyFilters()">
           <option value="all">عرض الكل</option>
         </select>
       </label>
 
-      <label><strong>النوع:</strong>
+      <label>
+        النوع:
         <select id="typeSelect" class="watch-button" onchange="applyFilters()">
           <option value="all">الكل</option>
         </select>
       </label>
 
-      <label><strong>الحالة:</strong>
+      <label>
+        الحالة:
         <select id="statusSelect" class="watch-button" onchange="applyFilters()">
           <option value="all">الكل</option>
         </select>
       </label>
 
-      <label><strong>الموسم:</strong>
+      <label>
+        الموسم:
         <select id="seasonSelect" class="watch-button" onchange="applyFilters()">
           <option value="all">الكل</option>
         </select>
       </label>
 
-      <!-- زر إعادة ضبط الفلاتر -->
-      <div style="margin-top: 10px;">
-        <button onclick="resetFilters()" class="watch-button">إعادة ضبط الفلاتر</button>
-      </div>
+      <button onclick="resetFilters()" class="watch-button">إعادة ضبط الفلاتر</button>
     </div>
 
+    <!-- شبكة الأنميات -->
     <div class="anime-grid" id="animeGrid"></div>
+
+    <!-- أزرار الصفحات -->
     <div id="pagination" style="text-align: center; margin-top: 20px;"></div>
   </main>
 
@@ -61,18 +65,11 @@
 
     function updatePageInURL(page) {
       const url = new URL(window.location);
-
-      const selectedCategory = document.getElementById("categorySelect").value;
-      const selectedType = document.getElementById("typeSelect").value;
-      const selectedStatus = document.getElementById("statusSelect").value;
-      const selectedSeason = document.getElementById("seasonSelect").value;
-
       url.searchParams.set("page", page);
-      url.searchParams.set("category", selectedCategory);
-      url.searchParams.set("type", selectedType);
-      url.searchParams.set("status", selectedStatus);
-      url.searchParams.set("season", selectedSeason);
-
+      url.searchParams.set("category", categorySelect.value);
+      url.searchParams.set("type", typeSelect.value);
+      url.searchParams.set("status", statusSelect.value);
+      url.searchParams.set("season", seasonSelect.value);
       window.history.pushState({}, "", url);
     }
 
@@ -101,14 +98,11 @@
       const card = document.createElement('div');
       card.className = 'anime-card';
       const categories = anime.tags || anime.categories || [];
-      card.setAttribute('data-categories', categories.join(','));
-
-      const link = `../../test1/Anime Page Dynamic.html?id=${anime.id}`;
 
       card.innerHTML = `
-        <a href="${link}" style="text-decoration: none; color: inherit;">
+        <a href="../../test1/Anime Page Dynamic.html?id=${anime.id}" style="text-decoration: none; color: inherit;">
           <div class="anime-image">
-            <img data-src="${adjustPath(anime.image)}" alt="${anime.title}" class="lazy-img" />
+            <img src="${adjustPath(anime.image)}" alt="${anime.title}" loading="lazy" />
           </div>
           <div class="anime-info">
             <h3>${anime.title}</h3>
@@ -139,8 +133,6 @@
         const card = displayAnime(anime);
         animeGrid.appendChild(card);
       });
-
-      lazyLoadImages();
     }
 
     function createPagination() {
@@ -174,12 +166,12 @@
         button.textContent = i;
         button.className = "watch-button";
         if (i === currentPage) button.classList.add("active");
-        button.addEventListener('click', () => {
+        button.onclick = () => {
           currentPage = i;
           updatePageInURL(currentPage);
           showPage(currentPage);
           createPagination();
-        });
+        };
         pagination.appendChild(button);
       }
 
@@ -232,12 +224,9 @@
       const sortedSeasons = [...seasonMap.keys()]
         .map(season => {
           const parts = season.split(" ");
-          const name = parts[0];
-          const year = parseInt(parts[1]);
-          const order = seasonOrder[name] || 99;
-          return { season, year, order };
+          return { season, year: parseInt(parts[1]), order: seasonOrder[parts[0]] || 99 };
         })
-        .sort((a, b) => a.year !== b.year ? a.year - b.year : a.order - b.order)
+        .sort((a, b) => a.year - b.year || a.order - b.order)
         .map(item => item.season);
 
       fillSelect("categorySelect", categorySet);
@@ -264,17 +253,17 @@
       const status = urlParams.get("status");
       const season = urlParams.get("season");
 
-      if (category) document.getElementById("categorySelect").value = category;
-      if (type) document.getElementById("typeSelect").value = type;
-      if (status) document.getElementById("statusSelect").value = status;
-      if (season) document.getElementById("seasonSelect").value = season;
+      if (category) categorySelect.value = category;
+      if (type) typeSelect.value = type;
+      if (status) statusSelect.value = status;
+      if (season) seasonSelect.value = season;
     }
 
     function applyFilters() {
-      const selectedCategory = document.getElementById("categorySelect").value;
-      const selectedType = document.getElementById("typeSelect").value;
-      const selectedStatus = document.getElementById("statusSelect").value;
-      const selectedSeason = document.getElementById("seasonSelect").value;
+      const selectedCategory = categorySelect.value;
+      const selectedType = typeSelect.value;
+      const selectedStatus = statusSelect.value;
+      const selectedSeason = seasonSelect.value;
 
       allAnimes = originalAnimes.filter(anime => {
         const tags = anime.tags || anime.categories || [];
@@ -292,30 +281,13 @@
     }
 
     function resetFilters() {
-      document.getElementById("categorySelect").value = "all";
-      document.getElementById("typeSelect").value = "all";
-      document.getElementById("statusSelect").value = "all";
-      document.getElementById("seasonSelect").value = "all";
-
+      categorySelect.value = "all";
+      typeSelect.value = "all";
+      statusSelect.value = "all";
+      seasonSelect.value = "all";
       currentPage = 1;
       updatePageInURL(currentPage);
       applyFilters();
-    }
-
-    function lazyLoadImages() {
-      const images = document.querySelectorAll('.lazy-img');
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.getAttribute('data-src');
-            img.removeAttribute('data-src');
-            observer.unobserve(img);
-          }
-        });
-      }, { rootMargin: '0px 0px 50px 0px', threshold: 0.1 });
-
-      images.forEach(img => observer.observe(img));
     }
 
     loadAnimeData();
