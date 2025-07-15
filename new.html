@@ -1,184 +1,190 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أحدث حلقات</title>
-    <link rel="stylesheet" href="CSS/style.css">
-    <script src="navbar.js" defer></script>
-    <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon">
-    <style>
-        .pagination {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 20px 0;
-        }
-        .pagination button {
-            padding: 6px 12px;
-            background-color: var(--primary-color, #ef4444);
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 6px;
-        }
-        .pagination button.active {
-            background-color: #b91c1c;
-        }
-        .pagination span {
-            padding: 6px 12px;
-            color: #888;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>أحدث حلقات</title>
+  <link rel="stylesheet" href="CSS/style.css" />
+  <script src="navbar.js" defer></script>
+  <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon" />
+  <style>
+    .pagination {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 20px 0;
+    }
+    .pagination button {
+      padding: 6px 12px;
+      background-color: var(--primary-color, #ef4444);
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .pagination button.active {
+      background-color: #b91c1c;
+    }
+    .pagination span {
+      padding: 6px 12px;
+      color: #888;
+    }
+  </style>
 </head>
 <body>
 
-    <div id="navbar-container"></div>
+<div id="navbar-container"></div>
 
-    <main>
-        <div class="section-header">
-            <h1>أحدث حلقات</h1>
-        </div>
+<main>
+  <div class="section-header">
+    <h1>أحدث حلقات</h1>
+  </div>
 
-        <div class="anime-grid" id="animeGrid"></div>
-        <div class="pagination" id="pagination"></div>
+  <div class="anime-grid" id="animeGrid"></div>
+  <div class="pagination" id="pagination"></div>
 
-        <script>
-            const maxItemsPerPage = 20;
-            let allEpisodes = [];
+  <script>
+    const maxItemsPerPage = 20;
+    let allEpisodes = [];
 
-            // قراءة رقم الصفحة من الرابط
-            function getPageFromURL() {
-                const params = new URLSearchParams(window.location.search);
-                return parseInt(params.get("page")) || 1;
-            }
+    function getPageFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      return parseInt(params.get("page")) || 1;
+    }
 
-            // تحديث الرابط في المتصفح بدون إعادة تحميل
-            function updateURL(page) {
-                const url = new URL(window.location.href);
-                url.searchParams.set("page", page);
-                window.history.pushState({}, '', url);
-            }
+    function updateURL(page) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("page", page);
+      window.history.pushState({}, '', url);
+    }
 
-            function renderPage(pageNumber) {
-                updateURL(pageNumber);
-                const animeGrid = document.getElementById("animeGrid");
-                animeGrid.innerHTML = "";
+    function renderPage(pageNumber) {
+      updateURL(pageNumber);
+      const animeGrid = document.getElementById("animeGrid");
+      animeGrid.innerHTML = "";
 
-                const startIndex = (pageNumber - 1) * maxItemsPerPage;
-                const endIndex = startIndex + maxItemsPerPage;
-                const episodesToShow = allEpisodes.slice(startIndex, endIndex);
+      const startIndex = (pageNumber - 1) * maxItemsPerPage;
+      const endIndex = startIndex + maxItemsPerPage;
+      const episodesToShow = allEpisodes.slice(startIndex, endIndex);
 
-                episodesToShow.forEach(ep => {
-                    const card = document.createElement("div");
-                    card.className = "anime-card";
-                    card.innerHTML = `
-                        <div class="anime-image">
-                            <img src="${ep.image}" alt="${ep.animeTitle}" loading="lazy">
-                        </div>
-                        <div class="anime-info">
-                            <h3>${ep.animeTitle}</h3>
-                            <div class="anime-meta">
-                                <span>${ep.title}</span>
-                                <a href="${ep.link}" class="watch-button">شاهد الآن</a>
-                            </div>
-                        </div>
-                    `;
-                    animeGrid.appendChild(card);
-                });
+      episodesToShow.forEach(ep => {
+        const card = document.createElement("div");
+        card.className = "anime-card";
+        card.innerHTML = `
+          <div class="anime-image">
+            <img src="${ep.image}" alt="${ep.animeTitle}" loading="lazy">
+          </div>
+          <div class="anime-info">
+            <h3>${ep.animeTitle}</h3>
+            <div class="anime-meta">
+              <span>${ep.title}</span>
+              <a href="${ep.link}" class="watch-button">شاهد الآن</a>
+            </div>
+          </div>
+        `;
+        animeGrid.appendChild(card);
+      });
 
-                // تفعيل الزر الحالي
-                document.querySelectorAll(".pagination button").forEach(b => b.classList.remove("active"));
-                const activeBtn = document.querySelector(`.pagination button[data-page="${pageNumber}"]`);
-                if (activeBtn) activeBtn.classList.add("active");
-            }
+      document.querySelectorAll(".pagination button").forEach(b => b.classList.remove("active"));
+      const activeBtn = document.querySelector(`.pagination button[data-page="${pageNumber}"]`);
+      if (activeBtn) activeBtn.classList.add("active");
+    }
 
-            function setupPagination(totalItems, currentPage) {
-                const pageCount = Math.ceil(totalItems / maxItemsPerPage);
-                const pagination = document.getElementById("pagination");
-                pagination.innerHTML = "";
+    function setupPagination(totalItems, currentPage) {
+      const pageCount = Math.ceil(totalItems / maxItemsPerPage);
+      const pagination = document.getElementById("pagination");
+      pagination.innerHTML = "";
 
-                const visiblePages = Math.min(5, pageCount);
-                for (let i = 1; i <= visiblePages; i++) {
-                    const btn = document.createElement("button");
-                    btn.textContent = i;
-                    btn.setAttribute("data-page", i);
-                    if (i === currentPage) btn.classList.add("active");
-                    btn.onclick = () => {
-                        renderPage(i);
-                        setupPagination(totalItems, i);
-                    };
-                    pagination.appendChild(btn);
-                }
+      const visiblePages = Math.min(5, pageCount);
+      for (let i = 1; i <= visiblePages; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        btn.setAttribute("data-page", i);
+        if (i === currentPage) btn.classList.add("active");
+        btn.onclick = () => {
+          renderPage(i);
+          setupPagination(totalItems, i);
+        };
+        pagination.appendChild(btn);
+      }
 
-                if (pageCount > 5) {
-                    const dots = document.createElement("span");
-                    dots.textContent = "...";
-                    pagination.appendChild(dots);
+      if (pageCount > 5) {
+        const dots = document.createElement("span");
+        dots.textContent = "...";
+        pagination.appendChild(dots);
 
-                    const lastBtn = document.createElement("button");
-                    lastBtn.textContent = "آخر";
-                    lastBtn.setAttribute("data-page", pageCount);
-                    lastBtn.onclick = () => {
-                        renderPage(pageCount);
-                        setupPagination(totalItems, pageCount);
-                    };
-                    pagination.appendChild(lastBtn);
-                }
-            }
+        const lastBtn = document.createElement("button");
+        lastBtn.textContent = "آخر";
+        lastBtn.setAttribute("data-page", pageCount);
+        lastBtn.onclick = () => {
+          renderPage(pageCount);
+          setupPagination(totalItems, pageCount);
+        };
+        pagination.appendChild(lastBtn);
+      }
+    }
 
-            // تحميل البيانات من الملفات
-            fetch('الجديد.json')
-                .then(response => response.json())
-                .then(data => {
-                    const animeLinks = data.animes;
+    async function fetchInBatches(urls, batchSize = 50) {
+      for (let i = 0; i < urls.length; i += batchSize) {
+        const batch = urls.slice(i, i + batchSize);
 
-                    return Promise.all(
-                        animeLinks.map(link =>
-                            fetch(link)
-                                .then(res => res.json())
-                                .catch(err => {
-                                    console.error("فشل تحميل:", link, err);
-                                    return null;
-                                })
-                        )
-                    );
-                })
-                .then(results => {
-                    results.forEach(animeData => {
-                        if (!animeData) return;
+        const batchResults = await Promise.all(
+          batch.map(link =>
+            fetch(link)
+              .then(res => res.json())
+              .catch(err => {
+                console.error("فشل تحميل:", link, err);
+                return null;
+              })
+          )
+        );
 
-                        animeData.episodes.forEach(ep => {
-                            let dateValue = ep.date ? new Date(ep.date) : new Date("1970-01-01");
+        processFetchedAnime(batchResults);
+      }
+    }
 
-                            allEpisodes.push({
-                                animeTitle: animeData.animeTitle,
-                                image: ep.image,
-                                link: ep.link,
-                                number: ep.number,
-                                title: ep.title,
-                                date: dateValue
-                            });
-                        });
-                    });
+    function processFetchedAnime(results) {
+      results.forEach(animeData => {
+        if (!animeData) return;
 
-                    allEpisodes.sort((a, b) => b.date - a.date);
+        animeData.episodes.forEach(ep => {
+          let dateValue = ep.date ? new Date(ep.date) : new Date("1970-01-01");
 
-                    const currentPage = getPageFromURL();
-                    renderPage(currentPage);
-                    setupPagination(allEpisodes.length, currentPage);
-                })
-                .catch(error => console.error("خطأ في تحميل الجديد.json:", error));
-        </script>
-    </main>
+          allEpisodes.push({
+            animeTitle: animeData.animeTitle,
+            image: ep.image,
+            link: ep.link,
+            number: ep.number,
+            title: ep.title,
+            date: dateValue
+          });
+        });
+      });
 
-    <script>
-        // تحميل الشريط العلوي
-        fetch('navbar.html')
-            .then(response => response.text())
-            .then(data => document.getElementById('navbar-container').innerHTML = data);
-    </script>
+      allEpisodes.sort((a, b) => b.date - a.date);
+
+      const currentPage = getPageFromURL();
+      renderPage(currentPage);
+      setupPagination(allEpisodes.length, currentPage);
+    }
+
+    // بداية التحميل
+    fetch('الجديد.json')
+      .then(response => response.json())
+      .then(data => {
+        const animeLinks = data.animes;
+        return fetchInBatches(animeLinks, 50);
+      })
+      .catch(error => console.error("خطأ في تحميل الجديد.json:", error));
+  </script>
+</main>
+
+<script>
+  fetch('navbar.html')
+    .then(response => response.text())
+    .then(data => document.getElementById('navbar-container').innerHTML = data);
+</script>
 
 </body>
 </html>
