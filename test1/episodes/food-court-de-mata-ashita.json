@@ -1,0 +1,58 @@
+{
+  "animeTitle": "Food Court de Mata Ashita",
+  "episodes": [
+    {
+      "number": 1,
+      "title": "الحلقة 1",
+      "date": "2025-07-14 14:06:34",
+      "link": "https://abdo12249.github.io/1/test1/episodes/المشاهده.html?id=food-court-de-mata-ashita&episode=1",
+      "image": "https://abdo12249.github.io/1/images/food-court-de-mata-ashita.webp",
+      "servers": [
+        {
+          "serverName": "megamax",
+          "url": "https://megamax.me/iframe/HQETUHsKKnMIx"
+        },
+        {
+          "serverName": "mega بدون اعلانات",
+          "url": "https://mega.nz/embed/bZclCbTD!x9FUGviooGKWRcZAMZLXgZJFIoI7uLQ8baGwWT_yS04"
+        },
+        {
+          "serverName": "videa",
+          "url": "https://videa.hu/player?v=66wOE7I5qrwHmHsp"
+        },
+        {
+          "serverName": "vk",
+          "url": "https://vkvideo.ru/video_ext.php?oid=-230564661&id=456239348&autoplay=1"
+        },
+        {
+          "serverName": "voe.sx",
+          "url": "https://voe.sx/e/wghfiguvfwii"
+        },
+        {
+          "serverName": "vidmoly",
+          "url": "https://vidmoly.to/embed-fymv12lycdm2.html"
+        },
+        {
+          "serverName": "Mp4upload",
+          "url": "https://www.mp4upload.com/embed-hjfvtq8tufgz.html"
+        },
+        {
+          "serverName": "mega بدون اعلانات - FHD",
+          "url": "https://mega.nz/embed/HQkFnAQS!AmzdpYxhjDnd0NGW9td1lRM3gWU4IRLIFaGqxZzM0zU"
+        },
+        {
+          "serverName": "Mp4upload - FHD",
+          "url": "https://www.mp4upload.com/embed-6yhzhj1ot170.html"
+        },
+        {
+          "serverName": "mega بدون اعلانات - SD",
+          "url": "https://mega.nz/embed/3dEQQAgA!srveURzNysUbcvllM-DWeNkgdLcZwfcJA-9L3iDPCZA"
+        },
+        {
+          "serverName": "Mp4upload - SD",
+          "url": "https://www.mp4upload.com/embed-53yy0mfra3oz.html"
+        }
+      ]
+    }
+  ]
+}
