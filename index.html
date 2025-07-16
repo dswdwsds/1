@@ -78,83 +78,263 @@
    
 <!-- قسم الحلقات الجديدة -->
 <main>
-    <div class="section-header">
-        <h1>الحلقات الجديدة</h1>
-        <button class="watch-button"><a href="new.html" style="color: inherit;"> المزيد</a></button>
-    </div>
-    <div class="anime-grid" id="animeGridNew"></div>
+  <div class="section-header">
+    <h1>الحلقات الجديدة</h1>
+    <button class="watch-button"><a href="new.html" style="color: inherit;"> المزيد</a></button>
+  </div>
+  <div class="anime-grid" id="animeGridNew"></div>
 
-    <script>
-        fetch("الجديد.json")
-            .then(response => response.json())
-            .then(data => {
-                const animeLinks = data.animes;
+  <!-- شاشة التحميل -->
+  <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+    <div class="spinner"></div>
+    <span>جاري تحميل الأنمي...</span>
+  </div>
 
-                return Promise.all(
-                    animeLinks.map(link =>
-                        fetch(link)
-                            .then(res => res.json())
-                            .catch(err => {
-                                console.error("فشل تحميل:", link, err);
-                                return null;
-                            })
-                    )
-                );
-            })
-            .then(results => {
-                const episodeList = [];
+  <script>
+    let allEpisodes = []; // سيتم تخزين جميع الحلقات هنا
+    const maxItemsToShow = 5; // عدد الحلقات المراد عرضها في هذا القسم
+    const cacheDuration = 24 * 60 * 60 * 1000; // 24 ساعة بالمللي ثانية
 
-                results.forEach(animeData => {
-                    if (!animeData) return;
+    // ثوابت IndexedDB
+    const DB_NAME = 'AnimeDB';
+    const DB_VERSION = 1;
+    const STORE_NAME = 'episodesCache';
+    const CACHE_KEY = 'cachedEpisodes'; // المفتاح لتخزين كائن التخزين المؤقت الوحيد في IndexedDB
 
-                    animeData.episodes.forEach(ep => {
-                        let dateValue;
-                        if (ep.date) {
-                            dateValue = new Date(ep.date);
-                        } else {
-                            // إذا لم يوجد date نحط تاريخ افتراضي قديم
-                            dateValue = new Date("1970-01-01");
-                        }
+    let db; // متغير للاحتفاظ بنسخة قاعدة بيانات IndexedDB
 
-                        episodeList.push({
-                            animeTitle: animeData.animeTitle,
-                            image: ep.image,
-                            link: ep.link,
-                            number: ep.number,
-                            title: ep.title,
-                            date: dateValue
-                        });
-                    });
-                });
+    // دالة لفتح قاعدة بيانات IndexedDB
+    function openDatabase() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
 
-                // ترتيب الحلقات من الأحدث للأقدم
-                episodeList.sort((a, b) => b.date - a.date);
+        request.onupgradeneeded = (event) => {
+          db = event.target.result;
+          // إنشاء مخزن الكائنات إذا لم يكن موجودًا
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME);
+          }
+        };
 
-                // عرض أول 5 فقط
-                const maxItems = 5;
-                const limitedEpisodes = episodeList.slice(0, maxItems);
-                const animeGrid = document.getElementById("animeGridNew");
+        request.onsuccess = (event) => {
+          db = event.target.result;
+          resolve(db);
+        };
 
-                limitedEpisodes.forEach(ep => {
-                    const card = document.createElement("div");
-                    card.className = "anime-card";
-                    card.innerHTML = `
-                        <div class="anime-image">
-                            <img src="${ep.image}" alt="${ep.animeTitle}" loading="lazy">
-                        </div>
-                        <div class="anime-info">
-                            <h3>${ep.animeTitle}</h3>
-                            <div class="anime-meta">
-                                <span>${ep.title}</span>
-                                <a href="${ep.link}" class="watch-button">شاهد الآن</a>
-                            </div>
-                        </div>
-                    `;
-                    animeGrid.appendChild(card);
-                });
-            })
-            .catch(error => console.error("خطأ في تحميل الجديد.json:", error));
-    </script>
+        request.onerror = (event) => {
+          console.error("خطأ في فتح IndexedDB:", event.target.error);
+          reject(event.target.error);
+        };
+      });
+    }
+
+    // دالة لقراءة البيانات من IndexedDB
+    async function readFromIndexedDB(key) {
+      if (!db) {
+        await openDatabase(); // التأكد من فتح قاعدة البيانات قبل القراءة
+      }
+      return new Promise((resolve, reject) => {
+        const transaction = db.transaction([STORE_NAME], 'readonly');
+        const store = transaction.objectStore(STORE_NAME);
+        const request = store.get(key);
+
+        request.onsuccess = (event) => {
+          resolve(event.target.result);
+        };
+
+        request.onerror = (event) => {
+          console.error("خطأ في قراءة IndexedDB:", event.target.error);
+          reject(event.target.error);
+        };
+      });
+    }
+
+    // دالة لكتابة البيانات إلى IndexedDB
+    async function writeToIndexedDB(key, data) {
+      if (!db) {
+        await openDatabase(); // التأكد من فتح قاعدة البيانات قبل الكتابة
+      }
+      return new Promise((resolve, reject) => {
+        const transaction = db.transaction([STORE_NAME], 'readwrite');
+        const store = transaction.objectStore(STORE_NAME);
+        const request = store.put(data, key); // استخدام put للإضافة أو التحديث
+
+        request.onsuccess = () => {
+          resolve();
+        };
+
+        request.onerror = (event) => {
+          console.error("خطأ في كتابة IndexedDB:", event.target.error);
+          reject(event.target.error);
+        };
+      });
+    }
+
+    // دالة لإظهار شاشة التحميل
+    function showLoading() {
+      document.getElementById('loadingOverlay').style.display = 'flex';
+    }
+
+    // دالة لإخفاء شاشة التحميل
+    function hideLoading() {
+      document.getElementById('loadingOverlay').style.display = 'none';
+    }
+
+    // دالة لعرض الحلقات في الشبكة
+    function renderEpisodes() {
+      const animeGrid = document.getElementById("animeGridNew");
+      animeGrid.innerHTML = ""; // مسح المحتوى الحالي
+
+      // عرض فقط عدد maxItemsToShow من الحلقات
+      const episodesToShow = allEpisodes.slice(0, maxItemsToShow);
+
+      episodesToShow.forEach(ep => {
+        const card = document.createElement("div");
+        card.className = "anime-card";
+        card.innerHTML = `
+          <div class="anime-image">
+            <img src="${ep.image}" alt="${ep.animeTitle}" loading="lazy">
+          </div>
+          <div class="anime-info">
+            <h3>${ep.animeTitle}</h3>
+            <div class="anime-meta">
+              <span>${ep.title}</span>
+              <a href="${ep.link}" class="watch-button">شاهد الآن</a>
+            </div>
+          </div>
+        `;
+        animeGrid.appendChild(card);
+      });
+
+      // إضافة مراقب للتحميل التدريجي للصور
+      const lazyImages = document.querySelectorAll('#animeGridNew img[loading="lazy"]');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.classList.add('loaded'); // إضافة فئة لتغيير الشفافية
+              observer.unobserve(img); // إيقاف المراقبة بعد التحميل
+            }
+          });
+        });
+        lazyImages.forEach(img => observer.observe(img));
+      } else {
+        // بديل للمتصفحات التي لا تدعم IntersectionObserver
+        lazyImages.forEach(img => img.classList.add('loaded'));
+      }
+    }
+
+    // دالة لجلب البيانات من API وتخزينها مؤقتًا في IndexedDB
+    async function fetchAndCacheData() {
+      showLoading(); // إظهار شاشة التحميل
+      try {
+        // هام: تأكد من أن 'الجديد.json' متاح عبر مسار URL صحيح.
+        // إذا كنت تقوم بتشغيل هذا الملف محليًا أو في بيئة معاينة (مثل blob: URL)،
+        // فقد تحتاج إلى استضافة 'الجديد.json' وجميع ملفات الأنمي الفردية
+        // على خادم ويب حقيقي (مثل GitHub Pages أو Firebase Hosting)
+        // واستخدام مسارات URL كاملة (مثال: 'https://yourdomain.com/الجديد.json').
+        const response = await fetch('الجديد.json');
+        const data = await response.json();
+        const animeLinks = data.animes;
+
+        const results = await Promise.all(
+          animeLinks.map(async link => {
+            try {
+              // هام: تأكد من أن روابط الأنمي الفردية متاحة عبر مسار URL صحيح.
+              // إذا كانت هذه الروابط نسبية، فيجب أن تكون الملفات في نفس المسار النسبي
+              // على الخادم الذي يستضيف 'الجديد.json'.
+              const res = await fetch(link);
+              return await res.json();
+            } catch (err) {
+              console.error("فشل تحميل:", link, err);
+              return null;
+            }
+          })
+        );
+
+        const fetchedEpisodes = [];
+        results.forEach(animeData => {
+          if (!animeData) return;
+
+          animeData.episodes.forEach(ep => {
+            let dateValue = ep.date ? new Date(ep.date) : new Date("1970-01-01");
+
+            fetchedEpisodes.push({
+              animeTitle: animeData.animeTitle,
+              image: ep.image,
+              link: ep.link,
+              number: ep.number,
+              title: ep.title,
+              date: dateValue.toISOString() // حفظ التاريخ كسلسلة ISO
+            });
+          });
+        });
+
+        fetchedEpisodes.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+        // حفظ البيانات في IndexedDB
+        const cacheObject = {
+          episodes: fetchedEpisodes,
+          timestamp: Date.now()
+        };
+        await writeToIndexedDB(CACHE_KEY, cacheObject);
+        console.log("تم حفظ البيانات في IndexedDB.");
+
+        allEpisodes = fetchedEpisodes.map(ep => ({
+          ...ep,
+          date: new Date(ep.date) // تحويل التاريخ مرة أخرى إلى كائن Date
+        }));
+
+      } catch (error) {
+        console.error("خطأ في تحميل الجديد.json أو معالجة البيانات:", error);
+        // إذا فشل الجلب، حاول تحميل من IndexedDB (إذا كانت موجودة)
+        try {
+          const cachedData = await readFromIndexedDB(CACHE_KEY);
+          if (cachedData && cachedData.episodes) {
+            allEpisodes = cachedData.episodes.map(ep => ({
+              ...ep,
+              date: new Date(ep.date)
+            }));
+            console.log("تم تحميل البيانات من IndexedDB بسبب فشل الجلب.");
+          } else {
+            console.error("لا توجد بيانات في IndexedDB. لا يمكن عرض أي حلقات.");
+            // يمكنك عرض رسالة خطأ للمستخدم هنا
+          }
+        } catch (dbError) {
+          console.error("خطأ في قراءة IndexedDB بعد فشل الجلب:", dbError);
+        }
+      } finally {
+        hideLoading(); // إخفاء شاشة التحميل
+      }
+    }
+
+    // دالة للتهيئة
+    async function init() {
+      await openDatabase(); // فتح IndexedDB عند التهيئة
+
+      const cachedObject = await readFromIndexedDB(CACHE_KEY);
+      const now = Date.now();
+
+      // التحقق مما إذا كانت البيانات موجودة في IndexedDB ولم تنته صلاحيتها
+      if (cachedObject && cachedObject.episodes && (now - cachedObject.timestamp) < cacheDuration) {
+        allEpisodes = cachedObject.episodes.map(ep => ({
+          ...ep,
+          date: new Date(ep.date) // تحويل التاريخ مرة أخرى إلى كائن Date
+        }));
+        console.log("تم تحميل البيانات من IndexedDB.");
+      } else {
+        // إذا لم تكن البيانات موجودة أو انتهت صلاحيتها، قم بجلبها وتخزينها مؤقتًا
+        console.log("جلب بيانات جديدة وتخزينها مؤقتًا في IndexedDB.");
+        await fetchAndCacheData();
+      }
+
+      renderEpisodes(); // عرض الحلقات بعد التهيئة
+    }
+
+    init(); // بدء التهيئة عند تحميل الصفحة
+
+  </script>
 </main>
 
 
