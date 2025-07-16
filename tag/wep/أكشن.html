@@ -249,6 +249,9 @@
           <div class="anime-info">
             <h3>${anime.title}</h3>
             <p>${anime.description || ''}</p>
+            <div class="anime-meta">
+              <span class="watch-button">شاهد الآن</span>
+            </div>
           </div>
         </a>
       `;
@@ -455,6 +458,10 @@
   </script>
 
   <script>
+    // تحميل شريط التنقل (navbar)
+    // تم افتراض أن navbar.js يتعامل مع تحميل شريط التنقل.
+    // إذا كنت تستخدم ملف navbar.html بشكل مباشر، قم بإلغاء التعليق على السطر أدناه
+    // وتأكد من أن المسار صحيح.
     fetch('../../navbar.html')
       .then(response => response.text())
       .then(data => document.getElementById('navbar-container').innerHTML = data)
