@@ -90,6 +90,35 @@
           "url": "https://www.mp4upload.com/embed-iq9xc0dli2bw.html"
         }
       ]
+    },
+    {
+      "number": 3,
+      "title": "الحلقة 3",
+      "date": "2025-07-16 20:05:49",
+      "link": "https://abdo12249.github.io/1/test1/المشاهده.html?id=tsuyokute-new-saga&episode=3",
+      "image": "https://abdo12249.github.io/1/images/tsuyokute-new-saga.webp",
+      "servers": [
+        {
+          "serverName": "megamax",
+          "url": "https://megamax.me/iframe/kAtDZVK7PJq2s"
+        },
+        {
+          "serverName": "vk",
+          "url": "https://vkvideo.ru/video_ext.php?oid=-230564661&id=456239442&autoplay=1"
+        },
+        {
+          "serverName": "videa",
+          "url": "https://videa.hu/player?v=wbFDGh0nx8rF4lEs"
+        },
+        {
+          "serverName": "mega بدون اعلانات - FHD",
+          "url": "https://mega.nz/embed/SFdlBaAb!VmfCpQS7qTDkQ_59IH-dXAlIfOLsTAhjOQiAai5WWxU"
+        },
+        {
+          "serverName": "Mp4upload - FHD",
+          "url": "https://www.mp4upload.com/embed-ydrbq4mnqu3i.html"
+        }
+      ]
     }
   ]
 }
