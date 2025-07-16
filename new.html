@@ -57,6 +57,7 @@
       const url = new URL(window.location.href);
       url.searchParams.set("page", page);
       window.history.pushState({}, '', url);
+      // لا نحفظ الصفحة في localStorage
     }
 
     function renderPage(pageNumber) {
@@ -89,6 +90,9 @@
       document.querySelectorAll(".pagination button").forEach(b => b.classList.remove("active"));
       const activeBtn = document.querySelector(`.pagination button[data-page="${pageNumber}"]`);
       if (activeBtn) activeBtn.classList.add("active");
+
+      // تمرير الصفحة إلى الأعلى عند تغيير الصفحة
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function setupPagination(totalItems, currentPage) {
@@ -158,46 +162,87 @@
       }
     }
 
-    fetch('الجديد.json')
-      .then(response => response.json())
-      .then(data => {
-        const animeLinks = data.animes;
-        return Promise.all(
-          animeLinks.map(link =>
-            fetch(link)
-              .then(res => res.json())
-              .catch(err => {
-                console.error("فشل تحميل:", link, err);
-                return null;
-              })
-          )
-        );
-      })
-      .then(results => {
-        results.forEach(animeData => {
-          if (!animeData) return;
+    function saveEpisodesToLocalStorage() {
+      try {
+        const episodesForStorage = allEpisodes.map(ep => ({
+          ...ep,
+          date: ep.date.toISOString()
+        }));
+        localStorage.setItem('allEpisodes', JSON.stringify(episodesForStorage));
+      } catch(e) {
+        console.error("خطأ في حفظ البيانات محلياً:", e);
+      }
+    }
 
-          animeData.episodes.forEach(ep => {
-            let dateValue = ep.date ? new Date(ep.date) : new Date("1970-01-01");
+    function loadEpisodesFromLocalStorage() {
+      try {
+        const stored = localStorage.getItem('allEpisodes');
+        if (!stored) return null;
+        const parsed = JSON.parse(stored);
+        return parsed.map(ep => ({
+          ...ep,
+          date: new Date(ep.date)
+        }));
+      } catch(e) {
+        console.error("خطأ في تحميل البيانات من التخزين المحلي:", e);
+        return null;
+      }
+    }
 
-            allEpisodes.push({
-              animeTitle: animeData.animeTitle,
-              image: ep.image,
-              link: ep.link,
-              number: ep.number,
-              title: ep.title,
-              date: dateValue
-            });
-          });
-        });
-
-        allEpisodes.sort((a, b) => b.date - a.date);
-
+    function init() {
+      const savedEpisodes = loadEpisodesFromLocalStorage();
+      if (savedEpisodes && savedEpisodes.length > 0) {
+        allEpisodes = savedEpisodes;
         const currentPage = getPageFromURL();
         renderPage(currentPage);
         setupPagination(allEpisodes.length, currentPage);
-      })
-      .catch(error => console.error("خطأ في تحميل الجديد.json:", error));
+      } else {
+        fetch('الجديد.json')
+          .then(response => response.json())
+          .then(data => {
+            const animeLinks = data.animes;
+            return Promise.all(
+              animeLinks.map(link =>
+                fetch(link)
+                  .then(res => res.json())
+                  .catch(err => {
+                    console.error("فشل تحميل:", link, err);
+                    return null;
+                  })
+              )
+            );
+          })
+          .then(results => {
+            results.forEach(animeData => {
+              if (!animeData) return;
+
+              animeData.episodes.forEach(ep => {
+                let dateValue = ep.date ? new Date(ep.date) : new Date("1970-01-01");
+
+                allEpisodes.push({
+                  animeTitle: animeData.animeTitle,
+                  image: ep.image,
+                  link: ep.link,
+                  number: ep.number,
+                  title: ep.title,
+                  date: dateValue
+                });
+              });
+            });
+
+            allEpisodes.sort((a, b) => b.date - a.date);
+            saveEpisodesToLocalStorage();
+
+            const currentPage = getPageFromURL();
+            renderPage(currentPage);
+            setupPagination(allEpisodes.length, currentPage);
+          })
+          .catch(error => console.error("خطأ في تحميل الجديد.json:", error));
+      }
+    }
+
+    init();
+
   </script>
 </main>
 
