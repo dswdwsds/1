@@ -2,255 +2,24 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تصنيفات الأنمي</title>
-  <link rel="stylesheet" href="../../CSS/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>أحدث حلقات</title>
+  <link rel="stylesheet" href="CSS/style.css" />
+  <script src="navbar.js" defer></script>
   <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon" />
-  <style>
-    /* أنماط التحميل التدريجي */
-    img[loading="lazy"] {
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
-    }
-    img[loading="lazy"].loaded {
-      opacity: 1;
-    }
-
-    /* أنماط شاشة التحميل */
-    .loading-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      color: white;
-      font-size: 1.5rem;
-      flex-direction: column;
-    }
-    .spinner {
-      border: 4px solid rgba(255, 255, 255, 0.3);
-      border-top: 4px solid #fff;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin-bottom: 10px;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* أنماط الفلاتر */
-    #filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin: 20px;
-      padding: 15px;
-      background-color: #2a2a2a;
-      border-radius: 8px;
-      justify-content: center;
-      align-items: center;
-    }
-    #filters label {
-      color: white;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    #filters select, #filters button {
-      padding: 8px 12px;
-      border-radius: 6px;
-      border: 1px solid #444;
-      background-color: #333;
-      color: white;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background-color 0.3s ease;
-    }
-    #filters select:hover, #filters button:hover {
-      background-color: #444;
-    }
-    #filters button.watch-button {
-      background-color: var(--primary-color, #ef4444);
-    }
-    #filters button.watch-button:hover {
-      background-color: #b91c1c;
-    }
-
-    /* أنماط الشبكة (grid) للأنمي */
-    .anime-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 20px;
-      padding: 20px;
-      justify-content: center;
-    }
-
-    /* أنماط بطاقة الأنمي */
-    .anime-card {
-      background-color: #2a2a2a;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      transition: transform 0.2s ease-in-out;
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .anime-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .anime-image {
-      width: 100%;
-      height: 200px; /* ارتفاع ثابت للصور */
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .anime-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* لضمان تغطية الصورة للمساحة دون تشوه */
-      display: block;
-    }
-
-    .anime-info {
-      padding: 10px;
-      color: white;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .anime-info h3 {
-      font-size: 1.1rem;
-      margin-top: 0;
-      margin-bottom: 5px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .anime-meta {
-      font-size: 0.9rem;
-      color: #bbb;
-      margin-bottom: 10px;
-      /* جعل المحتوى داخل anime-meta يستخدم flexbox لترتيب العناصر عمودياً */
-      display: flex;
-      flex-direction: column;
-      align-items: center; /* توسيط العناصر أفقياً */
-    }
-
-    .anime-meta span {
-      display: block; /* للتأكد من أن كل span يأخذ سطرًا جديدًا */
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 100%; /* لجعل الـ span يأخذ العرض الكامل */
-      text-align: center; /* توسيط النص داخل الـ span */
-    }
-
-    .anime-info .watch-button {
-      display: inline-block;
-      padding: 6px 10px;
-      background-color: var(--primary-color, #ef4444);
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: background-color 0.3s ease;
-      margin-top: 10px; /* لإضافة مسافة فوق الزر */
-    }
-
-    .anime-info .watch-button:hover {
-      background-color: #b91c1c;
-    }
-
-    /* أنماط أزرار الصفحات */
-    #pagination button {
-      padding: 8px 15px;
-      background-color: var(--primary-color, #ef4444);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin: 0 5px;
-      transition: background-color 0.3s ease;
-    }
-    #pagination button:hover {
-      background-color: #b91c1c;
-    }
-    #pagination button.active {
-      background-color: #b91c1c;
-      font-weight: bold;
-    }
-    #pagination span {
-      color: #888;
-      margin: 0 5px;
-    }
-  </style>
+  
 </head>
 <body>
-  <div id="navbar-container"></div>
 
-  <main>
-    <div class="section-header">
-      <h1>تصنيفات الأنمي</h1>
-      <!-- زر تحديث البيانات -->
-      <button onclick="refreshData()" class="watch-button">تحديث البيانات</button>
-    </div>
+<div id="navbar-container"></div>
 
-    <!-- فلاتر الأنمي -->
-    <div id="filters">
-      <label>
-        التصنيف:
-        <select id="categorySelect" class="watch-button" onchange="applyFilters()">
-          <option value="all">عرض الكل</option>
-        </select>
-      </label>
+<main>
+  <div class="section-header">
+    <h1>أحدث حلقات</h1>
+  </div>
 
-      <label>
-        النوع:
-        <select id="typeSelect" class="watch-button" onchange="applyFilters()">
-          <option value="all">الكل</option>
-        </select>
-      </label>
-
-      <label>
-        الحالة:
-        <select id="statusSelect" class="watch-button" onchange="applyFilters()">
-          <option value="all">الكل</option>
-        </select>
-      </label>
-
-      <label>
-        الموسم:
-        <select id="seasonSelect" class="watch-button" onchange="applyFilters()">
-          <option value="all">الكل</option>
-        </select>
-      </label>
-
-      <button onclick="resetFilters()" class="watch-button">إعادة ضبط الفلاتر</button>
-    </div>
-
-    <!-- شبكة الأنميات -->
-    <div class="anime-grid" id="animeGrid"></div>
-
-    <!-- أزرار الصفحات -->
-    <div id="pagination" style="text-align: center; margin-top: 20px;"></div>
-  </main>
+  <div class="anime-grid" id="animeGrid"></div>
+  <div class="pagination" id="pagination"></div>
 
   <!-- شاشة التحميل -->
   <div id="loadingOverlay" class="loading-overlay" style="display: none;">
@@ -259,19 +28,17 @@
   </div>
 
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    let currentPage = parseInt(urlParams.get("page")) || 1;
-    const itemsPerPage = 30;
-    let allAnimes = []; // قائمة الأنميات بعد تطبيق الفلاتر
-    let originalAnimes = []; // القائمة الأصلية لجميع الأنميات التي تم جلبها
+    const maxItemsPerPage = 20;
+    let allEpisodes = [];
+    const cacheDuration = 24 * 60 * 60 * 1000; // 24 ساعة بالمللي ثانية
 
-    // ثوابت IndexedDB
-    const DB_NAME = 'AnimeCategoriesDB'; // اسم قاعدة بيانات مختلفة لتجنب التعارض
+    // IndexedDB constants
+    const DB_NAME = 'AnimeDB';
     const DB_VERSION = 1;
-    const STORE_NAME = 'animeDataCache';
-    const CACHE_KEY = 'cachedAnimeCategories';
+    const STORE_NAME = 'episodesCache';
+    const CACHE_KEY = 'cachedEpisodes'; // Key to store the single cache object in IndexedDB
 
-    let db; // متغير للاحتفاظ بنسخة قاعدة بيانات IndexedDB
+    let db; // Variable to hold the IndexedDB database instance
 
     // دالة لفتح قاعدة بيانات IndexedDB
     function openDatabase() {
@@ -280,6 +47,7 @@
 
         request.onupgradeneeded = (event) => {
           db = event.target.result;
+          // إنشاء مخزن الكائنات إذا لم يكن موجودًا
           if (!db.objectStoreNames.contains(STORE_NAME)) {
             db.createObjectStore(STORE_NAME);
           }
@@ -291,7 +59,7 @@
         };
 
         request.onerror = (event) => {
-          console.error("❌ خطأ في فتح IndexedDB:", event.target.error);
+          console.error("خطأ في فتح IndexedDB:", event.target.error);
           reject(event.target.error);
         };
       });
@@ -300,7 +68,7 @@
     // دالة لقراءة البيانات من IndexedDB
     async function readFromIndexedDB(key) {
       if (!db) {
-        await openDatabase();
+        await openDatabase(); // Ensure DB is open before reading
       }
       return new Promise((resolve, reject) => {
         const transaction = db.transaction([STORE_NAME], 'readonly');
@@ -312,7 +80,7 @@
         };
 
         request.onerror = (event) => {
-          console.error("❌ خطأ في قراءة IndexedDB:", event.target.error);
+          console.error("خطأ في قراءة IndexedDB:", event.target.error);
           reject(event.target.error);
         };
       });
@@ -321,41 +89,19 @@
     // دالة لكتابة البيانات إلى IndexedDB
     async function writeToIndexedDB(key, data) {
       if (!db) {
-        await openDatabase();
+        await openDatabase(); // Ensure DB is open before writing
       }
       return new Promise((resolve, reject) => {
         const transaction = db.transaction([STORE_NAME], 'readwrite');
         const store = transaction.objectStore(STORE_NAME);
-        const request = store.put(data, key);
+        const request = store.put(data, key); // Use put to add or update
 
         request.onsuccess = () => {
           resolve();
         };
 
         request.onerror = (event) => {
-          console.error("❌ خطأ في كتابة IndexedDB:", event.target.error);
-          reject(event.target.error);
-        };
-      });
-    }
-
-    // دالة لمسح البيانات من IndexedDB
-    async function clearIndexedDB(key) {
-      if (!db) {
-        await openDatabase();
-      }
-      return new Promise((resolve, reject) => {
-        const transaction = db.transaction([STORE_NAME], 'readwrite');
-        const store = transaction.objectStore(STORE_NAME);
-        const request = store.delete(key);
-
-        request.onsuccess = () => {
-          console.log(`✅ تم مسح البيانات من IndexedDB للمفتاح: ${key}`);
-          resolve();
-        };
-
-        request.onerror = (event) => {
-          console.error("❌ خطأ في مسح IndexedDB:", event.target.error);
+          console.error("خطأ في كتابة IndexedDB:", event.target.error);
           reject(event.target.error);
         };
       });
@@ -371,372 +117,271 @@
       document.getElementById('loadingOverlay').style.display = 'none';
     }
 
-    function updatePageInURL(page) {
+    // دالة للحصول على رقم الصفحة من URL
+    function getPageFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      return parseInt(params.get("page")) || 1;
+    }
+
+    // دالة لتحديث URL برقم الصفحة
+    function updateURL(page) {
       // تجنب استخدام pushState في بيئات مثل blob: URLs لتجنب SecurityError
       if (window.location.protocol !== 'blob:') {
-        const url = new URL(window.location);
+        const url = new URL(window.location.href);
         url.searchParams.set("page", page);
-        // تأكد من وجود العناصر قبل محاولة الوصول إلى قيمتها
-        const categorySelect = document.getElementById("categorySelect");
-        const typeSelect = document.getElementById("typeSelect");
-        const statusSelect = document.getElementById("statusSelect");
-        const seasonSelect = document.getElementById("seasonSelect");
-
-        if (categorySelect) url.searchParams.set("category", categorySelect.value);
-        if (typeSelect) url.searchParams.set("type", typeSelect.value);
-        if (statusSelect) url.searchParams.set("status", statusSelect.value);
-        if (seasonSelect) url.searchParams.set("season", seasonSelect.value);
-
-        window.history.pushState({}, "", url);
+        window.history.pushState({}, '', url);
       } else {
-        console.warn("⚠️ تحديث URL معطل في بيئة blob: URL لتجنب أخطاء الأمان.");
+        console.warn("تحديث URL معطل في بيئة blob: URL لتجنب أخطاء الأمان.");
       }
     }
 
-    async function loadAnimeData() {
+    // دالة لعرض الحلقات في الصفحة
+    function renderPage(pageNumber) {
+      updateURL(pageNumber);
+      const animeGrid = document.getElementById("animeGrid");
+      animeGrid.innerHTML = ""; // مسح المحتوى الحالي
+
+      const startIndex = (pageNumber - 1) * maxItemsPerPage;
+      const endIndex = startIndex + maxItemsPerPage;
+      const episodesToShow = allEpisodes.slice(startIndex, endIndex);
+
+      episodesToShow.forEach(ep => {
+        const card = document.createElement("div");
+        card.className = "anime-card";
+        card.innerHTML = `
+          <div class="anime-image">
+            <img src="${ep.image}" alt="${ep.animeTitle}" loading="lazy">
+          </div>
+          <div class="anime-info">
+            <h3>${ep.animeTitle}</h3>
+            <div class="anime-meta">
+              <span>${ep.title}</span>
+              <a href="${ep.link}" class="watch-button">شاهد الآن</a>
+            </div>
+          </div>
+        `;
+        animeGrid.appendChild(card);
+      });
+
+      // إضافة مراقب للتحميل التدريجي للصور
+      const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.classList.add('loaded'); // إضافة فئة لتغيير الشفافية
+              observer.unobserve(img); // إيقاف المراقبة بعد التحميل
+            }
+          });
+        });
+        lazyImages.forEach(img => observer.observe(img));
+      } else {
+        // بديل للمتصفحات التي لا تدعم IntersectionObserver
+        lazyImages.forEach(img => img.classList.add('loaded'));
+      }
+
+      // تحديث أزرار التنقل النشطة
+      document.querySelectorAll(".pagination button").forEach(b => b.classList.remove("active"));
+      const activeBtn = document.querySelector(`.pagination button[data-page="${pageNumber}"]`);
+      if (activeBtn) activeBtn.classList.add("active");
+
+      // التمرير لأعلى الصفحة بسلاسة
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // دالة لإعداد أزرار التنقل (Pagination)
+    function setupPagination(totalItems, currentPage) {
+      const pageCount = Math.ceil(totalItems / maxItemsPerPage);
+      const pagination = document.getElementById("pagination");
+      pagination.innerHTML = ""; // مسح أزرار التنقل الحالية
+
+      const maxVisible = 5; // الحد الأقصى للأزرار المرئية
+      let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+      let end = Math.min(start + maxVisible - 1, pageCount);
+
+      // ضبط نطاق الأزرار إذا كان لا يغطي الحد الأقصى المرئي
+      if (end - start < maxVisible - 1) {
+        start = Math.max(1, end - maxVisible + 1);
+      }
+
+      // زر "السابق"
+      if (currentPage > 1) {
+        const prevBtn = document.createElement("button");
+        prevBtn.textContent = "السابق";
+        prevBtn.onclick = () => {
+          renderPage(currentPage - 1);
+          setupPagination(totalItems, currentPage - 1);
+        };
+        pagination.appendChild(prevBtn);
+      }
+
+      // أزرار الصفحات
+      for (let i = start; i <= end; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        btn.setAttribute("data-page", i);
+        if (i === currentPage) btn.classList.add("active"); // تفعيل الزر الحالي
+        btn.onclick = () => {
+          renderPage(i);
+          setupPagination(totalItems, i);
+        };
+        pagination.appendChild(btn);
+      }
+
+      // نقاط "..." إذا كانت هناك صفحات مخفية بعد النطاق الحالي
+      if (end < pageCount - 1) {
+        const dots = document.createElement("span");
+        dots.textContent = "...";
+        pagination.appendChild(dots);
+      }
+
+      // زر "آخر" إذا لم تكن الصفحة الأخيرة مرئية
+      if (end < pageCount) {
+        const lastBtn = document.createElement("button");
+        lastBtn.textContent = "آخر";
+        lastBtn.setAttribute("data-page", pageCount);
+        lastBtn.onclick = () => {
+          renderPage(pageCount);
+          setupPagination(totalItems, pageCount);
+        };
+        pagination.appendChild(lastBtn);
+      }
+
+      // زر "التالي"
+      if (currentPage < pageCount) {
+        const nextBtn = document.createElement("button");
+        nextBtn.textContent = "التالي";
+        nextBtn.onclick = () => {
+          renderPage(currentPage + 1);
+          setupPagination(totalItems, currentPage + 1);
+        };
+        pagination.appendChild(nextBtn);
+      }
+    }
+
+    // دالة لجلب البيانات من API وتخزينها مؤقتًا في IndexedDB
+    async function fetchAndCacheData() {
       showLoading(); // إظهار شاشة التحميل
       try {
-        await openDatabase(); // التأكد من فتح IndexedDB
+        // هام: تأكد من أن 'الجديد.json' متاح عبر مسار URL صحيح.
+        // إذا كنت تقوم بتشغيل هذا الملف محليًا أو في بيئة معاينة (مثل blob: URL)،
+        // فقد تحتاج إلى استضافة 'الجديد.json' وجميع ملفات الأنمي الفردية
+        // على خادم ويب حقيقي (مثل GitHub Pages أو Firebase Hosting)
+        // واستخدام مسارات URL كاملة (مثال: 'https://yourdomain.com/الجديد.json').
+        const response = await fetch('الجديد.json');
+        const data = await response.json();
+        const animeLinks = data.animes;
 
-        let shouldFetchNewData = false;
-        let serverLastModified = null;
-
-        try {
-          // الخطوة 1: محاولة الحصول على تاريخ آخر تعديل من الخادم باستخدام طلب HEAD
-          const headResponse = await fetch("https://abdo12249.github.io/1/test1/animes.json", { method: 'HEAD' });
-          if (headResponse.ok) {
-            serverLastModified = headResponse.headers.get('Last-Modified');
-            console.log("✅ تاريخ آخر تعديل من الخادم:", serverLastModified);
-          } else {
-            console.warn("⚠️ فشل الحصول على تاريخ آخر تعديل من الخادم، سنتابع بجلب البيانات بالكامل إذا لم يكن هناك تخزين مؤقت أو انتهت صلاحيته.");
-          }
-        } catch (headError) {
-          console.warn("❌ خطأ أثناء جلب تاريخ آخر تعديل (HEAD):", headError);
-          // إذا فشل طلب HEAD، سنفترض أننا بحاجة لجلب البيانات بالكامل
-        }
-
-        const cachedObject = await readFromIndexedDB(CACHE_KEY);
-
-        if (cachedObject && cachedObject.animes) {
-          // إذا كانت البيانات المخزنة مؤقتًا موجودة، قارن التواريخ
-          const cachedTimestamp = cachedObject.timestamp;
-          const cachedDate = new Date(cachedTimestamp);
-
-          if (serverLastModified) {
-            const serverDate = new Date(serverLastModified);
-            if (serverDate.getTime() > cachedDate.getTime()) {
-              console.log("🔄 بيانات الخادم أحدث من البيانات المخزنة مؤقتًا. جلب بيانات جديدة.");
-              shouldFetchNewData = true;
-            } else {
-              console.log("✅ البيانات المخزنة مؤقتًا محدثة مع الخادم. استخدام البيانات المخزنة.");
-              allAnimes = cachedObject.animes;
-              originalAnimes = [...allAnimes];
+        const results = await Promise.all(
+          animeLinks.map(async link => {
+            try {
+              // هام: تأكد من أن روابط الأنمي الفردية متاحة عبر مسار URL صحيح.
+              // إذا كانت هذه الروابط نسبية، فيجب أن تكون الملفات في نفس المسار النسبي
+              // على الخادم الذي يستضيف 'الجديد.json'.
+              const res = await fetch(link);
+              return await res.json();
+            } catch (err) {
+              console.error("فشل تحميل:", link, err);
+              return null;
             }
-          } else {
-            // إذا لم نتمكن من الحصول على serverLastModified، سنقوم بالجلب الإجباري
-            console.warn("⚠️ تعذر تحديد تاريخ آخر تعديل للخادم. جلب البيانات بالكامل.");
-            shouldFetchNewData = true;
-          }
-        } else {
-          // لا توجد بيانات مخزنة مؤقتًا، لذا نحتاج لجلب بيانات جديدة
-          console.log("🔄 لم يتم العثور على بيانات مخزنة مؤقتًا. جلب بيانات جديدة.");
-          shouldFetchNewData = true;
-        }
+          })
+        );
 
-        if (shouldFetchNewData) {
-          console.log("🔄 جاري جلب بيانات الأنمي من الشبكة وتخزينها مؤقتًا في IndexedDB.");
-          const response = await fetch("https://abdo12249.github.io/1/test1/animes.json");
-          if (!response.ok) throw new Error("❌ فشل تحميل animes.json");
+        const fetchedEpisodes = [];
+        results.forEach(animeData => {
+          if (!animeData) return;
 
-          const data = await response.json();
-          const animeList = Object.entries(data).map(([id, anime]) => ({ id, ...anime }));
+          animeData.episodes.forEach(ep => {
+            let dateValue = ep.date ? new Date(ep.date) : new Date("1970-01-01");
 
-          // تحديث الطابع الزمني بالوقت الحالي، أو بتاريخ آخر تعديل للخادم إذا كان متاحًا وموثوقًا
-          const newTimestamp = serverLastModified ? new Date(serverLastModified).getTime() : Date.now();
+            fetchedEpisodes.push({
+              animeTitle: animeData.animeTitle,
+              image: ep.image,
+              link: ep.link,
+              number: ep.number,
+              title: ep.title,
+              date: dateValue.toISOString() // حفظ التاريخ كسلسلة ISO
+            });
+          });
+        });
 
-          const cacheObject = {
-            animes: animeList,
-            timestamp: newTimestamp
-          };
-          await writeToIndexedDB(CACHE_KEY, cacheObject);
-          console.log("✅ تم حفظ بيانات الأنمي الجديدة في IndexedDB.");
+        fetchedEpisodes.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-          allAnimes = animeList;
-          originalAnimes = animeList;
-        }
+        // حفظ البيانات في IndexedDB
+        const cacheObject = {
+          episodes: fetchedEpisodes,
+          timestamp: Date.now()
+        };
+        await writeToIndexedDB(CACHE_KEY, cacheObject);
+        console.log("تم حفظ البيانات في IndexedDB.");
 
-        generateFilterOptions();
-        applyFilters(); // تطبيق الفلاتر وعرض الصفحة الأولى
+        allEpisodes = fetchedEpisodes.map(ep => ({
+          ...ep,
+          date: new Date(ep.date) // تحويل التاريخ مرة أخرى إلى كائن Date
+        }));
+
       } catch (error) {
-        console.error("❌ خطأ في تحميل الأنميات أو IndexedDB:", error);
-        // في حالة فشل الجلب من الشبكة، حاول التحميل من IndexedDB كخيار احتياطي
+        console.error("خطأ في تحميل الجديد.json أو معالجة البيانات:", error);
+        // إذا فشل الجلب، حاول تحميل من IndexedDB (إذا كانت موجودة)
         try {
           const cachedData = await readFromIndexedDB(CACHE_KEY);
-          if (cachedData && cachedData.animes) {
-            allAnimes = cachedData.animes;
-            originalAnimes = [...allAnimes];
-            generateFilterOptions();
-            applyFilters();
-            console.log("⚠️ تم تحميل بيانات الأنمي من IndexedDB بسبب فشل الجلب من الشبكة (بيانات قديمة).");
+          if (cachedData && cachedData.episodes) {
+            allEpisodes = cachedData.episodes.map(ep => ({
+              ...ep,
+              date: new Date(ep.date)
+            }));
+            console.log("تم تحميل البيانات من IndexedDB بسبب فشل الجلب.");
           } else {
-            console.error("❌ لا توجد بيانات في IndexedDB. لا يمكن عرض أي أنميات.");
-            // يمكنك عرض رسالة خطأ للمستخدم هنا إذا لم تتوفر بيانات
+            console.error("لا توجد بيانات في IndexedDB. لا يمكن عرض أي حلقات.");
+            // يمكنك عرض رسالة خطأ للمستخدم هنا
           }
         } catch (dbError) {
-          console.error("❌ خطأ في قراءة IndexedDB بعد فشل الجلب:", dbError);
+          console.error("خطأ في قراءة IndexedDB بعد فشل الجلب:", dbError);
         }
       } finally {
         hideLoading(); // إخفاء شاشة التحميل
       }
     }
 
-    // دالة لتحديث البيانات يدوياً
-    async function refreshData() {
-      showLoading();
-      await clearIndexedDB(CACHE_KEY); // مسح الذاكرة المؤقتة
-      await loadAnimeData(); // إعادة تحميل البيانات من الشبكة
-      hideLoading();
-    }
+    // دالة للتهيئة
+    async function init() {
+      await openDatabase(); // Open IndexedDB when initializing
 
-    function adjustPath(path) {
-      // هذه الدالة تعدل المسار ليتناسب مع هيكل المجلدات الخاص بك.
-      // إذا كانت صورك في نفس المجلد أو مسار نسبي مختلف، فقد تحتاج إلى تعديل هذا.
-      return path.startsWith('../') ? path.replace('../', '../../') : path;
-    }
+      const cachedObject = await readFromIndexedDB(CACHE_KEY);
+      const now = Date.now();
 
-    function displayAnime(anime) {
-      const card = document.createElement('div');
-      card.className = 'anime-card';
-      const categories = anime.tags || anime.categories || [];
-
-      card.innerHTML = `
-        <a href="../../test1/Anime Page Dynamic.html?id=${anime.id}" style="text-decoration: none; color: inherit;">
-          <div class="anime-image">
-            <img src="${adjustPath(anime.image)}" alt="${anime.title}" loading="lazy" />
-          </div>
-          <div class="anime-info">
-            <h3>${anime.title}</h3>
-            <p>${anime.description || ''}</p>
-            <div class="anime-meta">
-              <span><strong>التصنيفات:</strong> ${categories.join(', ')}</span>
-              <span><strong>النوع:</strong> ${anime.type || 'غير معروف'}</span>
-              <span><strong>الموسم:</strong> ${anime.season || 'غير متوفر'}</span>
-              <span><strong>المدة:</strong> ${anime.duration || 'غير معروفة'}</span>
-              <span><strong>الحالة:</strong> ${anime.status || 'غير معروف'}</span>
-              <span class="watch-button" style="display: block; margin-top: 10px;">شاهد الآن</span>
-            </div>
-          </div>
-        </a>
-      `;
-      return card;
-    }
-
-    function showPage(page) {
-      const animeGrid = document.getElementById('animeGrid');
-      animeGrid.innerHTML = "";
-
-      const startIndex = (page - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-      const currentItems = allAnimes.slice(startIndex, endIndex);
-
-      currentItems.forEach(anime => {
-        const card = displayAnime(anime);
-        animeGrid.appendChild(card);
-      });
-
-      // إضافة مراقب للتحميل التدريجي للصور بعد عرض الصفحة
-      const lazyImages = document.querySelectorAll('#animeGrid img[loading="lazy"]');
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries, observer) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const img = entry.target;
-              img.classList.add('loaded');
-              observer.unobserve(img);
-            }
-          });
-        });
-        lazyImages.forEach(img => observer.observe(img));
+      // التحقق مما إذا كانت البيانات موجودة في IndexedDB ولم تنته صلاحيتها
+      if (cachedObject && cachedObject.episodes && (now - cachedObject.timestamp) < cacheDuration) {
+        allEpisodes = cachedObject.episodes.map(ep => ({
+          ...ep,
+          date: new Date(ep.date) // تحويل التاريخ مرة أخرى إلى كائن Date
+        }));
+        console.log("تم تحميل البيانات من IndexedDB.");
       } else {
-        lazyImages.forEach(img => img.classList.add('loaded'));
-      }
-    }
-
-    function createPagination() {
-      const pagination = document.getElementById('pagination');
-      pagination.innerHTML = "";
-
-      const totalPages = Math.ceil(allAnimes.length / itemsPerPage);
-      const maxVisiblePages = 5;
-
-      if (currentPage > 1) {
-        const prevBtn = document.createElement('button');
-        prevBtn.textContent = "← السابق";
-        prevBtn.className = "watch-button";
-        prevBtn.onclick = () => {
-          currentPage--;
-          updatePageInURL(currentPage);
-          showPage(currentPage);
-          createPagination();
-        };
-        pagination.appendChild(prevBtn);
+        // إذا لم تكن البيانات موجودة أو انتهت صلاحيتها، قم بجلبها وتخزينها مؤقتًا
+        console.log("جلب بيانات جديدة وتخزينها مؤقتًا في IndexedDB.");
+        await fetchAndCacheData();
       }
 
-      let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-      let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-      if (endPage - startPage < maxVisiblePages - 1) {
-        startPage = Math.max(1, endPage - maxVisiblePages + 1);
-      }
-
-      for (let i = startPage; i <= endPage; i++) {
-        const button = document.createElement('button');
-        button.textContent = i;
-        button.className = "watch-button";
-        if (i === currentPage) button.classList.add("active");
-        button.onclick = () => {
-          currentPage = i;
-          updatePageInURL(currentPage);
-          showPage(currentPage);
-          createPagination();
-        };
-        pagination.appendChild(button);
-      }
-
-      if (endPage < totalPages) {
-        const dots = document.createElement('span');
-        dots.textContent = "...";
-        dots.style.margin = "0 10px";
-        pagination.appendChild(dots);
-
-        const lastBtn = document.createElement('button');
-        lastBtn.textContent = totalPages;
-        lastBtn.className = "watch-button";
-        lastBtn.onclick = () => {
-          currentPage = totalPages;
-          updatePageInURL(currentPage);
-          showPage(currentPage);
-          createPagination();
-        };
-        pagination.appendChild(lastBtn);
-      }
-
-      if (currentPage < totalPages) {
-        const nextBtn = document.createElement('button');
-        nextBtn.textContent = "التالي →";
-        nextBtn.className = "watch-button";
-        nextBtn.onclick = () => {
-          currentPage++;
-          updatePageInURL(currentPage);
-          showPage(currentPage);
-          createPagination();
-        };
-        pagination.appendChild(nextBtn);
-      }
+      const currentPage = getPageFromURL();
+      renderPage(currentPage);
+      setupPagination(allEpisodes.length, currentPage);
     }
 
-    function generateFilterOptions() {
-      const categorySet = new Set();
-      const typeSet = new Set();
-      const statusSet = new Set();
-      const seasonMap = new Map();
+    init(); // بدء التهيئة عند تحميل الصفحة
 
-      originalAnimes.forEach(anime => {
-        (anime.tags || anime.categories || []).forEach(tag => categorySet.add(tag));
-        if (anime.type) typeSet.add(anime.type);
-        if (anime.status) statusSet.add(anime.status);
-        if (anime.season) seasonMap.set(anime.season.trim(), true);
-      });
-
-      const seasonOrder = { "شتاء": 1, "ربيع": 2, "صيف": 3, "خريف": 4 };
-      const sortedSeasons = [...seasonMap.keys()]
-        .map(season => {
-          const parts = season.split(" ");
-          return { season, year: parseInt(parts[1]), order: seasonOrder[parts[0]] || 99 };
-        })
-        .sort((a, b) => a.year - b.year || a.order - b.order)
-        .map(item => item.season);
-
-      fillSelect("categorySelect", categorySet);
-      fillSelect("typeSelect", typeSet);
-      fillSelect("statusSelect", statusSet);
-      fillSelect("seasonSelect", sortedSeasons);
-
-      setFiltersFromURL();
-    }
-
-    function fillSelect(id, values) {
-      const select = document.getElementById(id);
-      // مسح الخيارات الحالية باستثناء "عرض الكل" أو "الكل"
-      while (select.children.length > 1) {
-        select.removeChild(select.lastChild);
-      }
-      values.forEach(value => {
-        const option = document.createElement("option");
-        option.value = value;
-        option.textContent = value;
-        select.appendChild(option);
-      });
-    }
-
-    function setFiltersFromURL() {
-      const category = urlParams.get("category");
-      const type = urlParams.get("type");
-      const status = urlParams.get("status");
-      const season = urlParams.get("season");
-
-      // التأكد من وجود العناصر قبل محاولة تعيين القيمة
-      const categorySelect = document.getElementById("categorySelect");
-      const typeSelect = document.getElementById("typeSelect");
-      const statusSelect = document.getElementById("statusSelect");
-      const seasonSelect = document.getElementById("seasonSelect");
-
-      if (category && categorySelect && Array.from(categorySelect.options).some(opt => opt.value === category)) categorySelect.value = category;
-      if (type && typeSelect && Array.from(typeSelect.options).some(opt => opt.value === type)) typeSelect.value = type;
-      if (status && statusSelect && Array.from(statusSelect.options).some(opt => opt.value === status)) statusSelect.value = status;
-      if (season && seasonSelect && Array.from(seasonSelect.options).some(opt => opt.value === season)) seasonSelect.value = season;
-    }
-
-    function applyFilters() {
-      const selectedCategory = document.getElementById("categorySelect").value;
-      const selectedType = document.getElementById("typeSelect").value;
-      const selectedStatus = document.getElementById("statusSelect").value;
-      const selectedSeason = document.getElementById("seasonSelect").value;
-
-      allAnimes = originalAnimes.filter(anime => {
-        const tags = anime.tags || anime.categories || [];
-        const categoryMatch = selectedCategory === "all" || tags.includes(selectedCategory);
-        const typeMatch = selectedType === "all" || anime.type === selectedType;
-        const statusMatch = selectedStatus === "all" || anime.status === selectedStatus;
-        const seasonMatch = selectedSeason === "all" || anime.season === selectedSeason;
-        return categoryMatch && typeMatch && statusMatch && seasonMatch;
-      });
-
-      currentPage = parseInt(urlParams.get("page")) || 1; // إعادة تعيين الصفحة الحالية من URL بعد تطبيق الفلاتر
-      showPage(currentPage);
-      createPagination();
-      updatePageInURL(currentPage); // تحديث URL بعد تطبيق الفلاتر
-    }
-
-    function resetFilters() {
-      document.getElementById("categorySelect").value = "all";
-      document.getElementById("typeSelect").value = "all";
-      document.getElementById("statusSelect").value = "all";
-      document.getElementById("seasonSelect").value = "all";
-      currentPage = 1;
-      applyFilters(); // تطبيق الفلاتر بعد إعادة الضبط
-    }
-
-    // بدء تحميل البيانات عند تحميل الصفحة
-    loadAnimeData();
   </script>
+</main>
 
-  <script>
-    // تحميل شريط التنقل (navbar)
-    fetch('../../navbar.html')
-      .then(response => response.text())
-      .then(data => document.getElementById('navbar-container').innerHTML = data)
-      .catch(error => console.error('❌ خطأ في تحميل الشريط العلوي:', error));
-  </script>
+<!-- تم إزالة هذا الجزء، حيث من المفترض أن يتعامل navbar.js مع تحميل شريط التنقل -->
+
+<script>
+  fetch('navbar.html')
+    .then(response => response.text())
+    .then(data => document.getElementById('navbar-container').innerHTML = data)
+    .catch(error => console.error("خطأ في تحميل شريط التنقل:", error));
+</script>
+
 </body>
 </html>
-
