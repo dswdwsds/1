@@ -104,6 +104,7 @@
         start = Math.max(1, end - maxVisible + 1);
       }
 
+      // زر السابق
       if (currentPage > 1) {
         const prevBtn = document.createElement("button");
         prevBtn.textContent = "السابق";
@@ -114,6 +115,7 @@
         pagination.appendChild(prevBtn);
       }
 
+      // أزرار الأرقام المتغيرة
       for (let i = start; i <= end; i++) {
         const btn = document.createElement("button");
         btn.textContent = i;
@@ -126,6 +128,7 @@
         pagination.appendChild(btn);
       }
 
+      // النقاط وزر آخر صفحة
       if (end < pageCount - 1) {
         const dots = document.createElement("span");
         dots.textContent = "...";
@@ -143,6 +146,7 @@
         pagination.appendChild(lastBtn);
       }
 
+      // زر التالي
       if (currentPage < pageCount) {
         const nextBtn = document.createElement("button");
         nextBtn.textContent = "التالي";
@@ -154,96 +158,46 @@
       }
     }
 
-    function saveToLocalStorage(episodes) {
-      const payload = {
-        timestamp: Date.now(),
-        episodes
-      };
-      localStorage.setItem("episodesCache", JSON.stringify(payload));
-    }
-
-    function loadFromLocalStorage() {
-      const cache = localStorage.getItem("episodesCache");
-      if (!cache) return null;
-      try {
-        const parsed = JSON.parse(cache);
-        return parsed.episodes;
-      } catch {
-        return null;
-      }
-    }
-
-    function isDifferent(localData, newData) {
-      if (!localData || localData.length !== newData.length) return true;
-      for (let i = 0; i < localData.length; i++) {
-        const a = localData[i];
-        const b = newData[i];
-        if (
-          a.animeTitle !== b.animeTitle ||
-          a.number !== b.number ||
-          a.title !== b.title ||
-          a.link !== b.link ||
-          a.image !== b.image ||
-          new Date(a.date).getTime() !== new Date(b.date).getTime()
-        ) {
-          return true;
-        }
-      }
-      return false;
-    }
-
-    function processData(results) {
-      const episodes = [];
-
-      results.forEach(animeData => {
-        if (!animeData) return;
-        animeData.episodes.forEach(ep => {
-          let dateValue = ep.date ? new Date(ep.date) : new Date("1970-01-01");
-          episodes.push({
-            animeTitle: animeData.animeTitle,
-            image: ep.image,
-            link: ep.link,
-            number: ep.number,
-            title: ep.title,
-            date: dateValue
-          });
-        });
-      });
-
-      episodes.sort((a, b) => b.date - a.date);
-      return episodes;
-    }
-
-    async function loadEpisodes() {
-      const localEpisodes = loadFromLocalStorage();
-
-      const remoteData = await fetch('الجديد.json')
-        .then(response => response.json())
-        .then(data => Promise.all(
-          data.animes.map(link =>
+    fetch('الجديد.json')
+      .then(response => response.json())
+      .then(data => {
+        const animeLinks = data.animes;
+        return Promise.all(
+          animeLinks.map(link =>
             fetch(link)
               .then(res => res.json())
-              .catch(() => null)
+              .catch(err => {
+                console.error("فشل تحميل:", link, err);
+                return null;
+              })
           )
-        ));
+        );
+      })
+      .then(results => {
+        results.forEach(animeData => {
+          if (!animeData) return;
 
-      const newEpisodes = processData(remoteData);
+          animeData.episodes.forEach(ep => {
+            let dateValue = ep.date ? new Date(ep.date) : new Date("1970-01-01");
 
-      if (!localEpisodes || isDifferent(localEpisodes, newEpisodes)) {
-        console.log("تحديث البيانات...");
-        saveToLocalStorage(newEpisodes);
-        allEpisodes = newEpisodes;
-      } else {
-        console.log("لا يوجد تغيير في البيانات.");
-        allEpisodes = localEpisodes.map(ep => ({ ...ep, date: new Date(ep.date) }));
-      }
+            allEpisodes.push({
+              animeTitle: animeData.animeTitle,
+              image: ep.image,
+              link: ep.link,
+              number: ep.number,
+              title: ep.title,
+              date: dateValue
+            });
+          });
+        });
 
-      const currentPage = getPageFromURL();
-      renderPage(currentPage);
-      setupPagination(allEpisodes.length, currentPage);
-    }
+        allEpisodes.sort((a, b) => b.date - a.date);
 
-    loadEpisodes();
+        const currentPage = getPageFromURL();
+        renderPage(currentPage);
+        setupPagination(allEpisodes.length, currentPage);
+      })
+      .catch(error => console.error("خطأ في تحميل الجديد.json:", error));
   </script>
 </main>
 
