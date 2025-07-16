@@ -250,8 +250,12 @@
             <h3>${anime.title}</h3>
             <p>${anime.description || ''}</p>
             <div class="anime-meta">
-              <span class="watch-button">شاهد الآن</span>
-            </div>
+              <span><strong>التصنيفات:</strong> ${categories.join(', ')}</span>
+              <span><strong>النوع:</strong> ${anime.type || 'غير معروف'}</span>
+              <span><strong>الموسم:</strong> ${anime.season || 'غير متوفر'}</span>
+              <span><strong>المدة:</strong> ${anime.duration || 'غير معروفة'}</span>
+              <span><strong>الحالة:</strong> ${anime.status || 'غير معروف'}</span>
+              <span class="watch-button" style="display: block; margin-top: 10px;">شاهد الآن</span></div>
           </div>
         </a>
       `;
