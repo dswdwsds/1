@@ -4,8 +4,50 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>أحدث حلقات</title>
+  <link rel="stylesheet" href="CSS/style.css" />
+  <script src="navbar.js" defer></script>
+  <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon" />
   <style>
-    /* ... CSS كما لديك ... */
+    /* أنماط التحميل التدريجي */
+    img[loading="lazy"] {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    img[loading="lazy"].loaded {
+      opacity: 1;
+    }
+
+    /* أنماط شاشة التحميل */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      color: white;
+      font-size: 1.5rem;
+      flex-direction: column;
+    }
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid #fff;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 10px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* أنماط التنقل */
     .pagination {
       display: flex;
       justify-content: center;
@@ -15,11 +57,15 @@
     }
     .pagination button {
       padding: 6px 12px;
-      background-color: #ef4444;
+      background-color: var(--primary-color, #ef4444);
       color: white;
       border: none;
       cursor: pointer;
       border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+    .pagination button:hover {
+      background-color: #b91c1c;
     }
     .pagination button.active {
       background-color: #b91c1c;
@@ -28,27 +74,6 @@
       padding: 6px 12px;
       color: #888;
     }
-    .anime-card {
-      border: 1px solid #ccc;
-      margin: 8px;
-      padding: 8px;
-      border-radius: 6px;
-      max-width: 300px;
-    }
-    .anime-image img {
-      width: 100%;
-      height: auto;
-      border-radius: 6px;
-    }
-    .watch-button {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 6px 12px;
-      background-color: #ef4444;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-    }
   </style>
 </head>
 <body>
@@ -56,237 +81,278 @@
 <div id="navbar-container"></div>
 
 <main>
-  <h1>أحدث حلقات</h1>
+  <div class="section-header">
+    <h1>أحدث حلقات</h1>
+  </div>
 
   <div class="anime-grid" id="animeGrid"></div>
   <div class="pagination" id="pagination"></div>
 
-<script>
-  const maxItemsPerPage = 20;
-  const cacheExpiryMs = 1000 * 60 * 60 * 12; // 12 ساعة
+  <!-- شاشة التحميل -->
+  <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+    <div class="spinner"></div>
+    <span>جاري تحميل الأنمي...</span>
+  </div>
 
-  // قراءة الصفحة من الرابط
-  function getPageFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    return parseInt(params.get("page")) || 1;
-  }
+  <script>
+    const maxItemsPerPage = 20;
+    let allEpisodes = [];
+    const cacheKey = 'animeEpisodesCache';
+    const cacheTimestampKey = 'animeEpisodesCacheTimestamp';
+    const cacheDuration = 24 * 60 * 60 * 1000; // 24 ساعة بالمللي ثانية
 
-  // تحديث رابط الصفحة بدون إعادة تحميل
-  function updateURL(page) {
-    const url = new URL(window.location.href);
-    url.searchParams.set("page", page);
-    window.history.pushState({}, '', url);
-  }
-
-  // حفظ بيانات صفحة الأنمي في localStorage مع وقت حفظ
-  function savePageCache(page, data) {
-    const cacheData = {
-      timestamp: Date.now(),
-      episodes: data
-    };
-    localStorage.setItem(`animePage_${page}`, JSON.stringify(cacheData));
-  }
-
-  // جلب بيانات صفحة الأنمي من localStorage إذا لم تنتهِ صلاحيتها
-  function loadPageCache(page) {
-    const cacheStr = localStorage.getItem(`animePage_${page}`);
-    if (!cacheStr) return null;
-
-    try {
-      const cacheData = JSON.parse(cacheStr);
-      if (Date.now() - cacheData.timestamp < cacheExpiryMs) {
-        return cacheData.episodes;
-      } else {
-        localStorage.removeItem(`animePage_${page}`); // حذف القديم
-        return null;
-      }
-    } catch {
-      localStorage.removeItem(`animePage_${page}`);
-      return null;
+    // دالة لإظهار شاشة التحميل
+    function showLoading() {
+      document.getElementById('loadingOverlay').style.display = 'flex';
     }
-  }
 
-  // دالة تحميل بيانات الصفحة من السيرفر (مثال بسيط يعتمد على الجديد.json)
-  async function fetchPageData(page) {
-    try {
-      // هنا نقرأ الجديد.json ونفترض انه يحتوي على كل الأنميات
-      const response = await fetch('الجديد.json');
-      const data = await response.json();
-      // نجمّع كل الحلقات من كل الأنميات مع بعضهم
-      let allEpisodes = [];
-      for (const animeLink of data.animes) {
-        try {
-          const res = await fetch(animeLink);
-          const animeData = await res.json();
+    // دالة لإخفاء شاشة التحميل
+    function hideLoading() {
+      document.getElementById('loadingOverlay').style.display = 'none';
+    }
+
+    // دالة للحصول على رقم الصفحة من URL
+    function getPageFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      return parseInt(params.get("page")) || 1;
+    }
+
+    // دالة لتحديث URL برقم الصفحة
+    function updateURL(page) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("page", page);
+      window.history.pushState({}, '', url);
+    }
+
+    // دالة لعرض الحلقات في الصفحة
+    function renderPage(pageNumber) {
+      updateURL(pageNumber);
+      const animeGrid = document.getElementById("animeGrid");
+      animeGrid.innerHTML = ""; // مسح المحتوى الحالي
+
+      const startIndex = (pageNumber - 1) * maxItemsPerPage;
+      const endIndex = startIndex + maxItemsPerPage;
+      const episodesToShow = allEpisodes.slice(startIndex, endIndex);
+
+      episodesToShow.forEach(ep => {
+        const card = document.createElement("div");
+        card.className = "anime-card";
+        card.innerHTML = `
+          <div class="anime-image">
+            <img src="${ep.image}" alt="${ep.animeTitle}" loading="lazy">
+          </div>
+          <div class="anime-info">
+            <h3>${ep.animeTitle}</h3>
+            <div class="anime-meta">
+              <span>${ep.title}</span>
+              <a href="${ep.link}" class="watch-button">شاهد الآن</a>
+            </div>
+          </div>
+        `;
+        animeGrid.appendChild(card);
+      });
+
+      // إضافة مراقب للتحميل التدريجي للصور
+      const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.classList.add('loaded'); // إضافة فئة لتغيير الشفافية
+              observer.unobserve(img); // إيقاف المراقبة بعد التحميل
+            }
+          });
+        });
+        lazyImages.forEach(img => observer.observe(img));
+      } else {
+        // بديل للمتصفحات التي لا تدعم IntersectionObserver
+        lazyImages.forEach(img => img.classList.add('loaded'));
+      }
+
+      // تحديث أزرار التنقل النشطة
+      document.querySelectorAll(".pagination button").forEach(b => b.classList.remove("active"));
+      const activeBtn = document.querySelector(`.pagination button[data-page="${pageNumber}"]`);
+      if (activeBtn) activeBtn.classList.add("active");
+
+      // التمرير لأعلى الصفحة بسلاسة
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // دالة لإعداد أزرار التنقل (Pagination)
+    function setupPagination(totalItems, currentPage) {
+      const pageCount = Math.ceil(totalItems / maxItemsPerPage);
+      const pagination = document.getElementById("pagination");
+      pagination.innerHTML = ""; // مسح أزرار التنقل الحالية
+
+      const maxVisible = 5; // الحد الأقصى للأزرار المرئية
+      let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+      let end = Math.min(start + maxVisible - 1, pageCount);
+
+      // ضبط نطاق الأزرار إذا كان لا يغطي الحد الأقصى المرئي
+      if (end - start < maxVisible - 1) {
+        start = Math.max(1, end - maxVisible + 1);
+      }
+
+      // زر "السابق"
+      if (currentPage > 1) {
+        const prevBtn = document.createElement("button");
+        prevBtn.textContent = "السابق";
+        prevBtn.onclick = () => {
+          renderPage(currentPage - 1);
+          setupPagination(totalItems, currentPage - 1);
+        };
+        pagination.appendChild(prevBtn);
+      }
+
+      // أزرار الصفحات
+      for (let i = start; i <= end; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        btn.setAttribute("data-page", i);
+        if (i === currentPage) btn.classList.add("active"); // تفعيل الزر الحالي
+        btn.onclick = () => {
+          renderPage(i);
+          setupPagination(totalItems, i);
+        };
+        pagination.appendChild(btn);
+      }
+
+      // نقاط "..." إذا كانت هناك صفحات مخفية بعد النطاق الحالي
+      if (end < pageCount - 1) {
+        const dots = document.createElement("span");
+        dots.textContent = "...";
+        pagination.appendChild(dots);
+      }
+
+      // زر "آخر" إذا لم تكن الصفحة الأخيرة مرئية
+      if (end < pageCount) {
+        const lastBtn = document.createElement("button");
+        lastBtn.textContent = "آخر";
+        lastBtn.setAttribute("data-page", pageCount);
+        lastBtn.onclick = () => {
+          renderPage(pageCount);
+          setupPagination(totalItems, pageCount);
+        };
+        pagination.appendChild(lastBtn);
+      }
+
+      // زر "التالي"
+      if (currentPage < pageCount) {
+        const nextBtn = document.createElement("button");
+        nextBtn.textContent = "التالي";
+        nextBtn.onclick = () => {
+          renderPage(currentPage + 1);
+          setupPagination(totalItems, currentPage + 1);
+        };
+        pagination.appendChild(nextBtn);
+      }
+    }
+
+    // دالة لجلب البيانات من API وتخزينها مؤقتًا
+    async function fetchAndCacheData() {
+      showLoading(); // إظهار شاشة التحميل
+      try {
+        const response = await fetch('الجديد.json');
+        const data = await response.json();
+        const animeLinks = data.animes;
+
+        const results = await Promise.all(
+          animeLinks.map(async link => {
+            try {
+              const res = await fetch(link);
+              return await res.json();
+            } catch (err) {
+              console.error("فشل تحميل:", link, err);
+              return null;
+            }
+          })
+        );
+
+        const fetchedEpisodes = [];
+        results.forEach(animeData => {
+          if (!animeData) return;
+
           animeData.episodes.forEach(ep => {
             let dateValue = ep.date ? new Date(ep.date) : new Date("1970-01-01");
-            allEpisodes.push({
+
+            fetchedEpisodes.push({
               animeTitle: animeData.animeTitle,
               image: ep.image,
               link: ep.link,
               number: ep.number,
               title: ep.title,
-              date: dateValue
+              date: dateValue.toISOString() // حفظ التاريخ كسلسلة ISO
             });
           });
-        } catch (e) {
-          console.warn(`فشل تحميل أنمي: ${animeLink}`, e);
-        }
-      }
-      // ترتيب الحلقات حسب التاريخ نزولاً
-      allEpisodes.sort((a, b) => b.date - a.date);
-      return allEpisodes;
-    } catch (e) {
-      console.error('خطأ في تحميل الجديد.json أو الأنميات:', e);
-      return [];
-    }
-  }
+        });
 
-  // عرض الصفحة
-  function renderPage(episodes, pageNumber) {
-    updateURL(pageNumber);
-    const animeGrid = document.getElementById("animeGrid");
-    animeGrid.innerHTML = "";
+        fetchedEpisodes.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-    episodes.forEach(ep => {
-      const card = document.createElement("div");
-      card.className = "anime-card";
-      card.innerHTML = `
-        <div class="anime-image">
-          <img src="${ep.image}" alt="${ep.animeTitle}" loading="lazy" />
-        </div>
-        <div class="anime-info">
-          <h3>${ep.animeTitle}</h3>
-          <div class="anime-meta">
-            <span>${ep.title}</span><br/>
-            <a href="${ep.link}" target="_blank" class="watch-button">شاهد الآن</a>
-          </div>
-        </div>
-      `;
-      animeGrid.appendChild(card);
-    });
+        // حفظ البيانات في localStorage
+        localStorage.setItem(cacheKey, JSON.stringify(fetchedEpisodes));
+        localStorage.setItem(cacheTimestampKey, Date.now().toString());
 
-    // تحديث أزرار الصفحة النشطة
-    document.querySelectorAll(".pagination button").forEach(b => b.classList.remove("active"));
-    const activeBtn = document.querySelector(`.pagination button[data-page="${pageNumber}"]`);
-    if (activeBtn) activeBtn.classList.add("active");
+        allEpisodes = fetchedEpisodes.map(ep => ({
+          ...ep,
+          date: new Date(ep.date) // تحويل التاريخ مرة أخرى إلى كائن Date
+        }));
 
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  // إعداد أزرار الصفحة
-  function setupPagination(totalItems, currentPage) {
-    const pageCount = Math.ceil(totalItems / maxItemsPerPage);
-    const pagination = document.getElementById("pagination");
-    pagination.innerHTML = "";
-
-    const maxVisible = 5;
-    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-    let end = Math.min(start + maxVisible - 1, pageCount);
-
-    if (end - start < maxVisible - 1) {
-      start = Math.max(1, end - maxVisible + 1);
-    }
-
-    if (currentPage > 1) {
-      const prevBtn = document.createElement("button");
-      prevBtn.textContent = "السابق";
-      prevBtn.onclick = () => loadAndRenderPage(currentPage - 1);
-      pagination.appendChild(prevBtn);
-    }
-
-    for (let i = start; i <= end; i++) {
-      const btn = document.createElement("button");
-      btn.textContent = i;
-      btn.setAttribute("data-page", i);
-      if (i === currentPage) btn.classList.add("active");
-      btn.onclick = () => loadAndRenderPage(i);
-      pagination.appendChild(btn);
-    }
-
-    if (end < pageCount - 1) {
-      const dots = document.createElement("span");
-      dots.textContent = "...";
-      pagination.appendChild(dots);
-    }
-
-    if (end < pageCount) {
-      const lastBtn = document.createElement("button");
-      lastBtn.textContent = "آخر";
-      lastBtn.setAttribute("data-page", pageCount);
-      lastBtn.onclick = () => loadAndRenderPage(pageCount);
-      pagination.appendChild(lastBtn);
-    }
-
-    if (currentPage < pageCount) {
-      const nextBtn = document.createElement("button");
-      nextBtn.textContent = "التالي";
-      nextBtn.onclick = () => loadAndRenderPage(currentPage + 1);
-      pagination.appendChild(nextBtn);
-    }
-  }
-
-  // تحميل بيانات كل الأنميات كاملة مرة واحدة عند أول تحميل فقط
-  // ثم حفظها في متغير allEpisodes لسهولة التقطيع والصفحات
-  let allEpisodes = [];
-  async function loadAllEpisodes() {
-    // نتحقق من وجود بيانات محفوظة في localStorage كاملة (تجميع لكل الأنميات)
-    const cacheStr = localStorage.getItem('allEpisodes');
-    if (cacheStr) {
-      try {
-        const cacheData = JSON.parse(cacheStr);
-        if (Date.now() - cacheData.timestamp < cacheExpiryMs) {
-          allEpisodes = cacheData.episodes.map(ep => {
-            ep.date = new Date(ep.date);
-            return ep;
-          });
-          return;
+      } catch (error) {
+        console.error("خطأ في تحميل الجديد.json أو معالجة البيانات:", error);
+        // إذا فشل الجلب، حاول تحميل من الذاكرة المؤقتة (إذا كانت موجودة)
+        const cachedData = localStorage.getItem(cacheKey);
+        if (cachedData) {
+          allEpisodes = JSON.parse(cachedData).map(ep => ({
+            ...ep,
+            date: new Date(ep.date)
+          }));
+          console.log("تم تحميل البيانات من الذاكرة المؤقتة بسبب فشل الجلب.");
         } else {
-          localStorage.removeItem('allEpisodes');
+          console.error("لا توجد بيانات في الذاكرة المؤقتة. لا يمكن عرض أي حلقات.");
+          // يمكنك عرض رسالة خطأ للمستخدم هنا
         }
-      } catch {
-        localStorage.removeItem('allEpisodes');
+      } finally {
+        hideLoading(); // إخفاء شاشة التحميل
       }
     }
-    // تحميل من الشبكة وحفظها
-    allEpisodes = await fetchPageData(1);
-    localStorage.setItem('allEpisodes', JSON.stringify({
-      timestamp: Date.now(),
-      episodes: allEpisodes
-    }));
-  }
 
-  // تحميل صفحة مع دعم التخزين المؤقت
-  async function loadAndRenderPage(page) {
-    let pageData = loadPageCache(page);
-    if (!pageData) {
-      // لم نجد الصفحة في التخزين أو انتهت صلاحيتها
-      // نعتمد على allEpisodes مقطعة حسب الصفحة
-      const startIndex = (page - 1) * maxItemsPerPage;
-      const endIndex = startIndex + maxItemsPerPage;
-      pageData = allEpisodes.slice(startIndex, endIndex);
-      savePageCache(page, pageData);
+    // دالة للتهيئة
+    async function init() {
+      const cachedData = localStorage.getItem(cacheKey);
+      const cachedTimestamp = localStorage.getItem(cacheTimestampKey);
+      const now = Date.now();
+
+      // التحقق مما إذا كانت البيانات موجودة في الذاكرة المؤقتة ولم تنته صلاحيتها
+      if (cachedData && cachedTimestamp && (now - parseInt(cachedTimestamp)) < cacheDuration) {
+        allEpisodes = JSON.parse(cachedData).map(ep => ({
+          ...ep,
+          date: new Date(ep.date) // تحويل التاريخ مرة أخرى إلى كائن Date
+        }));
+        console.log("تم تحميل البيانات من الذاكرة المؤقتة.");
+      } else {
+        // إذا لم تكن البيانات موجودة أو انتهت صلاحيتها، قم بجلبها وتخزينها مؤقتًا
+        console.log("جلب بيانات جديدة وتخزينها مؤقتًا.");
+        await fetchAndCacheData();
+      }
+
+      const currentPage = getPageFromURL();
+      renderPage(currentPage);
+      setupPagination(allEpisodes.length, currentPage);
     }
-    renderPage(pageData, page);
-    setupPagination(allEpisodes.length, page);
-  }
 
-  // التشغيل الأساسي
-  window.addEventListener('DOMContentLoaded', async () => {
-    await loadAllEpisodes();
-    const currentPage = getPageFromURL();
-    loadAndRenderPage(currentPage);
-  });
+    init(); // بدء التهيئة عند تحميل الصفحة
 
-</script>
+  </script>
+</main>
 
 <script>
-  // تحميل نافبار خارجي
+  // تحميل شريط التنقل (navbar)
   fetch('navbar.html')
     .then(response => response.text())
-    .then(data => document.getElementById('navbar-container').innerHTML = data);
+    .then(data => document.getElementById('navbar-container').innerHTML = data)
+    .catch(error => console.error("خطأ في تحميل شريط التنقل:", error));
 </script>
 
-</main>
 </body>
 </html>
