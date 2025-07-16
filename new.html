@@ -7,7 +7,31 @@
   <link rel="stylesheet" href="CSS/style.css" />
   <script src="navbar.js" defer></script>
   <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon" />
-  
+    <style>
+    .pagination {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 20px 0;
+    }
+    .pagination button {
+      padding: 6px 12px;
+      background-color: var(--primary-color, #ef4444);
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .pagination button.active {
+      background-color: #b91c1c;
+    }
+    .pagination span {
+      padding: 6px 12px;
+      color: #888;
+    }
+    /* تمت إزالة أزرار التحكم حيث لم تعد هناك حاجة للتحديث اليدوي */
+  </style>
 </head>
 <body>
 
@@ -17,6 +41,8 @@
   <div class="section-header">
     <h1>أحدث حلقات</h1>
   </div>
+
+  <!-- تمت إزالة أزرار التحكم حيث لم تعد هناك حاجة للتحديث اليدوي -->
 
   <div class="anime-grid" id="animeGrid"></div>
   <div class="pagination" id="pagination"></div>
@@ -29,16 +55,15 @@
 
   <script>
     const maxItemsPerPage = 20;
-    let allEpisodes = [];
-    const cacheDuration = 24 * 60 * 60 * 1000; // 24 ساعة بالمللي ثانية
+    let allEpisodes = []; // سيتم تخزين الحلقات المعروضة حاليًا هنا
 
     // IndexedDB constants
     const DB_NAME = 'AnimeDB';
     const DB_VERSION = 1;
     const STORE_NAME = 'episodesCache';
-    const CACHE_KEY = 'cachedEpisodes'; // Key to store the single cache object in IndexedDB
+    const CACHE_KEY = 'cachedEpisodes'; // المفتاح لتخزين كائن الكاش الوحيد في IndexedDB
 
-    let db; // Variable to hold the IndexedDB database instance
+    let db; // متغير للاحتفاظ بنسخة قاعدة بيانات IndexedDB
 
     // دالة لفتح قاعدة بيانات IndexedDB
     function openDatabase() {
@@ -68,7 +93,7 @@
     // دالة لقراءة البيانات من IndexedDB
     async function readFromIndexedDB(key) {
       if (!db) {
-        await openDatabase(); // Ensure DB is open before reading
+        await openDatabase(); // التأكد من فتح قاعدة البيانات قبل القراءة
       }
       return new Promise((resolve, reject) => {
         const transaction = db.transaction([STORE_NAME], 'readonly');
@@ -89,12 +114,12 @@
     // دالة لكتابة البيانات إلى IndexedDB
     async function writeToIndexedDB(key, data) {
       if (!db) {
-        await openDatabase(); // Ensure DB is open before writing
+        await openDatabase(); // التأكد من فتح قاعدة البيانات قبل الكتابة
       }
       return new Promise((resolve, reject) => {
         const transaction = db.transaction([STORE_NAME], 'readwrite');
         const store = transaction.objectStore(STORE_NAME);
-        const request = store.put(data, key); // Use put to add or update
+        const request = store.put(data, key); // استخدام put للإضافة أو التحديث
 
         request.onsuccess = () => {
           resolve();
@@ -260,25 +285,20 @@
       }
     }
 
-    // دالة لجلب البيانات من API وتخزينها مؤقتًا في IndexedDB
-    async function fetchAndCacheData() {
+    // دالة لجلب البيانات من API ومقارنتها مع البيانات المخزنة، ثم التحديث إذا تغيرت
+    async function fetchAndUpdateDataIfChanged() {
       showLoading(); // إظهار شاشة التحميل
+      let networkData = null;
       try {
-        // هام: تأكد من أن 'الجديد.json' متاح عبر مسار URL صحيح.
-        // إذا كنت تقوم بتشغيل هذا الملف محليًا أو في بيئة معاينة (مثل blob: URL)،
-        // فقد تحتاج إلى استضافة 'الجديد.json' وجميع ملفات الأنمي الفردية
-        // على خادم ويب حقيقي (مثل GitHub Pages أو Firebase Hosting)
-        // واستخدام مسارات URL كاملة (مثال: 'https://yourdomain.com/الجديد.json').
+        // جلب ملف الجديد.json
         const response = await fetch('الجديد.json');
         const data = await response.json();
         const animeLinks = data.animes;
 
+        // جلب جميع ملفات الأنمي الفردية بالتوازي
         const results = await Promise.all(
           animeLinks.map(async link => {
             try {
-              // هام: تأكد من أن روابط الأنمي الفردية متاحة عبر مسار URL صحيح.
-              // إذا كانت هذه الروابط نسبية، فيجب أن تكون الملفات في نفس المسار النسبي
-              // على الخادم الذي يستضيف 'الجديد.json'.
               const res = await fetch(link);
               return await res.json();
             } catch (err) {
@@ -290,7 +310,7 @@
 
         const fetchedEpisodes = [];
         results.forEach(animeData => {
-          if (!animeData) return;
+          if (!animeData) return; // تخطي البيانات الفارغة
 
           animeData.episodes.forEach(ep => {
             let dateValue = ep.date ? new Date(ep.date) : new Date("1970-01-01");
@@ -301,80 +321,72 @@
               link: ep.link,
               number: ep.number,
               title: ep.title,
-              date: dateValue.toISOString() // حفظ التاريخ كسلسلة ISO
+              date: dateValue.toISOString() // حفظ التاريخ كسلسلة ISO لسهولة المقارنة
             });
           });
         });
 
+        // فرز الحلقات حسب التاريخ (الأحدث أولاً)
         fetchedEpisodes.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        networkData = fetchedEpisodes;
 
-        // حفظ البيانات في IndexedDB
-        const cacheObject = {
-          episodes: fetchedEpisodes,
-          timestamp: Date.now()
-        };
-        await writeToIndexedDB(CACHE_KEY, cacheObject);
-        console.log("تم حفظ البيانات في IndexedDB.");
-
-        allEpisodes = fetchedEpisodes.map(ep => ({
-          ...ep,
-          date: new Date(ep.date) // تحويل التاريخ مرة أخرى إلى كائن Date
-        }));
+        // مقارنة البيانات الجديدة مع البيانات الحالية (المخزنة مؤقتًا أو المعروضة)
+        // نستخدم JSON.stringify لمقارنة المحتوى الفعلي بشكل فعال
+        if (JSON.stringify(networkData) !== JSON.stringify(allEpisodes)) {
+          console.log("تم اكتشاف تغييرات في البيانات. تحديث IndexedDB والواجهة.");
+          const cacheObject = {
+            episodes: networkData,
+            timestamp: Date.now() // تحديث الطابع الزمني عند التغيير
+          };
+          await writeToIndexedDB(CACHE_KEY, cacheObject); // حفظ البيانات الجديدة في IndexedDB
+          allEpisodes = networkData.map(ep => ({
+            ...ep,
+            date: new Date(ep.date) // تحويل التاريخ مرة أخرى إلى كائن Date
+          }));
+          // إعادة عرض الصفحة مع البيانات الجديدة
+          const currentPage = getPageFromURL();
+          renderPage(currentPage);
+          setupPagination(allEpisodes.length, currentPage);
+        } else {
+          console.log("البيانات لم تتغير. استخدام البيانات الموجودة.");
+        }
 
       } catch (error) {
-        console.error("خطأ في تحميل الجديد.json أو معالجة البيانات:", error);
-        // إذا فشل الجلب، حاول تحميل من IndexedDB (إذا كانت موجودة)
-        try {
-          const cachedData = await readFromIndexedDB(CACHE_KEY);
-          if (cachedData && cachedData.episodes) {
-            allEpisodes = cachedData.episodes.map(ep => ({
-              ...ep,
-              date: new Date(ep.date)
-            }));
-            console.log("تم تحميل البيانات من IndexedDB بسبب فشل الجلب.");
-          } else {
-            console.error("لا توجد بيانات في IndexedDB. لا يمكن عرض أي حلقات.");
-            // يمكنك عرض رسالة خطأ للمستخدم هنا
-          }
-        } catch (dbError) {
-          console.error("خطأ في قراءة IndexedDB بعد فشل الجلب:", dbError);
-        }
+        console.error("خطأ في جلب البيانات من الشبكة:", error);
+        // في حالة فشل جلب الشبكة، سيتم عرض البيانات من IndexedDB (إذا كانت موجودة)
+        // بواسطة دالة init()، لذا لا حاجة لإجراءات إضافية هنا.
       } finally {
-        hideLoading(); // إخفاء شاشة التحميل
+        hideLoading(); // إخفاء شاشة التحميل دائمًا
       }
     }
 
     // دالة للتهيئة
     async function init() {
-      await openDatabase(); // Open IndexedDB when initializing
+      await openDatabase(); // فتح IndexedDB عند التهيئة
 
       const cachedObject = await readFromIndexedDB(CACHE_KEY);
-      const now = Date.now();
 
-      // التحقق مما إذا كانت البيانات موجودة في IndexedDB ولم تنته صلاحيتها
-      if (cachedObject && cachedObject.episodes && (now - cachedObject.timestamp) < cacheDuration) {
+      if (cachedObject && cachedObject.episodes) {
         allEpisodes = cachedObject.episodes.map(ep => ({
           ...ep,
           date: new Date(ep.date) // تحويل التاريخ مرة أخرى إلى كائن Date
         }));
-        console.log("تم تحميل البيانات من IndexedDB.");
+        console.log("تم تحميل البيانات الأولية من IndexedDB.");
+        // عرض البيانات المخزنة مؤقتًا على الفور
+        const currentPage = getPageFromURL();
+        renderPage(currentPage);
+        setupPagination(allEpisodes.length, currentPage);
       } else {
-        // إذا لم تكن البيانات موجودة أو انتهت صلاحيتها، قم بجلبها وتخزينها مؤقتًا
-        console.log("جلب بيانات جديدة وتخزينها مؤقتًا في IndexedDB.");
-        await fetchAndCacheData();
+        console.log("لا توجد بيانات في IndexedDB. جلب البيانات من الشبكة.");
       }
 
-      const currentPage = getPageFromURL();
-      renderPage(currentPage);
-      setupPagination(allEpisodes.length, currentPage);
+      // دائمًا حاول جلب البيانات الأحدث من الشبكة ومقارنتها
+      await fetchAndUpdateDataIfChanged();
     }
 
     init(); // بدء التهيئة عند تحميل الصفحة
-
   </script>
 </main>
-
-<!-- تم إزالة هذا الجزء، حيث من المفترض أن يتعامل navbar.js مع تحميل شريط التنقل -->
 
 <script>
   fetch('navbar.html')
