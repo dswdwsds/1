@@ -57,7 +57,6 @@
       const url = new URL(window.location.href);
       url.searchParams.set("page", page);
       window.history.pushState({}, '', url);
-      // لا نحفظ الصفحة في localStorage
     }
 
     function renderPage(pageNumber) {
@@ -74,13 +73,13 @@
         card.className = "anime-card";
         card.innerHTML = `
           <div class="anime-image">
-            <img src="${ep.i}" alt="${ep.a}" loading="lazy">
+            <img src="${ep.image}" alt="${ep.animeTitle}" loading="lazy">
           </div>
           <div class="anime-info">
-            <h3>${ep.a}</h3>
+            <h3>${ep.animeTitle}</h3>
             <div class="anime-meta">
-              <span>${ep.t}</span>
-              <a href="${ep.l}" class="watch-button">شاهد الآن</a>
+              <span>${ep.title}</span>
+              <a href="${ep.link}" class="watch-button">شاهد الآن</a>
             </div>
           </div>
         `;
@@ -91,7 +90,6 @@
       const activeBtn = document.querySelector(`.pagination button[data-page="${pageNumber}"]`);
       if (activeBtn) activeBtn.classList.add("active");
 
-      // تمرير الصفحة إلى الأعلى عند تغيير الصفحة
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -108,7 +106,6 @@
         start = Math.max(1, end - maxVisible + 1);
       }
 
-      // زر السابق
       if (currentPage > 1) {
         const prevBtn = document.createElement("button");
         prevBtn.textContent = "السابق";
@@ -119,7 +116,6 @@
         pagination.appendChild(prevBtn);
       }
 
-      // أزرار الأرقام المتغيرة
       for (let i = start; i <= end; i++) {
         const btn = document.createElement("button");
         btn.textContent = i;
@@ -132,7 +128,6 @@
         pagination.appendChild(btn);
       }
 
-      // النقاط وزر آخر صفحة
       if (end < pageCount - 1) {
         const dots = document.createElement("span");
         dots.textContent = "...";
@@ -150,7 +145,6 @@
         pagination.appendChild(lastBtn);
       }
 
-      // زر التالي
       if (currentPage < pageCount) {
         const nextBtn = document.createElement("button");
         nextBtn.textContent = "التالي";
@@ -162,90 +156,48 @@
       }
     }
 
-    function saveEpisodesToLocalStorage() {
-      try {
-        // خزن فقط الحقول المختصرة
-        const episodesForStorage = allEpisodes.map(ep => ({
-          a: ep.a,
-          i: ep.i,
-          l: ep.l,
-          t: ep.t,
-          d: ep.d
-        }));
-        localStorage.setItem('allEpisodes', JSON.stringify(episodesForStorage));
-      } catch(e) {
-        console.error("خطأ في حفظ البيانات محلياً:", e);
-      }
-    }
-
-    function loadEpisodesFromLocalStorage() {
-      try {
-        const stored = localStorage.getItem('allEpisodes');
-        if (!stored) return null;
-        const parsed = JSON.parse(stored);
-        return parsed.map(ep => ({
-          a: ep.a,
-          i: ep.i,
-          l: ep.l,
-          t: ep.t,
-          d: new Date(ep.d)
-        }));
-      } catch(e) {
-        console.error("خطأ في تحميل البيانات من التخزين المحلي:", e);
-        return null;
-      }
-    }
-
     function init() {
-      const savedEpisodes = loadEpisodesFromLocalStorage();
-      if (savedEpisodes && savedEpisodes.length > 0) {
-        allEpisodes = savedEpisodes;
-        const currentPage = getPageFromURL();
-        renderPage(currentPage);
-        setupPagination(allEpisodes.length, currentPage);
-      } else {
-        fetch('الجديد.json')
-          .then(response => response.json())
-          .then(data => {
-            const animeLinks = data.animes;
-            return Promise.all(
-              animeLinks.map(link =>
-                fetch(link)
-                  .then(res => res.json())
-                  .catch(err => {
-                    console.error("فشل تحميل:", link, err);
-                    return null;
-                  })
-              )
-            );
-          })
-          .then(results => {
-            allEpisodes = [];
-            results.forEach(animeData => {
-              if (!animeData) return;
+      fetch('الجديد.json')
+        .then(response => response.json())
+        .then(data => {
+          const animeLinks = data.animes;
+          return Promise.all(
+            animeLinks.map(link =>
+              fetch(link)
+                .then(res => res.json())
+                .catch(err => {
+                  console.error("فشل تحميل:", link, err);
+                  return null;
+                })
+            )
+          );
+        })
+        .then(results => {
+          allEpisodes = [];
+          results.forEach(animeData => {
+            if (!animeData) return;
 
-              animeData.episodes.forEach(ep => {
-                let dateValue = ep.date ? new Date(ep.date) : new Date("1970-01-01");
+            animeData.episodes.forEach(ep => {
+              let dateValue = ep.date ? new Date(ep.date) : new Date("1970-01-01");
 
-                allEpisodes.push({
-                  a: animeData.animeTitle,
-                  i: ep.image,
-                  l: ep.link,
-                  t: ep.title,
-                  d: dateValue
-                });
+              allEpisodes.push({
+                animeTitle: animeData.animeTitle,
+                image: ep.image,
+                link: ep.link,
+                number: ep.number,
+                title: ep.title,
+                date: dateValue
               });
             });
+          });
 
-            allEpisodes.sort((a, b) => b.d - a.d);
-            saveEpisodesToLocalStorage();
+          allEpisodes.sort((a, b) => b.date - a.date);
 
-            const currentPage = getPageFromURL();
-            renderPage(currentPage);
-            setupPagination(allEpisodes.length, currentPage);
-          })
-          .catch(error => console.error("خطأ في تحميل الجديد.json:", error));
-      }
+          const currentPage = getPageFromURL();
+          renderPage(currentPage);
+          setupPagination(allEpisodes.length, currentPage);
+        })
+        .catch(error => console.error("خطأ في تحميل الجديد.json:", error));
     }
 
     init();
