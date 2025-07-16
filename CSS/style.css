@@ -6,12 +6,13 @@
     --text-gray: #9ca3af;    
 }
 
-
+/* الخطوط واللون */
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: var(--bg-dark);
     color: var(--text-light);
     line-height: 1.5;
+    transition: background-color 0.3s ease, color 0.3s ease; /* تأثير ناعم عند تغيير اللون أو الخلفية */
 }
 
 /* Navigation */
@@ -21,6 +22,13 @@ body {
     width: 100%;
     z-index: 1000;
     top: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar:hover {
+    background-color: #2a3651;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 
 .nav-container {
@@ -38,10 +46,22 @@ body {
     gap: 0.5rem;
     font-weight: bold;
     font-size: 1.25rem;
+    user-select: none;
+    transition: color 0.3s ease;
+}
+
+.logo:hover {
+    color: var(--primary-color);
+    cursor: pointer;
 }
 
 .logo-icon {
     color: var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.logo-icon:hover {
+    transform: rotate(15deg);
 }
 
 .search-bar {
@@ -58,11 +78,17 @@ body {
     border: none;
     border-radius: 0.5rem;
     color: var(--text-light);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-bar input:hover {
+    background-color: #4b5563;
 }
 
 .search-bar input:focus {
     outline: 2px solid var(--primary-color);
     outline-offset: -2px;
+    box-shadow: 0 0 8px var(--primary-color);
 }
 
 .search-icon {
@@ -71,6 +97,11 @@ body {
     top: 50%;
     transform: translateY(-50%);
     color: var(--text-gray);
+    transition: color 0.3s ease;
+}
+
+.search-bar input:focus + .search-icon {
+    color: var(--primary-color);
 }
 
 .nav-buttons {
@@ -84,18 +115,19 @@ body {
     color: var(--text-light);
     cursor: pointer;
     padding: 0.25rem;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .icon-button a {
     text-decoration: none;
     color: inherit;
+    transition: color 0.3s ease;
 }
 
 .icon-button:hover {
     color: var(--primary-color);
-    transform: scale(1.1); /* تأثير تكبير عند التمرير */
+    transform: scale(1.1);
 }
-
 
 /* Hero Section */
 .hero {
@@ -105,7 +137,6 @@ body {
     margin-top: 5rem;
     overflow: hidden;
 }
-
 
 .slideshow {
     position: absolute;
@@ -119,15 +150,16 @@ body {
     inset: 0;
     width: 100%;
     height: 100%;
-    opacity: 0; /* الصور غير النشطة تكون غير مرئية */
-    z-index: 0; /* الصور غير النشطة تكون في الخلفية */
-    transition: opacity 1s ease-in-out, z-index 0s 1s; /* انتقال سلس */
+    opacity: 0;
+    z-index: 0;
+    transition: opacity 1s ease-in-out, z-index 0s 1s;
+    will-change: opacity;
 }
 
 .hero-image.active {
-    opacity: 1; /* الصورة النشطة تظهر */
-    z-index: 1; /* الصورة النشطة تكون في المقدمة */
-    transition: opacity 1s ease-in-out, z-index 0s 0s; /* ترتيب فوري للصورة النشطة */
+    opacity: 1;
+    z-index: 1;
+    transition: opacity 1s ease-in-out, z-index 0s 0s;
 }
 
 .hero-content {
@@ -135,19 +167,33 @@ body {
     bottom: 10%;
     left: 5%;
     max-width: 400px;
-    color: var(--bg-light);
+    color: var(--text-light);
     z-index: 2;
+    animation: slideUpFade 1s ease forwards;
+}
+
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero h1 {
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 1rem;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.7);
 }
 
 .hero p {
     font-size: 1.25rem;
     margin-bottom: 1.5rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
 .primary-button {
@@ -161,11 +207,14 @@ body {
     border-radius: 0.5rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(239, 68, 68, 0.4);
 }
 
 .primary-button:hover {
     background-color: #dc2626;
+    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(220, 38, 38, 0.6);
 }
 
 .hero-controls {
@@ -185,11 +234,12 @@ body {
     font-size: 1.5rem;
     cursor: pointer;
     border-radius: 50%;
-    transition: background 0.2s;
+    transition: background 0.2s, transform 0.2s ease;
 }
 
 .control:hover {
     background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.2);
 }
 
 .hero-indicators {
@@ -201,16 +251,24 @@ body {
     gap: 0.5rem;
     z-index: 3;
 }
+
 .indicator {
     width: 10px;
     height: 10px;
     background: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
-    transition: background 0.2s;
+    transition: background 0.2s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.indicator:hover {
+    transform: scale(1.3);
+    background: var(--primary-color);
 }
 
 .indicator.active {
     background: white;
+    transform: scale(1.4);
 }
 
 /* Featured Section */
@@ -246,6 +304,12 @@ body {
     color: var(--primary-color);
     cursor: pointer;
     padding: 0.25rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.text-button:hover {
+    color: #dc2626;
+    transform: scale(1.1);
 }
 
 /* Anime Grid */
@@ -253,28 +317,38 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
+    transition: all 0.3s ease;
 }
 
 .anime-card {
     background-color: var(--bg-darker);
     border-radius: 1rem;
     overflow: hidden;
-    transition: transform 0.3s;
-    margin-right:0.5rem
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 0 0 transparent;
 }
 
 .anime-card:hover {
     transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(239, 68, 68, 0.5);
 }
 
 .anime-image {
     position: relative;
+    overflow: hidden;
+    border-radius: 1rem 1rem 0 0;
 }
 
 .anime-image img {
     width: 100%;
     height: 16rem;
+    transition: transform 0.4s ease;
+}
 
+.anime-card:hover .anime-image img {
+    transform: scale(1.1);
 }
 
 .rating {
@@ -287,6 +361,8 @@ body {
     display: flex;
     align-items: center;
     gap: 0.25rem;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
 .anime-info {
@@ -294,19 +370,24 @@ body {
 }
 
 .anime-info p {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2; /* النسخة القياسية */
-  overflow: hidden;
-  text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2; /* النسخة القياسية */
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
 
 .anime-info h3 {
     font-size: 1.125rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.anime-info h3:hover {
+    color: var(--primary-color);
+    cursor: pointer;
 }
 
 .anime-meta {
@@ -330,14 +411,27 @@ body {
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 7px;
-    margin-left:7px;
+    margin-left: 7px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 3px 6px rgba(239, 68, 68, 0.5);
 }
 
 .watch-button:hover {
     background-color: #dc2626;
+    transform: scale(1.05);
+    box-shadow: 0 5px 12px rgba(220, 38, 38, 0.7);
 }
- /* موبيل */
- /* إعدادات عامة */
+
+.watch-button.active {
+    background-color: #4b5563;
+    color: #ededed;
+    border: 3px solid #000000;
+    box-shadow: none;
+    transform: none;
+}
+
+/* موبيل */
+/* إعدادات عامة */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -347,7 +441,7 @@ body {
 .menu-btn {
     font-size: 24px;
     background-color: #007bff;
-    color: var(--bg-light);
+    color: var(--text-light);
     border: none;
     padding: 10px 15px;
     cursor: pointer;
@@ -356,6 +450,12 @@ body {
     right: 10px;
     z-index: 1000;
     border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.menu-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
 }
 
 /* القائمة الجانبية */
@@ -366,7 +466,7 @@ body {
     width: 250px;
     height: 100%;
     background-color: #333;
-    color: var(--bg-light);
+    color: var(--text-light);
     padding-top: 60px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.5);
     transition: right 0.3s ease-in-out;
@@ -389,11 +489,12 @@ body {
     font-size: 20px;
     display: block;
     padding: 10px 20px;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .sidebar ul li a:hover {
     background-color: #575757;
+    transform: scale(1.05);
 }
 
 /* عندما تكون القائمة مفتوحة */
@@ -401,13 +502,8 @@ body {
     right: 0;
 }
 
-.watch-button.active {
-  background-color: #4b5563;
-  color: #ededed;
-  border: 3px solid #000000;
-}
-
-  #filters {
+/* Filters */
+#filters {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -417,14 +513,19 @@ body {
     border-radius: 12px;
     max-width: 900px;
     margin: 0 auto;
-  }
+    transition: background-color 0.3s ease;
+}
 
-  #filters label {
+#filters:hover {
+    background-color: #6b7280a1;
+}
+
+#filters label {
     align-items: start;
     font-weight: bold;
-  }
+}
 
-  #filters select {
+#filters select {
     padding: 6px 10px;
     border-radius: 8px;
     border: 5px solid #7b2d2d;
@@ -432,37 +533,36 @@ body {
     min-width: 140px;
     font-size: 20px;
     margin-top: 4px;
-  }
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
 
-  #filters button.watch-button {
-    padding: 8px 16px;
-    font-size: 14px;
-    margin-top: 6px;
-  }
+#filters select:hover,
+#filters select:focus {
+    border-color: var(--primary-color);
+    background-color: #1f2937;
+}
 
-  @media (max-width: 600px) {
+/* Responsive */
+@media (max-width: 600px) {
     #filters {
-      flex-direction: column;
-      align-items: center;
+        flex-direction: column;
+        align-items: center;
     }
 
     #filters label {
-      width: 100%;
-      align-items: center;
-      text-align: center;
+        width: 100%;
+        align-items: center;
+        text-align: center;
     }
 
     #filters select {
-      width: 100%;
-      max-width: 300px;
+        width: 100%;
+        max-width: 300px;
     }
-  }
-
+}
 
 /* إخفاء الزر والقائمة على الشاشات الكبيرة */
-@media (min-width: 768px)
-
-{
+@media (min-width: 768px) {
     .menu-btn {
         display: none;
     }
@@ -471,11 +571,11 @@ body {
         display: none;
     }
 }
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-container {
         flex-direction: column;
-
     }
 
     .search-bar {
@@ -483,44 +583,46 @@ body {
         margin: 0;
     }
 
-
     .section-header {
         margin-top: 6rem;
     }
-    .nav-buttons {
 
-      display: none;
-        
+    .nav-buttons {
+        display: none;
     }
+
     .icon-button {
         position: absolute;
         right: 90%;
         top: 16%;
     }
+
     /* Anime Grid */
-  .anime-grid {
+    .anime-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 1.3rem;
-   }
+    }
 
     .anime-card {
         background-color: var(--bg-darker);
         border-radius: 1rem;
         overflow: hidden;
-        transition: transform 0.3s;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
         margin-right: 0rem;
     }
+
     .watch-button {
         padding: .5rem 1rem;
         font-size: 0.9rem;
         font-weight: 600;
     }
+
     .hero {
-    position: relative;
-    height: 250px;
-    background: linear-gradient(to bottom, transparent, var(--bg-dark));
-    margin-top: 7rem;
-    overflow: hidden;
-}
+        position: relative;
+        height: 250px;
+        background: linear-gradient(to bottom, transparent, var(--bg-dark));
+        margin-top: 7rem;
+        overflow: hidden;
+    }
 }
