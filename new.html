@@ -74,13 +74,13 @@
         card.className = "anime-card";
         card.innerHTML = `
           <div class="anime-image">
-            <img src="${ep.image}" alt="${ep.animeTitle}" loading="lazy">
+            <img src="${ep.i}" alt="${ep.a}" loading="lazy">
           </div>
           <div class="anime-info">
-            <h3>${ep.animeTitle}</h3>
+            <h3>${ep.a}</h3>
             <div class="anime-meta">
-              <span>${ep.title}</span>
-              <a href="${ep.link}" class="watch-button">شاهد الآن</a>
+              <span>${ep.t}</span>
+              <a href="${ep.l}" class="watch-button">شاهد الآن</a>
             </div>
           </div>
         `;
@@ -164,9 +164,13 @@
 
     function saveEpisodesToLocalStorage() {
       try {
+        // خزن فقط الحقول المختصرة
         const episodesForStorage = allEpisodes.map(ep => ({
-          ...ep,
-          date: ep.date.toISOString()
+          a: ep.a,
+          i: ep.i,
+          l: ep.l,
+          t: ep.t,
+          d: ep.d
         }));
         localStorage.setItem('allEpisodes', JSON.stringify(episodesForStorage));
       } catch(e) {
@@ -180,8 +184,11 @@
         if (!stored) return null;
         const parsed = JSON.parse(stored);
         return parsed.map(ep => ({
-          ...ep,
-          date: new Date(ep.date)
+          a: ep.a,
+          i: ep.i,
+          l: ep.l,
+          t: ep.t,
+          d: new Date(ep.d)
         }));
       } catch(e) {
         console.error("خطأ في تحميل البيانات من التخزين المحلي:", e);
@@ -213,6 +220,7 @@
             );
           })
           .then(results => {
+            allEpisodes = [];
             results.forEach(animeData => {
               if (!animeData) return;
 
@@ -220,17 +228,16 @@
                 let dateValue = ep.date ? new Date(ep.date) : new Date("1970-01-01");
 
                 allEpisodes.push({
-                  animeTitle: animeData.animeTitle,
-                  image: ep.image,
-                  link: ep.link,
-                  number: ep.number,
-                  title: ep.title,
-                  date: dateValue
+                  a: animeData.animeTitle,
+                  i: ep.image,
+                  l: ep.link,
+                  t: ep.title,
+                  d: dateValue
                 });
               });
             });
 
-            allEpisodes.sort((a, b) => b.date - a.date);
+            allEpisodes.sort((a, b) => b.d - a.d);
             saveEpisodesToLocalStorage();
 
             const currentPage = getPageFromURL();
