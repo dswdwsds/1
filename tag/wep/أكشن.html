@@ -7,6 +7,195 @@
   <link rel="stylesheet" href="../../CSS/style.css" />
   <script src="../../navbar.js" defer></script>
   <link rel="icon" href="https://abdo12249.github.io/1/navbar/favicon.ico" type="image/x-icon" />
+  <style>
+    /* أنماط التحميل التدريجي */
+    img[loading="lazy"] {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    img[loading="lazy"].loaded {
+      opacity: 1;
+    }
+
+    /* أنماط شاشة التحميل */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      color: white;
+      font-size: 1.5rem;
+      flex-direction: column;
+    }
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid #fff;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 10px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* أنماط الفلاتر */
+    #filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 20px;
+      padding: 15px;
+      background-color: #2a2a2a;
+      border-radius: 8px;
+      justify-content: center;
+      align-items: center;
+    }
+    #filters label {
+      color: white;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #filters select, #filters button {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s ease;
+    }
+    #filters select:hover, #filters button:hover {
+      background-color: #444;
+    }
+    #filters button.watch-button {
+      background-color: var(--primary-color, #ef4444);
+    }
+    #filters button.watch-button:hover {
+      background-color: #b91c1c;
+    }
+
+    /* أنماط الشبكة (grid) للأنمي */
+    .anime-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      justify-content: center;
+    }
+
+    /* أنماط بطاقة الأنمي */
+    .anime-card {
+      background-color: #2a2a2a;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .anime-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .anime-image {
+      width: 100%;
+      height: 200px; /* ارتفاع ثابت للصور */
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .anime-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* لضمان تغطية الصورة للمساحة دون تشوه */
+      display: block;
+    }
+
+    .anime-info {
+      padding: 10px;
+      color: white;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .anime-info h3 {
+      font-size: 1.1rem;
+      margin-top: 0;
+      margin-bottom: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .anime-meta {
+      font-size: 0.9rem;
+      color: #bbb;
+      margin-bottom: 10px;
+    }
+
+    .anime-meta span {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .anime-info .watch-button {
+      display: inline-block;
+      padding: 6px 10px;
+      background-color: var(--primary-color, #ef4444);
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .anime-info .watch-button:hover {
+      background-color: #b91c1c;
+    }
+
+    /* أنماط أزرار الصفحات */
+    #pagination button {
+      padding: 8px 15px;
+      background-color: var(--primary-color, #ef4444);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 0 5px;
+      transition: background-color 0.3s ease;
+    }
+    #pagination button:hover {
+      background-color: #b91c1c;
+    }
+    #pagination button.active {
+      background-color: #b91c1c;
+      font-weight: bold;
+    }
+    #pagination span {
+      color: #888;
+      margin: 0 5px;
+    }
+  </style>
 </head>
 <body>
   <div id="navbar-container"></div>
@@ -56,41 +245,182 @@
     <div id="pagination" style="text-align: center; margin-top: 20px;"></div>
   </main>
 
+  <!-- شاشة التحميل -->
+  <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+    <div class="spinner"></div>
+    <span>جاري تحميل الأنمي...</span>
+  </div>
+
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     let currentPage = parseInt(urlParams.get("page")) || 1;
     const itemsPerPage = 30;
-    let allAnimes = [];
-    let originalAnimes = [];
+    let allAnimes = []; // قائمة الأنميات بعد تطبيق الفلاتر
+    let originalAnimes = []; // القائمة الأصلية لجميع الأنميات التي تم جلبها
+
+    const cacheDuration = 24 * 60 * 60 * 1000; // 24 ساعة بالمللي ثانية
+
+    // ثوابت IndexedDB
+    const DB_NAME = 'AnimeCategoriesDB'; // اسم قاعدة بيانات مختلفة لتجنب التعارض
+    const DB_VERSION = 1;
+    const STORE_NAME = 'animeDataCache';
+    const CACHE_KEY = 'cachedAnimeCategories';
+
+    let db; // متغير للاحتفاظ بنسخة قاعدة بيانات IndexedDB
+
+    // دالة لفتح قاعدة بيانات IndexedDB
+    function openDatabase() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+        request.onupgradeneeded = (event) => {
+          db = event.target.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME);
+          }
+        };
+
+        request.onsuccess = (event) => {
+          db = event.target.result;
+          resolve(db);
+        };
+
+        request.onerror = (event) => {
+          console.error("❌ خطأ في فتح IndexedDB:", event.target.error);
+          reject(event.target.error);
+        };
+      });
+    }
+
+    // دالة لقراءة البيانات من IndexedDB
+    async function readFromIndexedDB(key) {
+      if (!db) {
+        await openDatabase();
+      }
+      return new Promise((resolve, reject) => {
+        const transaction = db.transaction([STORE_NAME], 'readonly');
+        const store = transaction.objectStore(STORE_NAME);
+        const request = store.get(key);
+
+        request.onsuccess = (event) => {
+          resolve(event.target.result);
+        };
+
+        request.onerror = (event) => {
+          console.error("❌ خطأ في قراءة IndexedDB:", event.target.error);
+          reject(event.target.error);
+        };
+      });
+    }
+
+    // دالة لكتابة البيانات إلى IndexedDB
+    async function writeToIndexedDB(key, data) {
+      if (!db) {
+        await openDatabase();
+      }
+      return new Promise((resolve, reject) => {
+        const transaction = db.transaction([STORE_NAME], 'readwrite');
+        const store = transaction.objectStore(STORE_NAME);
+        const request = store.put(data, key);
+
+        request.onsuccess = () => {
+          resolve();
+        };
+
+        request.onerror = (event) => {
+          console.error("❌ خطأ في كتابة IndexedDB:", event.target.error);
+          reject(event.target.error);
+        };
+      });
+    }
+
+    // دالة لإظهار شاشة التحميل
+    function showLoading() {
+      document.getElementById('loadingOverlay').style.display = 'flex';
+    }
+
+    // دالة لإخفاء شاشة التحميل
+    function hideLoading() {
+      document.getElementById('loadingOverlay').style.display = 'none';
+    }
 
     function updatePageInURL(page) {
-      const url = new URL(window.location);
-      url.searchParams.set("page", page);
-      url.searchParams.set("category", categorySelect.value);
-      url.searchParams.set("type", typeSelect.value);
-      url.searchParams.set("status", statusSelect.value);
-      url.searchParams.set("season", seasonSelect.value);
-      window.history.pushState({}, "", url);
+      // تجنب استخدام pushState في بيئات مثل blob: URLs لتجنب SecurityError
+      if (window.location.protocol !== 'blob:') {
+        const url = new URL(window.location);
+        url.searchParams.set("page", page);
+        url.searchParams.set("category", categorySelect.value);
+        url.searchParams.set("type", typeSelect.value);
+        url.searchParams.set("status", statusSelect.value);
+        url.searchParams.set("season", seasonSelect.value);
+        window.history.pushState({}, "", url);
+      } else {
+        console.warn("⚠️ تحديث URL معطل في بيئة blob: URL لتجنب أخطاء الأمان.");
+      }
     }
 
     async function loadAnimeData() {
+      showLoading(); // إظهار شاشة التحميل
       try {
-        const response = await fetch("https://abdo12249.github.io/1/test1/animes.json");
-        if (!response.ok) throw new Error("❌ فشل تحميل animes.json");
+        await openDatabase(); // التأكد من فتح IndexedDB
 
-        const data = await response.json();
-        const animeList = Object.entries(data).map(([id, anime]) => ({ id, ...anime }));
-        allAnimes = animeList;
-        originalAnimes = animeList;
+        const cachedObject = await readFromIndexedDB(CACHE_KEY);
+        const now = Date.now();
+
+        if (cachedObject && cachedObject.animes && (now - cachedObject.timestamp) < cacheDuration) {
+          // استخدام البيانات المخزنة مؤقتًا إذا كانت موجودة وصالحة
+          allAnimes = cachedObject.animes;
+          originalAnimes = [...allAnimes];
+          console.log("✅ تم تحميل بيانات الأنمي من IndexedDB.");
+        } else {
+          // جلب البيانات من الشبكة إذا لم تكن موجودة أو انتهت صلاحيتها
+          console.log("🔄 جلب بيانات الأنمي جديدة وتخزينها مؤقتًا في IndexedDB.");
+          const response = await fetch("https://abdo12249.github.io/1/test1/animes.json");
+          if (!response.ok) throw new Error("❌ فشل تحميل animes.json");
+
+          const data = await response.json();
+          const animeList = Object.entries(data).map(([id, anime]) => ({ id, ...anime }));
+
+          // حفظ البيانات في IndexedDB
+          const cacheObject = {
+            animes: animeList,
+            timestamp: Date.now()
+          };
+          await writeToIndexedDB(CACHE_KEY, cacheObject);
+          console.log("✅ تم حفظ بيانات الأنمي في IndexedDB.");
+
+          allAnimes = animeList;
+          originalAnimes = animeList;
+        }
 
         generateFilterOptions();
-        applyFilters();
+        applyFilters(); // تطبيق الفلاتر وعرض الصفحة الأولى
       } catch (error) {
-        console.error("❌ خطأ في تحميل الأنميات:", error);
+        console.error("❌ خطأ في تحميل الأنميات أو IndexedDB:", error);
+        // في حالة فشل الجلب من الشبكة، حاول التحميل من IndexedDB كخيار احتياطي (حتى لو انتهت الصلاحية)
+        try {
+          const cachedData = await readFromIndexedDB(CACHE_KEY);
+          if (cachedData && cachedData.animes) {
+            allAnimes = cachedData.animes;
+            originalAnimes = [...allAnimes];
+            generateFilterOptions();
+            applyFilters();
+            console.log("⚠️ تم تحميل بيانات الأنمي من IndexedDB بسبب فشل الجلب من الشبكة.");
+          } else {
+            console.error("❌ لا توجد بيانات في IndexedDB. لا يمكن عرض أي أنميات.");
+            // يمكنك عرض رسالة خطأ للمستخدم هنا إذا لم تتوفر بيانات
+          }
+        } catch (dbError) {
+          console.error("❌ خطأ في قراءة IndexedDB بعد فشل الجلب:", dbError);
+        }
+      } finally {
+        hideLoading(); // إخفاء شاشة التحميل
       }
     }
 
     function adjustPath(path) {
+      // هذه الدالة تعدل المسار ليتناسب مع هيكل المجلدات الخاص بك.
+      // إذا كانت صورك في نفس المجلد أو مسار نسبي مختلف، فقد تحتاج إلى تعديل هذا.
       return path.startsWith('../') ? path.replace('../', '../../') : path;
     }
 
@@ -133,6 +463,23 @@
         const card = displayAnime(anime);
         animeGrid.appendChild(card);
       });
+
+      // إضافة مراقب للتحميل التدريجي للصور بعد عرض الصفحة
+      const lazyImages = document.querySelectorAll('#animeGrid img[loading="lazy"]');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.classList.add('loaded');
+              observer.unobserve(img);
+            }
+          });
+        });
+        lazyImages.forEach(img => observer.observe(img));
+      } else {
+        lazyImages.forEach(img => img.classList.add('loaded'));
+      }
     }
 
     function createPagination() {
@@ -239,6 +586,10 @@
 
     function fillSelect(id, values) {
       const select = document.getElementById(id);
+      // مسح الخيارات الحالية باستثناء "عرض الكل" أو "الكل"
+      while (select.children.length > 1) {
+        select.removeChild(select.lastChild);
+      }
       values.forEach(value => {
         const option = document.createElement("option");
         option.value = value;
@@ -253,17 +604,23 @@
       const status = urlParams.get("status");
       const season = urlParams.get("season");
 
-      if (category) categorySelect.value = category;
-      if (type) typeSelect.value = type;
-      if (status) statusSelect.value = status;
-      if (season) seasonSelect.value = season;
+      // التأكد من وجود العناصر قبل محاولة تعيين القيمة
+      const categorySelect = document.getElementById("categorySelect");
+      const typeSelect = document.getElementById("typeSelect");
+      const statusSelect = document.getElementById("statusSelect");
+      const seasonSelect = document.getElementById("seasonSelect");
+
+      if (category && categorySelect && Array.from(categorySelect.options).some(opt => opt.value === category)) categorySelect.value = category;
+      if (type && typeSelect && Array.from(typeSelect.options).some(opt => opt.value === type)) typeSelect.value = type;
+      if (status && statusSelect && Array.from(statusSelect.options).some(opt => opt.value === status)) statusSelect.value = status;
+      if (season && seasonSelect && Array.from(seasonSelect.options).some(opt => opt.value === season)) seasonSelect.value = season;
     }
 
     function applyFilters() {
-      const selectedCategory = categorySelect.value;
-      const selectedType = typeSelect.value;
-      const selectedStatus = statusSelect.value;
-      const selectedSeason = seasonSelect.value;
+      const selectedCategory = document.getElementById("categorySelect").value;
+      const selectedType = document.getElementById("typeSelect").value;
+      const selectedStatus = document.getElementById("statusSelect").value;
+      const selectedSeason = document.getElementById("seasonSelect").value;
 
       allAnimes = originalAnimes.filter(anime => {
         const tags = anime.tags || anime.categories || [];
@@ -274,22 +631,22 @@
         return categoryMatch && typeMatch && statusMatch && seasonMatch;
       });
 
-      currentPage = parseInt(urlParams.get("page")) || 1;
-      updatePageInURL(currentPage);
+      currentPage = parseInt(urlParams.get("page")) || 1; // إعادة تعيين الصفحة الحالية من URL بعد تطبيق الفلاتر
       showPage(currentPage);
       createPagination();
+      updatePageInURL(currentPage); // تحديث URL بعد تطبيق الفلاتر
     }
 
     function resetFilters() {
-      categorySelect.value = "all";
-      typeSelect.value = "all";
-      statusSelect.value = "all";
-      seasonSelect.value = "all";
+      document.getElementById("categorySelect").value = "all";
+      document.getElementById("typeSelect").value = "all";
+      document.getElementById("statusSelect").value = "all";
+      document.getElementById("seasonSelect").value = "all";
       currentPage = 1;
-      updatePageInURL(currentPage);
-      applyFilters();
+      applyFilters(); // تطبيق الفلاتر بعد إعادة الضبط
     }
 
+    // بدء تحميل البيانات عند تحميل الصفحة
     loadAnimeData();
   </script>
 
