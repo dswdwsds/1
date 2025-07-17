@@ -1,0 +1,42 @@
+{
+  "animeTitle": "فيلم Wakaokami wa Shougakusei! Movie",
+  "episodes": [
+    {
+      "number": null,
+      "title": "فيلم Wakaokami wa Shougakusei! Movie",
+      "date": "2025-07-17 11:21:01",
+      "link": "https://abdo12249.github.io/1/test1/المشاهده.html?id=wakaokami-wa-shougakusei!-movie&episode=None",
+      "image": "https://abdo12249.github.io/1/images/wakaokami-wa-shougakusei!-movie.webp",
+      "servers": [
+        {
+          "serverName": "ok",
+          "url": "https://ok.ru/videoembed/1195616242394"
+        },
+        {
+          "serverName": "google drive",
+          "url": "https://drive.google.com/file/d/1ZDXnw439SKhnkeDcxpLP_7_-Up4h6829/preview"
+        },
+        {
+          "serverName": "4shared",
+          "url": "https://www.4shared.com/web/embed/file/6mWtePTwda"
+        },
+        {
+          "serverName": "mega",
+          "url": "https://mega.nz/embed#!HzhWAYDR!_ZnzS8_Tc9FEIWzgwiLWzW4jkQ1WBte0do-UyHkCt_Y"
+        },
+        {
+          "serverName": "uptostream",
+          "url": "https://uptostream.com/iframe/k9aq99pdjjrk"
+        },
+        {
+          "serverName": "ok - SD",
+          "url": "https://ok.ru/videoembed/1195639048922"
+        },
+        {
+          "serverName": "google drive - SD",
+          "url": "https://drive.google.com/file/d/1131msBpfrIqwj-2W-qhqW4XgUSwsWY3k/preview"
+        }
+      ]
+    }
+  ]
+}
