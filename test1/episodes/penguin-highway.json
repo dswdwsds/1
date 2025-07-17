@@ -1,0 +1,54 @@
+{
+  "animeTitle": "فيلم Penguin Highway",
+  "episodes": [
+    {
+      "number": null,
+      "title": "فيلم Penguin Highway",
+      "date": "2025-07-17 11:47:30",
+      "link": "https://abdo12249.github.io/1/test1/المشاهده.html?id=penguin-highway&episode=None",
+      "image": "https://abdo12249.github.io/1/images/penguin-highway.webp",
+      "servers": [
+        {
+          "serverName": "megamax",
+          "url": "https://megamax.me/iframe/QwR0z1zTJCsb5"
+        },
+        {
+          "serverName": "mega بدون اعلانات",
+          "url": "https://mega.nz/embed/TZMQCawD!SKNDswuD2l0n4xNl728_wH-Y4mT-hnjqmVJBWEIO4Jo"
+        },
+        {
+          "serverName": "ok.ru",
+          "url": "https://www.ok.ru/videoembed/8120329767642"
+        },
+        {
+          "serverName": "vidmoly",
+          "url": "https://vidmoly.to/embed-kdcchxo7doh3.html"
+        },
+        {
+          "serverName": "uqload",
+          "url": "https://uqload.net/embed-69nb4h66qa7f.html"
+        },
+        {
+          "serverName": "Sendvid",
+          "url": "https://sendvid.com/embed/d3841bzv"
+        },
+        {
+          "serverName": "mega بدون اعلانات - FHD",
+          "url": "https://mega.nz/embed/iUkE3CiQ!0lWAN2DZsgTuQTyoUwpoo47fzlDuWhNEQipV_0EIcFo"
+        },
+        {
+          "serverName": "ok.ru - FHD",
+          "url": "https://www.ok.ru/videoembed/8120313776858"
+        },
+        {
+          "serverName": "mega بدون اعلانات - SD",
+          "url": "https://mega.nz/embed/PUNy2ShT!NFa6Z2rAjHuYo3ZMiKiZgDSXiaAC-721eK9F-gHLjVs"
+        },
+        {
+          "serverName": "ok.ru - SD",
+          "url": "https://www.ok.ru/videoembed/8120337435354"
+        }
+      ]
+    }
+  ]
+}
