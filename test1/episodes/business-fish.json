@@ -1,0 +1,42 @@
+{
+  "animeTitle": "Business Fish الحلقة 1",
+  "episodes": [
+    {
+      "number": 1,
+      "title": "الحلقة 1",
+      "date": "2025-07-17 11:21:02",
+      "link": "https://abdo12249.github.io/1/test1/المشاهده.html?id=business-fish&episode=1",
+      "image": "https://abdo12249.github.io/1/images/business-fish.webp",
+      "servers": [
+        {
+          "serverName": "ok",
+          "url": "https://ok.ru/videoembed/1194680519386"
+        },
+        {
+          "serverName": "google drive",
+          "url": "https://drive.google.com/file/d/17y2kf3To0_mrJzsDx_JHe0LzTNXtZJw4/preview"
+        },
+        {
+          "serverName": "solidfiles",
+          "url": "https://www.solidfiles.com/e/DKL7XqnRPe6Vn"
+        },
+        {
+          "serverName": "mega",
+          "url": "https://mega.nz/embed#!rqYGXAQA!p1GE6BiReT9p3uI6FPwnXBUgLxtOlvco3FiuCkuVqkk"
+        },
+        {
+          "serverName": "uptostream",
+          "url": "https://uptostream.com/iframe/91icjztw53v3"
+        },
+        {
+          "serverName": "ok - SD",
+          "url": "https://ok.ru/videoembed/1194691332826"
+        },
+        {
+          "serverName": "google drive - SD",
+          "url": "https://drive.google.com/file/d/1XUnHzFnp8y6MjcVl_GJ8WVswOQtV_IrH/preview"
+        }
+      ]
+    }
+  ]
+}
