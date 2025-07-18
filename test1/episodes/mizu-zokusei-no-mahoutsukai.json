@@ -94,6 +94,59 @@
           "url": "https://www.mp4upload.com/embed-b2ukze1jovtl.html"
         }
       ]
+    },
+    {
+      "number": 3,
+      "title": "الحلقة 3",
+      "date": "2025-07-18 00:01:54",
+      "link": "https://abdo12249.github.io/1/test1/المشاهده.html?id=mizu-zokusei-no-mahoutsukai&episode=3",
+      "image": "https://abdo12249.github.io/1/images/mizu-zokusei-no-mahoutsukai.webp",
+      "servers": [
+        {
+          "serverName": "megamax",
+          "url": "https://megamax.me/iframe/2MxBwgbFdC539"
+        },
+        {
+          "serverName": "mega بدون اعلانات",
+          "url": "https://mega.nz/embed/DEExSbYC!2bVHg3BM16p1ldpnWfmz3IO8wbvrwR53ec-6QXQiUtM"
+        },
+        {
+          "serverName": "voe.sx",
+          "url": "https://voe.sx/e/hsc7scd4yrwz"
+        },
+        {
+          "serverName": "vidmoly",
+          "url": "https://vidmoly.to/embed-mugack4efaoe.html"
+        },
+        {
+          "serverName": "videa",
+          "url": "https://videa.hu/player?v=3H4wCEuv0F7m9ucv"
+        },
+        {
+          "serverName": "vk",
+          "url": "https://vkvideo.ru/video_ext.php?oid=-230564661&id=456239452&hd=2&hash=f9c74e321ba1f033&autoplay=1"
+        },
+        {
+          "serverName": "Mp4upload",
+          "url": "https://www.mp4upload.com/embed-db0jdky806hf.html"
+        },
+        {
+          "serverName": "mega بدون اعلانات - FHD",
+          "url": "https://mega.nz/embed/vR0QVaQJ!BulWP3GlBlbH2QglpWr7NVFgeuXayEdZEc-VxIDdvaY"
+        },
+        {
+          "serverName": "Mp4upload - FHD",
+          "url": "https://www.mp4upload.com/embed-xsn1hen6y17r.html"
+        },
+        {
+          "serverName": "mega بدون اعلانات - SD",
+          "url": "https://mega.nz/embed/TYsUABrS!r2ZjFbFuxenWPqi3UFCaVaB30eKs46MhF9COv7ez3Fo"
+        },
+        {
+          "serverName": "Mp4upload - SD",
+          "url": "https://www.mp4upload.com/embed-bkyi1ejlekz3.html"
+        }
+      ]
     }
   ]
 }
