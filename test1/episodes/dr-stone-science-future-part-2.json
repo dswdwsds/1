@@ -1,0 +1,46 @@
+{
+  "animeTitle": "Dr. Stone: Science Future Part 2",
+  "episodes": [
+    {
+      "number": 2,
+      "title": "الحلقة 2",
+      "date": "2025-07-18 00:02:06",
+      "link": "https://abdo12249.github.io/1/test1/المشاهده.html?id=dr-stone-science-future-part-2&episode=2",
+      "image": "https://abdo12249.github.io/1/images/dr-stone-science-future-part-2.webp",
+      "servers": [
+        {
+          "serverName": "megamax",
+          "url": "https://megamax.me/iframe/jrE9SA4o4rh2g"
+        },
+        {
+          "serverName": "vk",
+          "url": "https://vkvideo.ru/video_ext.php?oid=-230564661&id=456239445&hash=c5249472264c86ab&autoplay=1"
+        },
+        {
+          "serverName": "videa",
+          "url": "https://videa.hu/player?v=vSAg6qxvwlMgEqQj"
+        },
+        {
+          "serverName": "vidmoly",
+          "url": "https://vidmoly.to/embed-z3ysy64fh8i5.html"
+        },
+        {
+          "serverName": "voe.sx",
+          "url": "https://voe.sx/e/irbkj8eamwlg"
+        },
+        {
+          "serverName": "Mp4upload",
+          "url": "https://www.mp4upload.com/embed-nckjjv5klzwk.html"
+        },
+        {
+          "serverName": "Mp4upload - FHD",
+          "url": "https://www.mp4upload.com/embed-ascc3o5h4d5d.html"
+        },
+        {
+          "serverName": "Mp4upload - SD",
+          "url": "https://www.mp4upload.com/embed-gphz19b0yaf5.html"
+        }
+      ]
+    }
+  ]
+}
