@@ -1,0 +1,54 @@
+{
+  "animeTitle": "One Piece",
+  "episodes": [
+    {
+      "number": 1136,
+      "title": "الحلقة 1136",
+      "date": "2025-07-18 00:02:52",
+      "link": "https://abdo12249.github.io/1/test1/المشاهده.html?id=one-piece&episode=1136",
+      "image": "https://abdo12249.github.io/1/images/one-piece.webp",
+      "servers": [
+        {
+          "serverName": "megamax",
+          "url": "https://megamax.me/iframe/lhduGzRyUSX52"
+        },
+        {
+          "serverName": "mega بدون اعلانات",
+          "url": "https://mega.nz/embed/yQcmTYoR!3hq1rc4QYSQOM-_uX_iX3JolKfYASnL1ELRIig0aAdY"
+        },
+        {
+          "serverName": "voe.sx",
+          "url": "https://voe.sx/e/gbbrads1fzmi"
+        },
+        {
+          "serverName": "vidmoly",
+          "url": "https://vidmoly.to/embed-9b7l5e927gbo.html"
+        },
+        {
+          "serverName": "videa",
+          "url": "https://videa.hu/player?v=zLNQctu5upSD6k5h"
+        },
+        {
+          "serverName": "vk",
+          "url": "https://vkvideo.ru/video_ext.php?oid=-230564661&id=456239422&hd=2&hash=87401d583bec8617&autoplay=1"
+        },
+        {
+          "serverName": "Mp4upload",
+          "url": "https://www.mp4upload.com/embed-zhtolfcjk8br.html"
+        },
+        {
+          "serverName": "mega بدون اعلانات - FHD",
+          "url": "https://mega.nz/embed/SNtXgLQT!h43qxa4F1FsPuTr0-TvgTkb2LxoEFRuoHgidmDQhgpg"
+        },
+        {
+          "serverName": "mega بدون اعلانات - SD",
+          "url": "https://mega.nz/embed/yMFUiCzQ!Q3XguSLduLtCr9tah0jwReO8M031_qcMNYHQMH0TtlE"
+        },
+        {
+          "serverName": "Mp4upload - SD",
+          "url": "https://www.mp4upload.com/embed-fvcrc74ln449.html"
+        }
+      ]
+    }
+  ]
+}
