@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>الحلقات الجديدة</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      padding: 20px;
+    }
+    .anime {
+      margin-bottom: 30px;
+      border-bottom: 1px solid #444;
+      padding-bottom: 20px;
+    }
+    .anime h2 {
+      color: #f0c040;
+    }
+    .episode {
+      display: flex;
+      align-items: center;
+      background: #222;
+      border-radius: 10px;
+      margin-top: 10px;
+      padding: 10px;
+    }
+    .episode img {
+      width: 100px;
+      height: auto;
+      border-radius: 8px;
+      margin-left: 15px;
+    }
+    .episode a {
+      color: #66f;
+      text-decoration: none;
+      font-size: 18px;
+    }
+    .episode a:hover {
+      text-decoration: underline;
+    }
+    .episode .date {
+      color: #aaa;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>الحلقات الجديدة</h1>
+  <div id="content">جارٍ التحميل...</div>
+
+  <script>
+    fetch("https://abdo12249.github.io/1/test1/الجديد.json")
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("content");
+        container.innerHTML = "";
+
+        data.forEach(anime => {
+          const animeDiv = document.createElement("div");
+          animeDiv.className = "anime";
+
+          const title = document.createElement("h2");
+          title.textContent = anime.animeTitle;
+          animeDiv.appendChild(title);
+
+          anime.episodes.forEach(ep => {
+            const epDiv = document.createElement("div");
+            epDiv.className = "episode";
+
+            const img = document.createElement("img");
+            img.src = ep.image;
+
+            const info = document.createElement("div");
+            const link = document.createElement("a");
+            link.href = ep.link;
+            link.textContent = ep.title;
+
+            const date = document.createElement("div");
+            date.className = "date";
+            date.textContent = ep.date;
+
+            info.appendChild(link);
+            info.appendChild(date);
+
+            epDiv.appendChild(img);
+            epDiv.appendChild(info);
+            animeDiv.appendChild(epDiv);
+          });
+
+          container.appendChild(animeDiv);
+        });
+      })
+      .catch(error => {
+        document.getElementById("content").textContent = "فشل تحميل الحلقات.";
+        console.error("Error loading JSON:", error);
+      });
+  </script>
+
+</body>
+</html>
